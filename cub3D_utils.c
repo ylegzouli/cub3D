@@ -31,3 +31,7 @@ int		is_map_line(char *line)
 		return (1);
 	return (0);
 }
+
+void	get_size_map(t_list *li)
+{
+	

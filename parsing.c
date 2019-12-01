@@ -20,11 +20,14 @@ void		parse_file(char *av, t_parse **data)
 		if (is_id(li->content) == 1)
 			parse_res(li, data)
 		if (is_id(li->content) >= 2 && is_id(li->content) <= 6)
-			parse_tex(li);
-		if (is_id(li->content) == 7 || is_id(li->content == 8)
-			parse_color(li);
+			parse_tex(li, data);
+		if (is_id(li->content) == 7 || is_id(li->content) == 8)
+			parse_color(li, data);
 		if (is_map_line(li->content) == 1)
-			parse_map(li);
+		{
+			get_size_map(li, map);
+			parse_map(&li, map);
+		}
 		li = li->next;
 	}
 //	ft_lstclear(&li, &free);
@@ -76,7 +79,7 @@ void		parse_color(t_list *li, t_parse **data)
 	}
 }
 
-void		parse_map(t_list *li, t_map **map )
+void		parse_map(t_list **li, t_map **map )
 {
 	int		i;
 	int		j;
@@ -86,11 +89,18 @@ void		parse_map(t_list *li, t_map **map )
 	while (j < (*map)->size_y)
 	{
 		((*map)->map)[j] = malloc(sizeof(char) * ((*map)->size_x + 1);
-
-
+		j++;
+	}
+	j = 0;
+	while (j < (*map)->size_y)
+	{
+		i = 0;
+		while (i < (*map)->size_x)
+		{
+			((*map)->map)[j][i] = (li->content)[i];
+			i++;
+		}
+		(*li) = (*li)->next;
+		j++;
+	}
 }
-
-
-
-
-
