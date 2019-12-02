@@ -1,6 +1,6 @@
-#include "parsing.h"
+#include "cub3D.h"
 
-void		parse_file(char *av, t_parse **data)
+void		parse_file(char **av, t_parse **data, t_map **map)
 {
 	t_list	*li;
 	t_list	*tmp;
@@ -8,14 +8,15 @@ void		parse_file(char *av, t_parse **data)
 	int		ret;
 	char	*line;
 
-	fd = open(av, O_RDONLY);
+	fd = open(av[1], O_RDONLY);
 	li = NULL;
-	while (ret = get_next_line(fd, line))
+	while (/*ret = */get_next_line(fd, &line))
 	{
 		tmp = ft_lstnew_malloc(line, ft_strlen(line));
 		ft_lstadd_back(&li, tmp);
 	}
-	while (li->next != NULL)
+	ft_print_debugage(*data, *map, li, tmp);
+/*	while (li->next != NULL)
 	{
 		if (is_id(li->content) == 1)
 			parse_res(li, data)
@@ -29,7 +30,7 @@ void		parse_file(char *av, t_parse **data)
 			parse_map(&li, map);
 		}
 		li = li->next;
-	}
+	}*/
 //	ft_lstclear(&li, &free);
 }
 
@@ -67,18 +68,18 @@ void		parse_color(t_list *li, t_parse **data)
 	split = ft_split(&((li->content)[2]), ',');	
 	if (is_id(li->content) == 7)
 	{	
-		(*data)->sol->r = ft_atoi(split[0]);
-		(*data)->sol->g = ft_atoi(split[1]);
-		(*data)->sol->b = ft_atoi(split[2]);
+		(*data)->sol.r = ft_atoi(split[0]);
+		(*data)->sol.g = ft_atoi(split[1]);
+		(*data)->sol.b = ft_atoi(split[2]);
 	}
 	if (is_id(li->content) == 7)
 	{
-		(*data)->plafond->r = ft_atoi(split[0]);
-		(*data)->plafond->g = ft_atoi(split[1]);
-		(*data)->plafond->b = ft_atoi(split[2]);
+		(*data)->plafond.r = ft_atoi(split[0]);
+		(*data)->plafond.g = ft_atoi(split[1]);
+		(*data)->plafond.b = ft_atoi(split[2]);
 	}
 }
-
+/*
 void		parse_map(t_list **li, t_map **map )
 {
 	int		i;
@@ -88,7 +89,7 @@ void		parse_map(t_list **li, t_map **map )
 	(*((*map)->map)) = malloc(sizeof(char *) * ((*map)->size_y + 1));
 	while (j < (*map)->size_y)
 	{
-		((*map)->map)[j] = malloc(sizeof(char) * ((*map)->size_x + 1);
+		((*map)->map)[j] = malloc(sizeof(char) * ((*map)->size_x + 1));
 		j++;
 	}
 	j = 0;
@@ -97,10 +98,10 @@ void		parse_map(t_list **li, t_map **map )
 		i = 0;
 		while (i < (*map)->size_x)
 		{
-			((*map)->map)[j][i] = (li->content)[i];
+			((*map)->map)[j][i] = (*li)->content[i];
 			i++;
 		}
 		(*li) = (*li)->next;
 		j++;
 	}
-}
+} */
