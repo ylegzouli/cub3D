@@ -58,6 +58,6 @@ void        parse_map(t_list **li, t_map **map );
 int     	is_id(char *line);
 int    		is_map_line(char *line);
 void    	get_size_map(t_list *li);
-
+void        init_data(t_parse **data);
 
 #endif

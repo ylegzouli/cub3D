@@ -41,15 +41,16 @@ void	get_size_map(t_list *li)
 void	ft_print_debugage(t_parse *data, t_map *map, t_list *li, t_list *tmp)
 {
 	int	i;
-/*	printf("__________________ DATA ______________________\n");
+	printf("__________________ DATA ______________________\n");
 	
-	printf("couleur rouge sol: %d\n", data->sol->r);
-	printf("couleur vert  sol: %d\n", data->sol->g);
-	printf("couleur bleu  sol: %d\n", data->sol->b);
 	printf("\n");
-	printf("couleur rouge plafond: %d\n", data->plafond->r);
-	printf("couleur vert  plafond: %d\n", data->plafond->g);
-	printf("couleur bleu  plafond: %d\n", data->plafond->b);
+	printf("couleur rouge sol: %d\n", data->sol.r);
+	printf("couleur vert  sol: %d\n", data->sol.g);
+	printf("couleur bleu  sol: %d\n", data->sol.b);
+	printf("\n");
+	printf("couleur rouge plafond: %d\n", data->plafond.r);
+	printf("couleur vert  plafond: %d\n", data->plafond.g);
+	printf("couleur bleu  plafond: %d\n", data->plafond.b);
 	printf("\n");
 	printf("\n");
 	printf("resolution x: %d\n", data->res_x);
@@ -62,9 +63,8 @@ void	ft_print_debugage(t_parse *data, t_map *map, t_list *li, t_list *tmp)
 	printf("\n");
 	printf("texture sprite: %s\n", data->tex_no);
 	printf("\n");
-	printf("\n");
 	
-	printf("__________________ MAP ______________________\n");
+/*	printf("__________________ MAP ______________________\n");
 
 	i = 0;
 	printf("size map x: %d\n", map->size_x);
@@ -79,11 +79,12 @@ void	ft_print_debugage(t_parse *data, t_map *map, t_list *li, t_list *tmp)
 */	printf("__________________ LISTE ______________________\n");
 
 	i = 0;	
+	printf("\n");
 	printf("tmp %d: %s\n", i, tmp->content);
 	printf("\n");
 	while (li != NULL)
 	{
-		printf("line %d: %s --- len : %d\n", i, li->content, ft_strlen(li->content));
+		printf("line %d: %s\n", i, li->content, ft_strlen(li->content));
 		li = li->next;
 		i++;
 	}
