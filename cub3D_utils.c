@@ -34,6 +34,36 @@ int		is_map_line(char *line)
 	return (0);
 }
 
+void	get_case(t_player **player, char tmp, int i, int j)
+{
+	(*player)->pos.x = i + 0.5;
+	(*player)->pos.y = j + 0.5;
+	if (tmp == 'N')
+	{
+		(*player)->angle = 90;
+		(*player)->vec.x = (*player)->pos.x;
+		(*player)->vec.y = (*player)->pos.y - 1;
+	}
+	if (tmp == 'S')
+	{
+		(*player)->angle = 270;
+		(*player)->vec.x = (*player)->pos.x;
+		(*player)->vec.y = (*player)->pos.y + 1;
+	}
+	if (tmp == 'E')
+	{
+		(*player)->angle = 0;
+		(*player)->vec.x = (*player)->pos.x + 1;
+		(*player)->vec.y = (*player)->pos.y;
+	}
+	if (tmp == 'W')
+	{
+		(*player)->angle = 180;
+		(*player)->vec.x = (*player)->pos.x - 1;
+		(*player)->vec.y = (*player)->pos.y;
+	}
+}
+
 void	get_size_map(t_list *li, t_map **map)
 {
 	int		i;
@@ -58,7 +88,9 @@ void	get_size_map(t_list *li, t_map **map)
 	}
 }
 
-void	ft_print_debugage(t_parse *data, t_map *map, t_list *li)
+
+
+void	ft_print_debugage(t_parse *data, t_map *map, t_list *li, t_player *player)
 {
 	int	i;
 	printf("__________________ DATA ______________________\n");
@@ -84,7 +116,7 @@ void	ft_print_debugage(t_parse *data, t_map *map, t_list *li)
 	printf("texture sprite: %s\n", data->tex_spr);
 	printf("\n");
 	
-	printf("__________________ MAP _________________________\n");
+	printf("____________________ MAP _________________________\n");
 
 	i = 0;
 	printf("\n");
@@ -97,7 +129,7 @@ void	ft_print_debugage(t_parse *data, t_map *map, t_list *li)
 		i++;
 	}
 	printf("\n");
-	printf("__________________ LISTE ______________________\n");
+/*	printf("__________________ LISTE ______________________\n");
 
 	i = 0;	
 	printf("\n");
@@ -108,5 +140,18 @@ void	ft_print_debugage(t_parse *data, t_map *map, t_list *li)
 		i++;
 	}
 	printf("\n");
-	printf("_______________________________________________\n");
+*/	printf("__________________ PLAYER ______________________\n");
+	
+	printf("\n");
+	printf("position x: %f\n", player->pos.x);
+	printf("position y: %f\n", player->pos.y);
+	printf("\n");
+	printf("vecteur x: %f\n", player->vec.x);
+	printf("vecteur y: %f\n", player->vec.y);
+	printf("\n");
+	printf("angle: %f\n", player->angle);
+	printf("\n");
+
+	printf("_________________________________________________\n");
+
 }

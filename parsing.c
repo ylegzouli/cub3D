@@ -1,6 +1,6 @@
 #include "cub3D.h"
 
-void		parse_file(char **av, t_parse **data, t_map **map)
+void		parse_file(char **av, t_parse **data, t_map **map, t_player **player)
 {
 	t_list	*li;
 	t_list	*tmp;
@@ -9,7 +9,7 @@ void		parse_file(char **av, t_parse **data, t_map **map)
 	char	*line;
 
 	fd = open(av[1], O_RDONLY);
-	init_data(data, map);
+	init_data(data, map, player);
 	li = NULL;
 	while (/*ret = */get_next_line(fd, &line))
 	{
@@ -32,8 +32,10 @@ void		parse_file(char **av, t_parse **data, t_map **map)
 		}
 		li = li->next;
 	}
+//	write(1, "aaaaaaaaaa", 10);
+	parse_player(*map, player);
 	li = tmp;
-	ft_print_debugage(*data, *map, tmp);
+	ft_print_debugage(*data, *map, tmp, *player);
 //	ft_lstclear(&li, &free);
 }
 
@@ -125,3 +127,28 @@ void		parse_map(t_list *li, t_map **map )
 	}
 	((*map)->map)[j] = NULL;
 }
+
+void		parse_player(t_map *map, t_player **player)
+{
+	int		i;
+	int		j;
+	char	tmp;
+
+	j = 0;
+	while (j < map->size_y)
+	{
+		i = 0;
+		while (i < map->size_x)
+		{
+			if ((map->map)[j][i] == 'N' || (map->map)[j][i] == 'S'
+				|| (map->map)[j][i] == 'E' || (map->map)[j][i] == 'W')
+			{
+				tmp = (map->map)[j][i];
+				get_case(player, tmp, i, j);
+			}
+			i++;
+		}
+		j++;
+	}
+}
+

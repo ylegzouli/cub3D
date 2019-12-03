@@ -18,6 +18,12 @@
 **	C  = 8
 */
 
+typedef struct			s_point
+{
+	float	x;
+	float	y;
+}						t_point;
+
 typedef struct			s_color
 {
 	unsigned char	r;
@@ -47,17 +53,27 @@ typedef	struct			s_map
 	char	**map;
 }						t_map;
 
-void    	ft_print_debugage(t_parse *data, t_map *map, t_list *li);
+typedef struct			s_player
+{
+	t_point	pos;
+	t_point	vec;
+	float	angle;
+}						t_player;
 
-void        parse_file(char **av, t_parse **data, t_map **map);
+
+void    	ft_print_debugage(t_parse *data, t_map *map, t_list *li, t_player *player);
+void        init_data(t_parse **data, t_map **map, t_player **player);
+
+void        parse_file(char **av, t_parse **data, t_map **map, t_player **player);
 void        parse_res(t_list *li, t_parse **data);
 void        parse_tex(t_list *li, t_parse **data);
 void        parse_color(t_list *li, t_parse **data);
 void        parse_map(t_list *li, t_map **map );
+void        parse_player(t_map *map, t_player **player);
 
 int     	is_id(char *line);
 int    		is_map_line(char *line);
 void    	get_size_map(t_list *li, t_map **map);
-void        init_data(t_parse **data, t_map **map);
+void    	get_case(t_player **player, char tmp, int i, int j);
 
 #endif
