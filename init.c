@@ -24,4 +24,5 @@ void		init_data(t_parse **data, t_map **map, t_player **player)
 	(*player)->pos.y = 0;
 	(*player)->vec.x = 0;
 	(*player)->vec.y = 0;
+
 }

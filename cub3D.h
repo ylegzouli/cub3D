@@ -5,6 +5,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <math.h>
 #include "./lib/gnl/get_next_line.h"
 
 /*			IDENTIFIANT:
@@ -75,5 +76,6 @@ int     	is_id(char *line);
 int    		is_map_line(char *line);
 void    	get_size_map(t_list *li, t_map **map);
 void    	get_case(t_player **player, char tmp, int i, int j);
+//void		rotate_player(t_player **player, float angle);
 
 #endif

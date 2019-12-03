@@ -32,7 +32,6 @@ void		parse_file(char **av, t_parse **data, t_map **map, t_player **player)
 		}
 		li = li->next;
 	}
-//	write(1, "aaaaaaaaaa", 10);
 	parse_player(*map, player);
 	li = tmp;
 	ft_print_debugage(*data, *map, tmp, *player);
@@ -46,6 +45,7 @@ void		parse_res(t_list *li, t_parse **data)
 	split = ft_split(li->content, ' ');
 	(*data)->res_x = ft_atoi(split[1]);
 	(*data)->res_y = ft_atoi(split[2]);
+//	ft_free_split(split);
 }
 
 void		parse_tex(t_list *li, t_parse **data)
@@ -98,6 +98,7 @@ void		parse_color(t_list *li, t_parse **data)
 		(*data)->plafond.g = ft_atoi(split[1]);
 		(*data)->plafond.b = ft_atoi(split[2]);
 	}
+//	ft_free_split(split);
 }
 
 void		parse_map(t_list *li, t_map **map )
@@ -151,4 +152,3 @@ void		parse_player(t_map *map, t_player **player)
 		j++;
 	}
 }
-

@@ -87,9 +87,15 @@ void	get_size_map(t_list *li, t_map **map)
 		(*map)->size_y = j;
 	}
 }
-
-
-
+/*
+void	rotate_player(t_player **player, float angle)
+{
+	(*player)->pos.x = ((*player)->pos.x) * cos(angle) - ((*player)->pos.y) * sin(angle);
+	(*player)->pos.y = ((*player)->pos.x) * sin(angle) + ((*player)->pos.y) * cos(angle);
+	(*player)->vec.x = ((*player)->vec.x) * cos(angle) - ((*player)->vec.y) * sin(angle);
+	(*player)->vec.y = ((*player)->vec.x) * sin(angle) + ((*player)->vec.y) * cos(angle);
+}
+*/
 void	ft_print_debugage(t_parse *data, t_map *map, t_list *li, t_player *player)
 {
 	int	i;
@@ -103,7 +109,6 @@ void	ft_print_debugage(t_parse *data, t_map *map, t_list *li, t_player *player)
 	printf("couleur rouge plafond: %d\n", data->plafond.r);
 	printf("couleur vert  plafond: %d\n", data->plafond.g);
 	printf("couleur bleu  plafond: %d\n", data->plafond.b);
-	printf("\n");
 	printf("\n");
 	printf("resolution x: %d\n", data->res_x);
 	printf("resolution y: %d\n", data->res_y);
