@@ -47,17 +47,17 @@ typedef	struct			s_map
 	char	**map;
 }						t_map;
 
-void    	ft_print_debugage(t_parse *data, t_map *map, t_list *li, t_list *tmp);
+void    	ft_print_debugage(t_parse *data, t_map *map, t_list *li);
 
 void        parse_file(char **av, t_parse **data, t_map **map);
 void        parse_res(t_list *li, t_parse **data);
 void        parse_tex(t_list *li, t_parse **data);
 void        parse_color(t_list *li, t_parse **data);
-void        parse_map(t_list **li, t_map **map );
+void        parse_map(t_list *li, t_map **map );
 
 int     	is_id(char *line);
 int    		is_map_line(char *line);
-void    	get_size_map(t_list *li);
-void        init_data(t_parse **data);
+void    	get_size_map(t_list *li, t_map **map);
+void        init_data(t_parse **data, t_map **map);
 
 #endif

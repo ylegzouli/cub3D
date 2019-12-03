@@ -1,6 +1,6 @@
 #include "cub3D.h"
 
-void		init_data(t_parse **data)
+void		init_data(t_parse **data, t_map **map)
 {
 	(*data)->res_x = 0;
 	(*data)->res_y = 0;
@@ -15,4 +15,8 @@ void		init_data(t_parse **data)
 	(*data)->plafond.r = 0;
 	(*data)->plafond.g = 0;
 	(*data)->plafond.b = 0;
+
+	(*map)->map = NULL;
+	(*map)->size_x = 0;
+	(*map)->size_y = 0;
 }

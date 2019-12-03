@@ -12,7 +12,7 @@ int		is_id(char *line)
 		return (4);
 	if (line[0] == 'E' && line[1] == 'A')
 		return (5);
-	if (line[0] == 'S' && line[1] == ' ')
+	if (line[0] == 'S')
 		return (6);
 	if (line[0] == 'F' && line[1] == ' ')
 		return (7);
@@ -29,16 +29,36 @@ int		is_map_line(char *line)
 	i = 0;
 	while (line[i] == '1')
 		i++;
-	if (line[i] == '\0')
+	if (line[i] == '\0' && line[i - 2] == '1')
 		return (1);
 	return (0);
 }
 
-void	get_size_map(t_list *li)
+void	get_size_map(t_list *li, t_map **map)
 {
+	int		i;
+	int		j;
+
+	i = 1 ;
+	j = 1;
+	while (((char *)(li->content))[i] != '\0')
+	{
+		i++;
+	}
+	if (i > 0 && is_map_line(li->content))
+	{
+
+		while (li->next)
+		{
+			j++;
+			li = li->next;
+		}
+		(*map)->size_x = i;
+		(*map)->size_y = j;
+	}
 }
 
-void	ft_print_debugage(t_parse *data, t_map *map, t_list *li, t_list *tmp)
+void	ft_print_debugage(t_parse *data, t_map *map, t_list *li)
 {
 	int	i;
 	printf("__________________ DATA ______________________\n");
@@ -61,12 +81,13 @@ void	ft_print_debugage(t_parse *data, t_map *map, t_list *li, t_list *tmp)
 	printf("texture west: %s\n", data->tex_we);
 	printf("texture east: %s\n", data->tex_ea);
 	printf("\n");
-	printf("texture sprite: %s\n", data->tex_no);
+	printf("texture sprite: %s\n", data->tex_spr);
 	printf("\n");
 	
-/*	printf("__________________ MAP ______________________\n");
+	printf("__________________ MAP _________________________\n");
 
 	i = 0;
+	printf("\n");
 	printf("size map x: %d\n", map->size_x);
 	printf("size map y: %d\n", map->size_y);
 	printf("\n");
@@ -76,11 +97,9 @@ void	ft_print_debugage(t_parse *data, t_map *map, t_list *li, t_list *tmp)
 		i++;
 	}
 	printf("\n");
-*/	printf("__________________ LISTE ______________________\n");
+	printf("__________________ LISTE ______________________\n");
 
 	i = 0;	
-	printf("\n");
-	printf("tmp %d: %s\n", i, tmp->content);
 	printf("\n");
 	while (li != NULL)
 	{
@@ -88,10 +107,6 @@ void	ft_print_debugage(t_parse *data, t_map *map, t_list *li, t_list *tmp)
 		li = li->next;
 		i++;
 	}
-//	printf("line %d: %s\n", i, li->content);
 	printf("\n");
 	printf("_______________________________________________\n");
-	
-	
-
 }

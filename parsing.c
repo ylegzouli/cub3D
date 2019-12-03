@@ -9,32 +9,31 @@ void		parse_file(char **av, t_parse **data, t_map **map)
 	char	*line;
 
 	fd = open(av[1], O_RDONLY);
-	init_data(data);
+	init_data(data, map);
 	li = NULL;
 	while (/*ret = */get_next_line(fd, &line))
 	{
-		tmp = ft_lstnew_malloc(line, ft_strlen(line));
+		tmp = ft_lstnew(line);
 		ft_lstadd_back(&li, tmp);
 	}
 	tmp = li;
 	while (li->next)
 	{
-//		printf("%d\n", is_id(li->content));
 		if (is_id(li->content) == 1)
 			parse_res(li, data);
 		if (is_id(li->content) >= 2 && is_id(li->content) <= 6)
 			parse_tex(li, data);
 		if (is_id(li->content) == 7 || is_id(li->content) == 8)
 			parse_color(li, data);
-/*		if (is_map_line(li->content) == 1)
+		if (is_map_line(li->content) == 1)
 		{
 			get_size_map(li, map);
-			parse_map(&li, map);
+			parse_map(li, map);
 		}
-*/		li = li->next;
+		li = li->next;
 	}
 	li = tmp;
-	ft_print_debugage(*data, *map, li, tmp);
+	ft_print_debugage(*data, *map, tmp);
 //	ft_lstclear(&li, &free);
 }
 
@@ -98,14 +97,14 @@ void		parse_color(t_list *li, t_parse **data)
 		(*data)->plafond.b = ft_atoi(split[2]);
 	}
 }
-/*
-void		parse_map(t_list **li, t_map **map )
+
+void		parse_map(t_list *li, t_map **map )
 {
 	int		i;
 	int		j;
 
 	j = 0;
-	(*((*map)->map)) = malloc(sizeof(char *) * ((*map)->size_y + 1));
+	(*map)->map = malloc(sizeof(char *) * ((*map)->size_y + 1));
 	while (j < (*map)->size_y)
 	{
 		((*map)->map)[j] = malloc(sizeof(char) * ((*map)->size_x + 1));
@@ -117,10 +116,12 @@ void		parse_map(t_list **li, t_map **map )
 		i = 0;
 		while (i < (*map)->size_x)
 		{
-			((*map)->map)[j][i] = (*li)->content[i];
+			((*map)->map)[j][i] = ((char *)(li->content))[i];
 			i++;
 		}
-		(*li) = (*li)->next;
+		((*map)->map)[j][i] = '\0';
+		li = li->next;
 		j++;
 	}
-} */
+	((*map)->map)[j] = NULL;
+}
