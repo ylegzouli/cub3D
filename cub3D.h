@@ -1,12 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3D.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/12/04 13:07:32 by ylegzoul          #+#    #+#             */
+/*   Updated: 2019/12/04 14:35:14 by ylegzoul         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
-#include "./lib/libft.h"
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <math.h>
-#include "./lib/gnl/get_next_line.h"
+# include "./lib/libft.h"
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
+# include <math.h>
+# include "./lib/gnl/get_next_line.h"
+
+# define LARGEUR_SCREEN 320
+# define HAUTEUR_SCREEN 200
+# define LARGEUR_CHAMP 60
 
 /*			IDENTIFIANT:
 **	R  = 1
@@ -71,6 +87,8 @@ void        parse_tex(t_list *li, t_parse **data);
 void        parse_color(t_list *li, t_parse **data);
 void        parse_map(t_list *li, t_map **map );
 void        parse_player(t_map *map, t_player **player);
+
+void		inter_x(t_map *map, t_player *player);
 
 int     	is_id(char *line);
 int    		is_map_line(char *line);

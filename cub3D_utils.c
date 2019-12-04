@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3D_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/12/04 10:33:58 by ylegzoul          #+#    #+#             */
+/*   Updated: 2019/12/04 14:39:05 by ylegzoul         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3D.h"
 
 int		is_id(char *line)
@@ -99,6 +111,7 @@ void	rotate_player(t_player **player, float angle)
 void	ft_print_debugage(t_parse *data, t_map *map, t_list *li, t_player *player)
 {
 	int	i;
+
 	printf("__________________ DATA ______________________\n");
 	
 	printf("\n");
@@ -157,6 +170,12 @@ void	ft_print_debugage(t_parse *data, t_map *map, t_list *li, t_player *player)
 	printf("angle: %f\n", player->angle);
 	printf("\n");
 
-	printf("_________________________________________________\n");
+	printf("__________________ RAYCAST ______________________\n");
+	inter_x(map, player);
+	printf("\n");
+//	printf("inter X: %f\n", A->x);
+//	printf("inter Y: %f\n", A->y);
+	printf("\n");
 
+	printf("_________________________________________________\n");
 }
