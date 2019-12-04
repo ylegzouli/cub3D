@@ -1,7 +1,12 @@
 #include "cub3D.h"
 
-void		init_data(t_parse **data, t_map **map, t_player **player)
+void		init_data(t_parse **data, t_map **map, t_player **player, t_raycast **ray)
 {
+	(*data) = malloc(sizeof(t_parse));
+    (*map) = malloc(sizeof(t_map));
+    (*player) = malloc(sizeof(t_player));
+    (*ray) = malloc(sizeof(t_raycast));
+ 	
 	(*data)->res_x = 0;
 	(*data)->res_y = 0;
 	(*data)->tex_no = NULL;
@@ -25,4 +30,8 @@ void		init_data(t_parse **data, t_map **map, t_player **player)
 	(*player)->vec.x = 0;
 	(*player)->vec.y = 0;
 
+	(*ray)->Xa = 0;
+	(*ray)->Ya = 0;
+	(*ray)->A.x = 0;
+	(*ray)->A.y = 0;
 }

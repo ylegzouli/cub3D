@@ -9,7 +9,6 @@ void		parse_file(char **av, t_parse **data, t_map **map, t_player **player)
 	char	*line;
 
 	fd = open(av[1], O_RDONLY);
-	init_data(data, map, player);
 	li = NULL;
 	while (/*ret = */get_next_line(fd, &line))
 	{
@@ -34,7 +33,6 @@ void		parse_file(char **av, t_parse **data, t_map **map, t_player **player)
 	}
 	parse_player(*map, player);
 	li = tmp;
-	ft_print_debugage(*data, *map, tmp, *player);
 //	ft_lstclear(&li, &free);
 }
 

@@ -5,11 +5,13 @@ int		main(int ac, char **av)
 	t_parse		*data;
 	t_map		*map;
 	t_player	*player;
+	t_raycast	*ray;
 
-	data = malloc(sizeof(t_parse));
-	map = malloc(sizeof(t_map));
-	player = malloc(sizeof(t_player));
-
+	init_data(&data, &map, &player, &ray);
 	parse_file(av, &data, &map, &player);
+	raycast(map, player, &ray);
+	write(1, "ICI\n", 4);	
+
+	ft_print_debugage(data, map, player, ray);
 	return (1);
 }

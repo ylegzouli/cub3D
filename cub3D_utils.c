@@ -108,7 +108,7 @@ void	rotate_player(t_player **player, float angle)
 	(*player)->vec.y = ((*player)->vec.x) * sin(angle) + ((*player)->vec.y) * cos(angle);
 }
 */
-void	ft_print_debugage(t_parse *data, t_map *map, t_list *li, t_player *player)
+void	ft_print_debugage(t_parse *data, t_map *map, t_player *player, t_raycast *ray)
 {
 	int	i;
 
@@ -147,18 +147,7 @@ void	ft_print_debugage(t_parse *data, t_map *map, t_list *li, t_player *player)
 		i++;
 	}
 	printf("\n");
-/*	printf("__________________ LISTE ______________________\n");
-
-	i = 0;	
-	printf("\n");
-	while (li != NULL)
-	{
-		printf("line %d: %s\n", i, li->content, ft_strlen(li->content));
-		li = li->next;
-		i++;
-	}
-	printf("\n");
-*/	printf("__________________ PLAYER ______________________\n");
+	printf("__________________ PLAYER ______________________\n");
 	
 	printf("\n");
 	printf("position x: %f\n", player->pos.x);
@@ -171,10 +160,13 @@ void	ft_print_debugage(t_parse *data, t_map *map, t_list *li, t_player *player)
 	printf("\n");
 
 	printf("__________________ RAYCAST ______________________\n");
-	inter_x(map, player);
+	
 	printf("\n");
-//	printf("inter X: %f\n", A->x);
-//	printf("inter Y: %f\n", A->y);
+	printf("Ya: %f\n", ray->Ya);
+	printf("Xa: %f\n", ray->Xa);
+	printf("\n");
+	printf("A.x: %f\n", ray->A.x);
+	printf("A.y: %f\n", ray->A.y);
 	printf("\n");
 
 	printf("_________________________________________________\n");

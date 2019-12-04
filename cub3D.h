@@ -77,9 +77,15 @@ typedef struct			s_player
 	float	angle;
 }						t_player;
 
+typedef struct			s_raycast
+{
+	float   Ya;
+	float   Xa;
+	t_point	A;
+}						t_raycast;
 
-void    	ft_print_debugage(t_parse *data, t_map *map, t_list *li, t_player *player);
-void        init_data(t_parse **data, t_map **map, t_player **player);
+void    	ft_print_debugage(t_parse *data, t_map *map, t_player *player, t_raycast *ray);
+void        init_data(t_parse **data, t_map **map, t_player **player, t_raycast **ray);
 
 void        parse_file(char **av, t_parse **data, t_map **map, t_player **player);
 void        parse_res(t_list *li, t_parse **data);
@@ -88,7 +94,9 @@ void        parse_color(t_list *li, t_parse **data);
 void        parse_map(t_list *li, t_map **map );
 void        parse_player(t_map *map, t_player **player);
 
-void		inter_x(t_map *map, t_player *player);
+void        raycast(t_map *map, t_player *player, t_raycast **ray);
+void		inter_x(t_map *map, t_player *player, t_raycast **ray);
+void        inter_x2(t_map *map, t_raycast **raycast);
 
 int     	is_id(char *line);
 int    		is_map_line(char *line);

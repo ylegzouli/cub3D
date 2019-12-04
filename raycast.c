@@ -11,96 +11,72 @@
 /* ************************************************************************** */
 
 #include "cub3D.h"
-/*
-void		inter_x(t_map *map, t_player *player)
-{
-	int			Ax;
-	int			Ay;
-	int			tmp_angle;
-	int			tmp2;
-	float		Ya;
-	float		Xa;
 
-	player->angle = 89;
-	tmp2 = (int)((player->pos.y) / (float)(map->size_y));
-	if (tmp_angle < 180)// && tmp_angle > 90)
-	{	
-		Ya = -1 * (float)(map->size_y);
-		Ay = tmp2 * map->size_y - 1;
-	}
-	else// if (tmp_angle >= 180)
-	{	
-		Ya = (float)(map->size_y);
-		Ay = tmp2 * map->size_y + map->size_y;
-	}
-	printf("%d\n", Ay);
-	Ay = abs(Ay) / map->size_y;
-	Ax = (int)((player->pos.x) + ((player->pos.y) / tan(player->angle)));
-	Ax = Ax / (map->size_y);
-	Ax = abs(Ax);
-	Xa = ((float)(map->size_y)) / tan(tmp_angle);
-	while ((map->map)[Ay][Ax] != 1)
-	{
-		Ax = (int)(((float)Ax + Xa) / (float)map->size_y);
-		Ay = (int)(((float)Ay + Ya) / (float)map->size_y);
-	}
-	printf("\nplayer->pos.x :%f\nplayer->pos.y :%f\nplayer->angle :%f\nmap->size_y :%d\nAx :%d\nAy :%d\ntmp_angle :%d\nYa :%f\nXa :%f\ntmp2 :%d\n\n",player->pos.x, player->pos.y, player->angle, map->size_y, Ax, Ay, tmp_angle, Ya, Xa, tmp2);
+void		raycast(t_map *map, t_player *player, t_raycast **ray)
+{
+	inter_x(map, player, ray);
 }
-*/
-void        inter_x(t_map *map, t_player *player)
-{
-    int         Ax;
-    int         Ay;
-    int         tmp_angle;
-    float       tmp2;
-    float       Ya;
-    float       Xa;
-	int			size_y;
 
-	player->angle = 89;
+void        inter_x(t_map *map, t_player *player, t_raycast **ray)
+{
+	int		tmp;
+	float	tmp_angle;
+	float	tmp_x;
+	float	tmp_y;
+
+	player->angle = 315;
+	tmp_y = player->pos.y * 64;
+	tmp_x = player->pos.x * 64;
 	tmp_angle = (int)(player->angle) - ((int)(player->angle) / 360) * 360;
-	tmp2 = (player->pos.y) / (float)(map->size_y);
-	tmp2 = (int)tmp2;
+	tmp = (int)(tmp_y / 64);
 	if (tmp_angle < 180)
-	{
-		Ay = tmp2 * size_y - 1;
-	}
-	else// if (tmp_angle >= 180)
-	{
-		Ay = tmp2 * size_y + size_y;
-	}
-
-	
-	printf("tmp_angle = %d\n", tmp_angle);
-	printf("tmp2 = %f\n", tmp2);
-	printf("Ay = %d\n", Ay);
-
+    {
+        (*ray)->Ya = -64;
+        (*ray)->A.y = tmp * 64 - 1;
+    }
+    else
+    {
+        (*ray)->Ya = 64;
+        (*ray)->A.y = tmp * 64 + 64;
+    }
+	tmp_angle = (tmp_angle * 3.14) / 180;
+	(*ray)->A.x = tmp_x + (tmp_y - (*ray)->A.y) / tan(tmp_angle);
+	(*ray)->Xa = 64 / tan(tmp_angle);
+	inter_x2(map, ray);
 }
 
+void		inter_x2(t_map *map, t_raycast **ray)
+{
+	int	tmp_x;
+	int	tmp_y;
+
+	tmp_x = (*ray)->A.x / 64;
+	tmp_y = (*ray)->A.y / 64;
+	while (tmp_y < map->size_y && tmp_x < map->size_x && (map->map)[tmp_y][tmp_x] != '1')
+	{
+		(*ray)->A.x = (*ray)->A.x + (*ray)->Xa;
+		(*ray)->A.y = (*ray)->A.y + (*ray)->Ya;
+		tmp_x = (*ray)->A.x / 64;
+		tmp_y = (*ray)->A.y / 64;
+//		printf("tmp_x: %d\ntmp_y: %d\nA.x: %f\nA.y: %f\n___________________________________________\n", tmp_x, tmp_y, (*ray)->A.x, (*ray)->A.y);
+	}
+	(*ray)->A.x = tmp_x;
+	(*ray)->A.y = tmp_y;
+}
 
 /*
 t_point		inter_y(t_map *map, t_player *player)
 {
-	t_point     B;
-    int         tmp;
-    int         tmp2
-
-    B = malloc(sizeof(t_point));
-    tmp = player->angle - (player->angle / 360) * 360;
-    tmp2 = player->pos.y / map->size_y;
-    if (tmp < 180)
-        A->y = (tmp2 * map->size - 1) / map->size_y;
-    else if (tmp >= 180)
-        A->y = (tmp2 * map->size + map->size_y) / map->size_y;
-    A->x = player->pos.x + ((player->pos.y)/tan(player->angle));
-    A->x = A->x / map->size_y;
-    return (A);
 }
+*/
 
 int			distance_mur()
 {
+
 }
 
+/*
 int			taille_mur()
 {
-}*/
+}
+*/
