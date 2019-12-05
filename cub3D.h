@@ -93,6 +93,18 @@ typedef struct			s_raycast
 	float	wall;
 }						t_raycast;
 
+/*-----------------------------------------------------------------------------------*/
+
+#include <mlx.h>
+
+typedef struct			s_mlx
+{
+    void	*mlx_ptr;
+    void	*mlx_win;
+}						t_mlx;
+
+/*-----------------------------------------------------------------------------------*/
+
 void    	ft_print_debugage(t_parse *data, t_map *map, t_player *player, t_raycast *ray);
 void        init_data(t_parse **data, t_map **map, t_player **player, t_raycast **ray);
 
