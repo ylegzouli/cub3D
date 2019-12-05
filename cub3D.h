@@ -23,6 +23,8 @@
 # define LARGEUR_SCREEN 320
 # define HAUTEUR_SCREEN 200
 # define LARGEUR_CHAMP 60
+# define ANGLE_RAY (60/320) 
+# define SIZE_WALL 64
 
 /*			IDENTIFIANT:
 **	R  = 1
@@ -68,6 +70,7 @@ typedef	struct			s_map
 	size_t	size_x;
 	size_t	size_y;
 	char	**map;
+	float	dist_screen;
 }						t_map;
 
 typedef struct			s_player
@@ -79,9 +82,15 @@ typedef struct			s_player
 
 typedef struct			s_raycast
 {
+	float	tmp_x;
+	float	tmp_y;
 	float   Ya;
 	float   Xa;
 	t_point	A;
+	t_point	B;
+
+	float	dist_wall;
+	float	wall;
 }						t_raycast;
 
 void    	ft_print_debugage(t_parse *data, t_map *map, t_player *player, t_raycast *ray);
@@ -94,9 +103,12 @@ void        parse_color(t_list *li, t_parse **data);
 void        parse_map(t_list *li, t_map **map );
 void        parse_player(t_map *map, t_player **player);
 
-void        raycast(t_map *map, t_player *player, t_raycast **ray);
-void		inter_x(t_map *map, t_player *player, t_raycast **ray);
+void        raycast(t_map *map, t_player *player, t_raycast **ray, float angle);
+void		inter_x(t_map *map, t_player *player, t_raycast **ray, float angle);
 void        inter_x2(t_map *map, t_raycast **raycast);
+void        inter_y(t_map *map, t_player *player, t_raycast **ray, float angle);
+void        inter_y2(t_map *map, t_raycast **raycast);
+void        distance_mur(t_player *player, t_raycast **ray, float angle);
 
 int     	is_id(char *line);
 int    		is_map_line(char *line);

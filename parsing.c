@@ -132,8 +132,11 @@ void		parse_player(t_map *map, t_player **player)
 	int		i;
 	int		j;
 	char	tmp;
+	float	tmp_angle;
 
 	j = 0;
+	tmp_angle = (LARGEUR_CHAMP * 3.14) / 180;
+	map->dist_screen = (LARGEUR_SCREEN/2) * tan(tmp_angle); 
 	while (j < map->size_y)
 	{
 		i = 0;

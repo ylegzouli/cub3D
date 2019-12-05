@@ -138,6 +138,8 @@ void	ft_print_debugage(t_parse *data, t_map *map, t_player *player, t_raycast *r
 
 	i = 0;
 	printf("\n");
+	printf("dist screen: %f\n", map->dist_screen);
+	printf("\n");
 	printf("size map x: %d\n", map->size_x);
 	printf("size map y: %d\n", map->size_y);
 	printf("\n");
@@ -168,6 +170,12 @@ void	ft_print_debugage(t_parse *data, t_map *map, t_player *player, t_raycast *r
 	printf("A.x: %f\n", ray->A.x);
 	printf("A.y: %f\n", ray->A.y);
 	printf("\n");
+	printf("B.x: %f\n", ray->B.x);
+	printf("B.y: %f\n", ray->B.y);
+	printf("\n");
+	printf("distance mur: %f\n", ray->dist_wall);
+	printf("\n");
+	printf("taille mur: %f\n", ray->wall);
 
 	printf("_________________________________________________\n");
 }

@@ -9,8 +9,7 @@ int		main(int ac, char **av)
 
 	init_data(&data, &map, &player, &ray);
 	parse_file(av, &data, &map, &player);
-	raycast(map, player, &ray);
-	write(1, "ICI\n", 4);	
+	raycast(map, player, &ray, 60);
 
 	ft_print_debugage(data, map, player, ray);
 	return (1);
