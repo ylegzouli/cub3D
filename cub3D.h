@@ -37,6 +37,8 @@
 **	C  = 8
 */
 
+/*-----------------------------------------------------------------------------------*/
+
 typedef struct			s_point
 {
 	float	x;
@@ -99,9 +101,11 @@ typedef struct			s_raycast
 
 typedef struct			s_mlx
 {
-    void	*mlx_ptr;
-    void	*mlx_win;
+    void	*ptr;
+    void	*win;
 }						t_mlx;
+
+void        init(t_mlx *mlx);
 
 /*-----------------------------------------------------------------------------------*/
 

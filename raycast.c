@@ -14,7 +14,7 @@
 
 void		raycast(t_map *map, t_player *player, t_raycast **ray, float angle)
 {
-	angle = 420;
+	angle = 180;
 	
 	angle = (int)(angle) - ((int)(angle) / 360) * 360;
 	(*ray)->tmp_x = player->pos.x * SIZE_WALL;
