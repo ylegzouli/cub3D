@@ -99,19 +99,11 @@ void	get_size_map(t_list *li, t_map **map)
 		(*map)->size_y = j;
 	}
 }
-/*
-void	rotate_player(t_player **player, float angle)
-{
-	(*player)->pos.x = ((*player)->pos.x) * cos(angle) - ((*player)->pos.y) * sin(angle);
-	(*player)->pos.y = ((*player)->pos.x) * sin(angle) + ((*player)->pos.y) * cos(angle);
-	(*player)->vec.x = ((*player)->vec.x) * cos(angle) - ((*player)->vec.y) * sin(angle);
-	(*player)->vec.y = ((*player)->vec.x) * sin(angle) + ((*player)->vec.y) * cos(angle);
-}
-*/
-void	ft_print_debugage(t_parse *data, t_map *map, t_player *player, t_raycast *ray)
+
+void	ft_print_debugage(/*t_parse *data,*/ t_map *map, t_player *player, t_raycast *ray)
 {
 	int	i;
-
+/*
 	printf("__________________ DATA ______________________\n");
 	
 	printf("\n");
@@ -134,7 +126,7 @@ void	ft_print_debugage(t_parse *data, t_map *map, t_player *player, t_raycast *r
 	printf("texture sprite: %s\n", data->tex_spr);
 	printf("\n");
 	
-	printf("____________________ MAP _________________________\n");
+*/	printf("____________________ MAP _________________________\n");
 
 	i = 0;
 	printf("\n");

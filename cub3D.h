@@ -20,11 +20,17 @@
 # include <math.h>
 # include "./lib/gnl/get_next_line.h"
 
-# define LARGEUR_SCREEN 320
-# define HAUTEUR_SCREEN 200
+# define LARGEUR_SCREEN 520
+# define HAUTEUR_SCREEN 400
 # define LARGEUR_CHAMP 60
 # define ANGLE_RAY (60/320) 
-# define SIZE_WALL 64
+# define SIZE_WALL 50
+
+//#  define K_ESC			65307
+#  define K_UP			126
+#  define K_DOWN		125
+#  define K_LEFT		123
+#  define K_RIGHT		124
 
 /*			IDENTIFIANT:
 **	R  = 1
@@ -103,14 +109,36 @@ typedef struct			s_mlx
 {
     void	*ptr;
     void	*win;
+	void	*img;
+	void	*data;
+
+	int		bpp;
+	int		size;
+	int		en;
 }						t_mlx;
 
-void        init(t_mlx *mlx);
+void        init_mlx(t_mlx *mlx);
+void        affichage(t_mlx *mlx, t_raycast *ray, t_map *map, t_player *player);
+void        draw_column(t_mlx *mlx, t_raycast *ray, int x);
+void        put_pixel(t_mlx *mlx, int x, int y, int color);
+void        move_player(t_player *player, int key, float angle);
 
 /*-----------------------------------------------------------------------------------*/
 
-void    	ft_print_debugage(t_parse *data, t_map *map, t_player *player, t_raycast *ray);
-void        init_data(t_parse **data, t_map **map, t_player **player, t_raycast **ray);
+typedef	struct		s_hook
+{
+	t_mlx		*mlx;
+	t_raycast 	*ray;
+	t_map		*map;
+	t_player	*player;
+}					t_hook;
+
+int     hook_keydown(int key, t_hook *hook);
+
+/*-----------------------------------------------------------------------------------*/
+
+void    	ft_print_debugage(/*t_parse *data, */t_map *map, t_player *player, t_raycast *ray);
+void        init_data(t_parse **data, t_map **map, t_player **player, t_raycast **ray, t_mlx **mlx, t_hook **hook);
 
 void        parse_file(char **av, t_parse **data, t_map **map, t_player **player);
 void        parse_res(t_list *li, t_parse **data);
@@ -130,6 +158,6 @@ int     	is_id(char *line);
 int    		is_map_line(char *line);
 void    	get_size_map(t_list *li, t_map **map);
 void    	get_case(t_player **player, char tmp, int i, int j);
-//void		rotate_player(t_player **player, float angle);
+void		rotate_player(t_player **player, float angle);
 
 #endif

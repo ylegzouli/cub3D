@@ -14,15 +14,11 @@
 
 void		raycast(t_map *map, t_player *player, t_raycast **ray, float angle)
 {
-	angle = 180;
-	
-	angle = (int)(angle) - ((int)(angle) / 360) * 360;
 	(*ray)->tmp_x = player->pos.x * SIZE_WALL;
 	(*ray)->tmp_y = player->pos.y * SIZE_WALL;
 	inter_x(map, player, ray, angle);
 	inter_y(map, player, ray, angle);
 	distance_mur(player, ray, angle);
-//	(*ray)->dist_wall = 330;
 	(*ray)->wall = (SIZE_WALL / (*ray)->dist_wall) * map->dist_screen;
 }
 
@@ -31,14 +27,14 @@ void        inter_x(t_map *map, t_player *player, t_raycast **ray, float angle)
 	int		tmp;
 	float	tmp_angle;
 
-	tmp = (int)((*ray)->tmp_y / SIZE_WALL);
+	tmp = ((int)((*ray)->tmp_y) / SIZE_WALL);
 	if (angle < 180)
-    {
+	{
         (*ray)->Ya = -SIZE_WALL;
         (*ray)->A.y = tmp * SIZE_WALL - 1;
-    }
-    else
-    {
+	}
+	else
+	{
         (*ray)->Ya = SIZE_WALL;
         (*ray)->A.y = tmp * SIZE_WALL + SIZE_WALL;
     }
@@ -55,7 +51,6 @@ void		inter_x2(t_map *map, t_raycast **ray)
 
 	tmp_x = (*ray)->A.x / SIZE_WALL;
 	tmp_y = (*ray)->A.y / SIZE_WALL;
-	printf("tmp_x: %d\ntmp_y: %d\n", tmp_x, tmp_y);
 	while (tmp_y < map->size_y && tmp_x < map->size_x && (map->map)[tmp_y][tmp_x] != '1')
 	{
 		(*ray)->A.x = (*ray)->A.x + (*ray)->Xa;
@@ -71,12 +66,12 @@ void		inter_y(t_map *map, t_player *player, t_raycast **ray, float angle)
 	float	tmp_angle;
 
 	tmp = (int)((*ray)->tmp_x / SIZE_WALL);
-	if (angle < 270 && tmp_angle > 90)
-    {
-        (*ray)->Xa = -SIZE_WALL;
+	if (angle < 270 && angle > 90)
+	{
+		(*ray)->Xa = -SIZE_WALL;
         (*ray)->B.x = tmp * SIZE_WALL - 1;
-    }
-    else
+	}
+	else
     {
         (*ray)->Xa = SIZE_WALL;
         (*ray)->B.x = tmp * SIZE_WALL + SIZE_WALL;
@@ -92,14 +87,14 @@ void		inter_y2(t_map *map, t_raycast **ray)
 	int		tmp_x;
 	int		tmp_y;
 
-	tmp_x = (*ray)->B.x / SIZE_WALL;
-	tmp_y = (*ray)->B.y / SIZE_WALL;
+	tmp_x = (int)(*ray)->B.x / SIZE_WALL;
+	tmp_y = (int)(*ray)->B.y / SIZE_WALL;
 	while (tmp_y < map->size_y && tmp_x < map->size_x && (map->map)[tmp_y][tmp_x] != '1')
 	{
 		(*ray)->B.x = (*ray)->B.x + (*ray)->Xa;
 		(*ray)->B.y = (*ray)->B.y - (*ray)->Ya;
-		tmp_x = (*ray)->B.x / SIZE_WALL;
-		tmp_y = (*ray)->B.y / SIZE_WALL;
+		tmp_x = (int)(*ray)->B.x / SIZE_WALL;
+		tmp_y = (int)(*ray)->B.y / SIZE_WALL;
 	}
 }
 
@@ -109,7 +104,7 @@ void		distance_mur(t_player *player, t_raycast **ray, float angle)
 	float	dist_B;
 	float	tmp_angle;
 
-//	tmp_angle = ((angle - player->angle) * 3.14) / 180;
+	tmp_angle = ((angle - player->angle) * 3.14) / 180;
 	dist_A = ((*ray)->tmp_x - (*ray)->A.x) * ((*ray)->tmp_x - (*ray)->A.x);
 	dist_A = dist_A + ((*ray)->tmp_y - (*ray)->A.y) * ((*ray)->tmp_y - (*ray)->A.y);
 	dist_A = sqrt(dist_A);
@@ -117,7 +112,13 @@ void		distance_mur(t_player *player, t_raycast **ray, float angle)
 	dist_B = dist_B + ((*ray)->tmp_y - (*ray)->B.y) * ((*ray)->tmp_y - (*ray)->B.y);
 	dist_B = sqrt(dist_B);
 	if (dist_B <= dist_A)
-		(*ray)->dist_wall = dist_B;// * fabs(cos(tmp_angle));
+	{
+//		printf("dist_B\n");
+		(*ray)->dist_wall = dist_B * cos(tmp_angle);
+	}
 	else
-		(*ray)->dist_wall = dist_A;// * fabs(cos(tmp_angle));
+	{
+//		printf("dist_A\n");
+		(*ray)->dist_wall = dist_A * cos(tmp_angle);
+	}
 }
