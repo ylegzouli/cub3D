@@ -52,27 +52,27 @@ void	get_case(t_player **player, char tmp, int i, int j)
 	(*player)->pos.y = j + 0.5;
 	if (tmp == 'N')
 	{
-		(*player)->angle = 90;
-		(*player)->vec.x = (*player)->pos.x;
-		(*player)->vec.y = (*player)->pos.y - 1;
+//		(*player)->angle = 90;
+		(*player)->v1.x = 0;
+		(*player)->v1.y = -1;
 	}
 	if (tmp == 'S')
 	{
-		(*player)->angle = 270;
-		(*player)->vec.x = (*player)->pos.x;
-		(*player)->vec.y = (*player)->pos.y + 1;
+//		(*player)->angle = 270;
+		(*player)->v1.x = 0;
+		(*player)->v1.y = 1;
 	}
 	if (tmp == 'E')
 	{
-		(*player)->angle = 0;
-		(*player)->vec.x = (*player)->pos.x + 1;
-		(*player)->vec.y = (*player)->pos.y;
+//		(*player)->angle = 0;
+		(*player)->v1.x = -1;
+		(*player)->v1.y = 0;
 	}
 	if (tmp == 'W')
 	{
-		(*player)->angle = 180;
-		(*player)->vec.x = (*player)->pos.x - 1;
-		(*player)->vec.y = (*player)->pos.y;
+//		(*player)->angle = 180;
+		(*player)->v1.x = -1;
+		(*player)->v1.y = 0;
 	}
 }
 
@@ -98,6 +98,12 @@ void	get_size_map(t_list *li, t_map **map)
 		(*map)->size_x = i;
 		(*map)->size_y = j;
 	}
+}
+
+void	vect_mult(t_player *player)
+{
+	player->v0.x = -player->v1.y;
+	player->v0.y = player->v1.x;
 }
 
 void	ft_print_debugage(/*t_parse *data,*/ t_map *map, t_player *player, t_raycast *ray)
@@ -147,14 +153,16 @@ void	ft_print_debugage(/*t_parse *data,*/ t_map *map, t_player *player, t_raycas
 	printf("position x: %f\n", player->pos.x);
 	printf("position y: %f\n", player->pos.y);
 	printf("\n");
-	printf("vecteur x: %f\n", player->vec.x);
-	printf("vecteur y: %f\n", player->vec.y);
+	printf("vecteur x: %f\n", player->v1.x);
+	printf("vecteur y: %f\n", player->v1.y);
 	printf("\n");
-	printf("angle: %f\n", player->angle);
 	printf("\n");
 
 	printf("__________________ RAYCAST ______________________\n");
+
 	
+	printf("RAYx: %f\n", ray->angle.x);
+	printf("RAYy: %f\n", ray->angle.y);
 	printf("\n");
 	printf("Ya: %f\n", ray->Ya);
 	printf("Xa: %f\n", ray->Xa);

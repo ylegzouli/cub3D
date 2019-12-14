@@ -20,8 +20,8 @@
 # include <math.h>
 # include "./lib/gnl/get_next_line.h"
 
-# define LARGEUR_SCREEN 520
-# define HAUTEUR_SCREEN 400
+# define LARGEUR_SCREEN 800
+# define HAUTEUR_SCREEN 600
 # define LARGEUR_CHAMP 60
 # define ANGLE_RAY (60/320) 
 # define SIZE_WALL 50
@@ -84,12 +84,15 @@ typedef	struct			s_map
 typedef struct			s_player
 {
 	t_point	pos;
-	t_point	vec;
-	float	angle;
+	t_point	v0;
+	t_point	v1;
 }						t_player;
 
 typedef struct			s_raycast
 {
+	t_point	angle;
+	float	tan;
+
 	float	tmp_x;
 	float	tmp_y;
 	float   Ya;
@@ -97,6 +100,7 @@ typedef struct			s_raycast
 	t_point	A;
 	t_point	B;
 
+	float	total_angle;
 	float	dist_wall;
 	float	wall;
 }						t_raycast;
@@ -121,7 +125,7 @@ void        init_mlx(t_mlx *mlx);
 void        affichage(t_mlx *mlx, t_raycast *ray, t_map *map, t_player *player);
 void        draw_column(t_mlx *mlx, t_raycast *ray, int x);
 void        put_pixel(t_mlx *mlx, int x, int y, int color);
-void        move_player(t_player *player, int key, float angle);
+void        move_player(t_player *player, int key);
 
 /*-----------------------------------------------------------------------------------*/
 
@@ -147,17 +151,22 @@ void        parse_color(t_list *li, t_parse **data);
 void        parse_map(t_list *li, t_map **map );
 void        parse_player(t_map *map, t_player **player);
 
-void        raycast(t_map *map, t_player *player, t_raycast **ray, float angle);
-void		inter_x(t_map *map, t_player *player, t_raycast **ray, float angle);
+void		get_ray_angle(int x, t_player *player, t_map *map, t_raycast *ray);
+
+void        raycast(t_map *map, t_player *player, t_raycast **ray);
+void		inter_x(t_map *map, t_player *player, t_raycast **ray);
 void        inter_x2(t_map *map, t_raycast **raycast);
-void        inter_y(t_map *map, t_player *player, t_raycast **ray, float angle);
+void        inter_y(t_map *map, t_player *player, t_raycast **ray);
 void        inter_y2(t_map *map, t_raycast **raycast);
-void        distance_mur(t_player *player, t_raycast **ray, float angle);
+void        distance_mur(t_player *player, t_raycast **ray);
+int			transfer_coords_x(t_map *map, float x);
+int			transfer_coords_y(t_map *map, float y);
 
 int     	is_id(char *line);
 int    		is_map_line(char *line);
 void    	get_size_map(t_list *li, t_map **map);
 void    	get_case(t_player **player, char tmp, int i, int j);
-void		rotate_player(t_player **player, float angle);
+void		vect_mult(t_player *player);
+void		rotate_player(t_player *player, int key, float angle);
 
 #endif

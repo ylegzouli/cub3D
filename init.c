@@ -28,8 +28,10 @@ void		init_data(t_parse **data, t_map **map, t_player **player, t_raycast **ray,
 
 	(*player)->pos.x = 0;
 	(*player)->pos.y = 0;
-	(*player)->vec.x = 0;
-	(*player)->vec.y = 0;
+	(*player)->v0.x = 0;
+	(*player)->v0.y = 0;
+	(*player)->v1.x = 0;
+	(*player)->v1.y = 0;
 
 	(*ray)->Xa = 0;
 	(*ray)->Ya = 0;
