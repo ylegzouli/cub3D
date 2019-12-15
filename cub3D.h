@@ -107,8 +107,8 @@ typedef struct			s_raycast
 
 typedef struct			s_mlx
 {
-    void	*ptr;
-    void	*win;
+	void	*ptr;
+	void	*win;
 	void	*img;
 	void	*data;
 
