@@ -121,8 +121,8 @@ void		inter_y2(t_map *map, t_raycast **ray)
 
 void		distance_mur(t_player *player, t_raycast **ray)
 {
-	float	dist_A;
-	float	dist_B;
+	double	dist_A;
+	double	dist_B;
 
 	dist_A = ((*ray)->tmp_x - (*ray)->A.x) * ((*ray)->tmp_x - (*ray)->A.x);
 	dist_A = dist_A + ((*ray)->tmp_y - (*ray)->A.y) * ((*ray)->tmp_y - (*ray)->A.y);
@@ -136,7 +136,7 @@ void		distance_mur(t_player *player, t_raycast **ray)
 		(*ray)->dist_wall = dist_A * cos((*ray)->total_angle * M_PI / 180);
 }
 
-int		transfer_coords_x(t_map *map, float x)
+int		transfer_coords_x(t_map *map, double x)
 {
 	int		arr;
 
@@ -148,7 +148,7 @@ int		transfer_coords_x(t_map *map, float x)
 	return (arr);
 }
 
-int		transfer_coords_y(t_map *map, float y)
+int		transfer_coords_y(t_map *map, double y)
 {
 	int		arr;
 

@@ -47,8 +47,8 @@
 
 typedef struct			s_point
 {
-	float	x;
-	float	y;
+	double	x;
+	double	y;
 }						t_point;
 
 typedef struct			s_color
@@ -78,7 +78,7 @@ typedef	struct			s_map
 	size_t	size_x;
 	size_t	size_y;
 	char	**map;
-	float	dist_screen;
+	double	dist_screen;
 }						t_map;
 
 typedef struct			s_player
@@ -91,18 +91,18 @@ typedef struct			s_player
 typedef struct			s_raycast
 {
 	t_point	angle;
-	float	tan;
+	double	tan;
 
-	float	tmp_x;
-	float	tmp_y;
-	float   Ya;
-	float   Xa;
+	double	tmp_x;
+	double	tmp_y;
+	double   Ya;
+	double   Xa;
 	t_point	A;
 	t_point	B;
 
-	float	total_angle;
-	float	dist_wall;
-	float	wall;
+	double	total_angle;
+	double	dist_wall;
+	double	wall;
 }						t_raycast;
 
 /*-----------------------------------------------------------------------------------*/
@@ -159,14 +159,14 @@ void        inter_x2(t_map *map, t_raycast **raycast);
 void        inter_y(t_map *map, t_player *player, t_raycast **ray);
 void        inter_y2(t_map *map, t_raycast **raycast);
 void        distance_mur(t_player *player, t_raycast **ray);
-int			transfer_coords_x(t_map *map, float x);
-int			transfer_coords_y(t_map *map, float y);
+int			transfer_coords_x(t_map *map, double x);
+int			transfer_coords_y(t_map *map, double y);
 
 int     	is_id(char *line);
 int    		is_map_line(char *line);
 void    	get_size_map(t_list *li, t_map **map);
 void    	get_case(t_player **player, char tmp, int i, int j);
 void		vect_mult(t_player *player);
-void		rotate_player(t_player *player, int key, float angle);
+void		rotate_player(t_player *player, int key, double angle);
 
 #endif

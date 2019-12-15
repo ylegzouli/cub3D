@@ -19,10 +19,10 @@ int		hook_keydown(int key, t_hook *hook)
 	return (0);
 }
 
-void		rotate_player(t_player *player, int key, float angle)
+void		rotate_player(t_player *player, int key, double angle)
 {
-	float	x;
-	float	y;
+	double	x;
+	double	y;
 
 	x = player->v1.x;
 	y = player->v1.y;
@@ -55,11 +55,11 @@ void		move_player(t_player *player, int key)
 void		affichage(t_mlx *mlx, t_raycast *ray, t_map *map, t_player *player )
 {
 	int		x;
-	float	angle;
-	float	tmp;
+	double	angle;
+	double	tmp;
 
 	x = 0;
-	tmp = (float)LARGEUR_CHAMP / (float)LARGEUR_SCREEN;
+	tmp = (double)LARGEUR_CHAMP / (double)LARGEUR_SCREEN;
 	mlx->img = mlx_new_image(mlx->ptr, LARGEUR_SCREEN, HAUTEUR_SCREEN);
 	mlx->data = mlx_get_data_addr(mlx->img, &(mlx->bpp), &(mlx->size), &(mlx->en));
 	mlx->bpp = mlx->bpp / 8;
@@ -71,9 +71,9 @@ void		affichage(t_mlx *mlx, t_raycast *ray, t_map *map, t_player *player )
 		draw_column(mlx, ray, x);
 		x++;
 		if (x < LARGEUR_SCREEN / 2)
-			ray->total_angle = 0 - (x - LARGEUR_SCREEN / 2) * tmp;
+			ray->total_angle =  -(x - LARGEUR_SCREEN / 2) * tmp;
 		else
-			ray->total_angle = 0 + (x - LARGEUR_SCREEN / 2) * tmp;
+			ray->total_angle = (x - LARGEUR_SCREEN / 2) * tmp;
 
 	}
 	mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->img, 0, 0);

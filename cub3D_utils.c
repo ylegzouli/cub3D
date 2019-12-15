@@ -54,13 +54,13 @@ void	get_case(t_player **player, char tmp, int i, int j)
 	{
 //		(*player)->angle = 90;
 		(*player)->v1.x = 0;
-		(*player)->v1.y = -1;
+		(*player)->v1.y = 1;
 	}
 	if (tmp == 'S')
 	{
 //		(*player)->angle = 270;
 		(*player)->v1.x = 0;
-		(*player)->v1.y = 1;
+		(*player)->v1.y = -1;
 	}
 	if (tmp == 'E')
 	{

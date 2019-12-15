@@ -132,7 +132,7 @@ void		parse_player(t_map *map, t_player **player)
 	int		i;
 	int		j;
 	char	tmp;
-	float	tmp_angle;
+	double	tmp_angle;
 
 	j = 0;
 	tmp_angle = (LARGEUR_CHAMP / 2 * M_PI) / 180;
