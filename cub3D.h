@@ -125,7 +125,8 @@ void        init_mlx(t_mlx *mlx);
 void        affichage(t_mlx *mlx, t_raycast *ray, t_map *map, t_player *player);
 void        draw_column(t_mlx *mlx, t_raycast *ray, int x);
 void        put_pixel(t_mlx *mlx, int x, int y, int color);
-void        move_player(t_player *player, int key);
+void        move_player(t_player *player, int key, t_map *map);
+void		rotate_player(t_player *player, int key, double angle);
 
 /*-----------------------------------------------------------------------------------*/
 
@@ -167,6 +168,5 @@ int    		is_map_line(char *line);
 void    	get_size_map(t_list *li, t_map **map);
 void    	get_case(t_player **player, char tmp, int i, int j);
 void		vect_mult(t_player *player);
-void		rotate_player(t_player *player, int key, double angle);
 
 #endif
