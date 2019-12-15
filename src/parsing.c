@@ -1,4 +1,4 @@
-#include "cub3D.h"
+#include "../include/cub3D.h"
 
 void		parse_file(char **av, t_parse **data, t_map **map, t_player **player)
 {
@@ -151,5 +151,59 @@ void		parse_player(t_map *map, t_player **player)
 			i++;
 		}
 		j++;
+	}
+}
+
+void	get_case(t_player **player, char tmp, int i, int j)
+{
+	(*player)->pos.x = i + 0.5;
+	(*player)->pos.y = j + 0.5;
+	if (tmp == 'N')
+	{
+//		(*player)->angle = 90;
+		(*player)->v1.x = 0;
+		(*player)->v1.y = 1;
+	}
+	if (tmp == 'S')
+	{
+//		(*player)->angle = 270;
+		(*player)->v1.x = 0;
+		(*player)->v1.y = -1;
+	}
+	if (tmp == 'E')
+	{
+//		(*player)->angle = 0;
+		(*player)->v1.x = -1;
+		(*player)->v1.y = 0;
+	}
+	if (tmp == 'W')
+	{
+//		(*player)->angle = 180;
+		(*player)->v1.x = -1;
+		(*player)->v1.y = 0;
+	}
+}
+
+void	get_size_map(t_list *li, t_map **map)
+{
+	int		i;
+	int		j;
+
+	i = 1 ;
+	j = 1;
+	while (((char *)(li->content))[i] != '\0')
+	{
+		i++;
+	}
+	if (i > 0 && is_map_line(li->content))
+	{
+
+		while (li->next)
+		{
+			j++;
+			li = li->next;
+		}
+		(*map)->size_x = i;
+		(*map)->size_y = j;
 	}
 }

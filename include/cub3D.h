@@ -13,8 +13,8 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "./lib/libft.h"
-# include "./lib/gnl/get_next_line.h"
+# include "../lib/libft.h"
+# include "../lib/gnl/get_next_line.h"
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
@@ -43,7 +43,9 @@
 **	C  = 8
 */
 
-/*-----------------------------------------------------------------------------------*/
+/*
+**-----------------------------------------------------------------------------------
+*/
 
 typedef struct			s_point
 {
@@ -57,6 +59,10 @@ typedef struct			s_color
 	unsigned char	g;
 	unsigned char	b;
 }						t_color;
+
+/*
+**-----------------------------------------------------------------------------------
+*/
 
 typedef struct			s_parse
 {
@@ -109,9 +115,12 @@ typedef struct			s_mlx
 {
 	void	*ptr;
 	void	*win;
+//	t_image	*img;
+//	t_image	*xpm_img[NB_TEXTURE];
+
+//-------------------> struct t_image:
 	void	*img;
 	void	*data;
-
 	int		bpp;
 	int		size;
 	int		en;
@@ -125,27 +134,34 @@ typedef	struct			s_hook
 	t_player	*player;
 }						t_hook;
 
-/*----------------------------------- START ------------------------------------------*/
+/*
+**----------------------------------- START ------------------------------------------
+*/
 
 void		ft_print_debugage(/*t_parse *data, */t_map *map, t_player *player, t_raycast *ray);
-
-void		init_data(t_parse **data, t_map **map, t_player **player, t_raycast **ray, t_mlx **mlx, t_hook **hook);
 void		init_mlx(t_mlx *mlx);
+void		init_data(t_parse **data, t_map **map, t_player **player, t_raycast **ray, t_mlx **mlx, t_hook **hook);
 
-/*---------------------------------- PARSING -----------------------------------------*/
+/*
+**---------------------------------- PARSING -----------------------------------------
+*/
 
 void		parse_file(char **av, t_parse **data, t_map **map, t_player **player);
 void		parse_res(t_list *li, t_parse **data);
 void		parse_tex(t_list *li, t_parse **data);
 void		parse_color(t_list *li, t_parse **data);
 void		parse_map(t_list *li, t_map **map );
-void		get_size_map(t_list *li, t_map **map);
 void		parse_player(t_map *map, t_player **player);
 void		get_case(t_player **player, char tmp, int i, int j);
+void		get_size_map(t_list *li, t_map **map);
 
-/*----------------------------------- CHECK -------------------------------------------*/
+/*
+**----------------------------------- CHECK -------------------------------------------
+*/
 
-/*----------------------------------- RAYCAST -----------------------------------------*/
+/*
+**----------------------------------- RAYCAST -----------------------------------------
+*/
 
 void		raycast(t_map *map, t_player *player, t_raycast **ray);
 void		get_ray_angle(int x, t_player *player, t_map *map, t_raycast *ray);
@@ -157,29 +173,52 @@ void		distance_mur(t_player *player, t_raycast **ray);
 int			transfer_coords_x(t_map *map, double x);
 int			transfer_coords_y(t_map *map, double y);
 
-/*---------------------------------- AFFICHAGE ----------------------------------------*/
+/*
+**---------------------------------- AFFICHAGE ----------------------------------------
+*/
 
 void		affichage(t_mlx *mlx, t_raycast *ray, t_map *map, t_player *player);
 void		draw_column(t_mlx *mlx, t_raycast *ray, int x);
+//void		draw_floor();
+//void		draw_ceil();
 
-/*----------------------------------- EVENT -------------------------------------------*/
+/*
+**----------------------------------- EVENT -------------------------------------------
+*/
 
 int			hook_keydown(int key, t_hook *hook);
-void		move_player(t_player *player, int key, t_map *map);
 void		rotate_player(t_player *player, int key, double angle);
+void		move_player(t_player *player, int key, t_map *map);
+//--> free toutes les data, puis exit (a utiliser aussi en cas d'erreur)
+//void		exit(t_hook *hook);
 
-/*----------------------------------- IMAGE -------------------------------------------*/
+/*
+**----------------------------------- IMAGE -------------------------------------------
+*/
 
+//t_image	*new_image(t_mlx *mlx, int h, int l);
+//t_image	*new_xpm_image(t_mlx *mlx, char *fichier);
 void		put_pixel(t_mlx *mlx, int x, int y, int color);
+//void		get_pixel(t_mlx *mlx, int x, int y);
+//void		clear_image(t_image *img);
+//void		destroy_image(t_image *img);
 
-/*----------------------------------- COLOR -------------------------------------------*/
+/*
+**---------------------------------- TEXTURE ------------------------------------------
+*/
 
-/*----------------------------------- OTHER -------------------------------------------*/
+//void		init_texture(t_parse *data, t_mlx *mlx);
+//void		convert_color(t_parse *data);
+
+/*
+**----------------------------------- OTHER -------------------------------------------
+*/
 
 int			is_id(char *line);
 int			is_map_line(char *line);
 void		vect_mult(t_player *player);
 
-/*-------------------------------------------------------------------------------------*/
-
+/*
+**-------------------------------------------------------------------------------------
+*/
 #endif
