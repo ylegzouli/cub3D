@@ -127,57 +127,57 @@ typedef	struct			s_hook
 
 /*----------------------------------- START ------------------------------------------*/
 
-void    	ft_print_debugage(/*t_parse *data, */t_map *map, t_player *player, t_raycast *ray);
+void		ft_print_debugage(/*t_parse *data, */t_map *map, t_player *player, t_raycast *ray);
 
-void        init_data(t_parse **data, t_map **map, t_player **player, t_raycast **ray, t_mlx **mlx, t_hook **hook);
-void        init_mlx(t_mlx *mlx);
+void		init_data(t_parse **data, t_map **map, t_player **player, t_raycast **ray, t_mlx **mlx, t_hook **hook);
+void		init_mlx(t_mlx *mlx);
 
 /*---------------------------------- PARSING -----------------------------------------*/
 
-void        parse_file(char **av, t_parse **data, t_map **map, t_player **player);
-void        parse_res(t_list *li, t_parse **data);
-void        parse_tex(t_list *li, t_parse **data);
-void        parse_color(t_list *li, t_parse **data);
-void        parse_map(t_list *li, t_map **map );
-void    	get_size_map(t_list *li, t_map **map);
-void        parse_player(t_map *map, t_player **player);
-void    	get_case(t_player **player, char tmp, int i, int j);
+void		parse_file(char **av, t_parse **data, t_map **map, t_player **player);
+void		parse_res(t_list *li, t_parse **data);
+void		parse_tex(t_list *li, t_parse **data);
+void		parse_color(t_list *li, t_parse **data);
+void		parse_map(t_list *li, t_map **map );
+void		get_size_map(t_list *li, t_map **map);
+void		parse_player(t_map *map, t_player **player);
+void		get_case(t_player **player, char tmp, int i, int j);
 
 /*----------------------------------- CHECK -------------------------------------------*/
 
 /*----------------------------------- RAYCAST -----------------------------------------*/
 
-void        raycast(t_map *map, t_player *player, t_raycast **ray);
+void		raycast(t_map *map, t_player *player, t_raycast **ray);
 void		get_ray_angle(int x, t_player *player, t_map *map, t_raycast *ray);
 void		inter_x(t_map *map, t_player *player, t_raycast **ray);
-void        inter_x2(t_map *map, t_raycast **raycast);
-void        inter_y(t_map *map, t_player *player, t_raycast **ray);
-void        inter_y2(t_map *map, t_raycast **raycast);
-void        distance_mur(t_player *player, t_raycast **ray);
+void		inter_x2(t_map *map, t_raycast **raycast);
+void		inter_y(t_map *map, t_player *player, t_raycast **ray);
+void		inter_y2(t_map *map, t_raycast **raycast);
+void		distance_mur(t_player *player, t_raycast **ray);
 int			transfer_coords_x(t_map *map, double x);
 int			transfer_coords_y(t_map *map, double y);
 
 /*---------------------------------- AFFICHAGE ----------------------------------------*/
 
-void        affichage(t_mlx *mlx, t_raycast *ray, t_map *map, t_player *player);
-void        draw_column(t_mlx *mlx, t_raycast *ray, int x);
+void		affichage(t_mlx *mlx, t_raycast *ray, t_map *map, t_player *player);
+void		draw_column(t_mlx *mlx, t_raycast *ray, int x);
 
 /*----------------------------------- EVENT -------------------------------------------*/
 
 int			hook_keydown(int key, t_hook *hook);
-void        move_player(t_player *player, int key, t_map *map);
+void		move_player(t_player *player, int key, t_map *map);
 void		rotate_player(t_player *player, int key, double angle);
 
 /*----------------------------------- IMAGE -------------------------------------------*/
 
-void        put_pixel(t_mlx *mlx, int x, int y, int color);
+void		put_pixel(t_mlx *mlx, int x, int y, int color);
 
 /*----------------------------------- COLOR -------------------------------------------*/
 
 /*----------------------------------- OTHER -------------------------------------------*/
 
-int     	is_id(char *line);
-int    		is_map_line(char *line);
+int			is_id(char *line);
+int			is_map_line(char *line);
 void		vect_mult(t_player *player);
 
 /*-------------------------------------------------------------------------------------*/
