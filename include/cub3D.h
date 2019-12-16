@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 13:07:32 by ylegzoul          #+#    #+#             */
-/*   Updated: 2019/12/04 14:35:14 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2019/12/16 13:31:37 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,8 +170,8 @@ void		inter_x2(t_map *map, t_raycast **raycast);
 void		inter_y(t_map *map, t_player *player, t_raycast **ray);
 void		inter_y2(t_map *map, t_raycast **raycast);
 void		distance_mur(t_player *player, t_raycast **ray);
-int		transfer_coords_x(t_map *map, double x);
-int		transfer_coords_y(t_map *map, double y);
+int			transfer_coords_x(t_map *map, double x);
+int			transfer_coords_y(t_map *map, double y);
 
 /*
 **---------------------------------- AFFICHAGE ----------------------------------------
@@ -186,7 +186,7 @@ void		draw_column(t_mlx *mlx, t_raycast *ray, int x);
 **----------------------------------- EVENT -------------------------------------------
 */
 
-int		hook_keydown(int key, t_hook *hook);
+int			hook_keydown(int key, t_hook *hook);
 void		rotate_player(t_player *player, int key, double angle);
 void		move_player(t_player *player, int key, t_map *map);
 //void		exit(t_hook *hook);
@@ -216,7 +216,7 @@ void		put_pixel(t_mlx *mlx, int x, int y, int color);
 
 int		is_id(char *line);
 int		is_map_line(char *line);
-void		vect_mult(t_player *player);
+void	vect_mult(t_player *player);
 
 /*
 **-------------------------------------------------------------------------------------
