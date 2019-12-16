@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 13:07:32 by ylegzoul          #+#    #+#             */
-/*   Updated: 2019/12/16 13:31:37 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2019/12/16 20:00:07 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define HAUTEUR_SCREEN 600
 # define LARGEUR_CHAMP 60
 # define SIZE_WALL 50
+# define NB_TEXTURE 5
 
 //#  define K_ESC			65307
 #  define K_UP			126
@@ -58,8 +59,17 @@ typedef struct			s_color
 	unsigned char	r;
 	unsigned char	g;
 	unsigned char	b;
-}						t_color;
+}
+						t_color;
 
+typedef struct			s_image
+{
+	void    *img;
+    void    *data;
+    int     bpp;
+    int     size;
+    int     en;
+}						t_image;
 /*
 **-----------------------------------------------------------------------------------
 */
@@ -115,16 +125,10 @@ typedef struct			s_mlx
 {
 	void	*ptr;
 	void	*win;
-//	t_image	*img;
-//	t_image	*xpm_img[NB_TEXTURE];
-
-//-------------------> struct t_image:
-	void	*img;
-	void	*data;
-	int		bpp;
-	int		size;
-	int		en;
-}						t_mlx;
+	t_image	*img;
+	t_image	*xpm_img[NB_TEXTURE];
+}
+						t_mlx;
 
 typedef	struct			s_hook
 {
@@ -196,11 +200,11 @@ void		move_player(t_player *player, int key, t_map *map);
 **----------------------------------- IMAGE -------------------------------------------
 */
 
-//t_image	*new_image(t_mlx *mlx, int h, int l);
-//t_image	*new_xpm_image(t_mlx *mlx, char *fichier);
-void		put_pixel(t_mlx *mlx, int x, int y, int color);
+t_image		*new_image(t_mlx *mlx, int l, int h);
+//t_image		*new_xpm_image(t_mlx *mlx, char *xpm, int l, int h);
+void		put_pixel(t_image *img, int x, int y, int color);
 //void		get_pixel(t_mlx *mlx, int x, int y);
-//void		clear_image(t_image *img);
+void		clear_image(t_image *img, int l, int h);
 //void		destroy_image(t_image *img);
 
 /*

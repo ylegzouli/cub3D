@@ -15,6 +15,7 @@ int		main(int ac, char **av)
 	
 	init_data(&data, &map, &player, &ray, &mlx, &hook);
 	parse_file(av, &data, &map, &player);
+//	init_texture(data, mlx);
 	init_mlx(mlx);
 	affichage(mlx, ray, map, player);
 	mlx_hook(mlx->win, 2, 1L << 0, hook_keydown, hook);

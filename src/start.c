@@ -1,9 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   start.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/12/16 19:38:01 by ylegzoul          #+#    #+#             */
+/*   Updated: 2019/12/16 19:49:45 by ylegzoul         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/cub3D.h"
 
 void		init_mlx(t_mlx *mlx)
 {
 	mlx->ptr = mlx_init();
 	mlx->win = mlx_new_window(mlx->ptr, LARGEUR_SCREEN, HAUTEUR_SCREEN, "cub3D");
+	mlx->img = new_image(mlx, LARGEUR_SCREEN, HAUTEUR_SCREEN);
 }
 
 void		init_data(t_parse **data, t_map **map, t_player **player, t_raycast **ray, t_mlx **mlx, t_hook **hook)
