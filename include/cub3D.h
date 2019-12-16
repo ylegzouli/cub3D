@@ -19,7 +19,7 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <math.h>
-#include <mlx.h>
+# include <mlx.h>
 
 # define LARGEUR_SCREEN 800
 # define HAUTEUR_SCREEN 600
@@ -189,8 +189,8 @@ void		draw_column(t_mlx *mlx, t_raycast *ray, int x);
 int		hook_keydown(int key, t_hook *hook);
 void		rotate_player(t_player *player, int key, double angle);
 void		move_player(t_player *player, int key, t_map *map);
-//--> free toutes les data, puis exit (a utiliser aussi en cas d'erreur)
 //void		exit(t_hook *hook);
+//--> free toutes les data, puis exit (a utiliser aussi en cas d'erreur)
 
 /*
 **----------------------------------- IMAGE -------------------------------------------
