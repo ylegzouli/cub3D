@@ -131,9 +131,21 @@ void		distance_mur(t_player *player, t_raycast **ray)
 	dist_B = dist_B + ((*ray)->tmp_y - (*ray)->B.y) * ((*ray)->tmp_y - (*ray)->B.y);
 	dist_B = sqrt(dist_B);
 	if (dist_B <= dist_A)
+	{
+		if ((*ray)->B.y > player->pos.y)
+			(*ray)->tex = 'E';
+		else
+			(*ray)->tex = 'O';
 		(*ray)->dist_wall = dist_B * cos((*ray)->total_angle * M_PI / 180);
+	}
 	else
+	{
+		if ((*ray)->A.x < player->pos.x)
+			(*ray)->tex = 'N';
+		else
+			(*ray)->tex = 'S';
 		(*ray)->dist_wall = dist_A * cos((*ray)->total_angle * M_PI / 180);
+	}
 }
 
 int		transfer_coords_x(t_map *map, double x)

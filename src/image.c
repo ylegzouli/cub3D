@@ -12,11 +12,11 @@
 
 #include "../include/cub3D.h"
 
-void		put_pixel(t_image *img, int x, int y, int color)
+void		put_pixel(t_image *img, int x, int y, t_raycast *ray)
 {
 	if (!(x < 0 || y < 0 || x >= LARGEUR_SCREEN || y >= HAUTEUR_SCREEN))
 	{
-		*(int *)(img->data + ((x + y * LARGEUR_SCREEN)  * img->bpp)) = 16711680;
+		*(int *)(img->data + ((x + y * LARGEUR_SCREEN)  * img->bpp)) = ray->color;
 	}
 }
 

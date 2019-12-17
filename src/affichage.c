@@ -26,6 +26,7 @@ void		affichage(t_mlx *mlx, t_raycast *ray, t_map *map, t_player *player )
 	{
 		get_ray_angle(x, player, map, ray);
 		raycast(map, player, &ray);
+		get_texture(ray);
 		draw_column(mlx, ray, x);
 		x++;
 		if (x < LARGEUR_SCREEN / 2)
@@ -52,7 +53,16 @@ void		draw_column(t_mlx *mlx, t_raycast *ray, int x)
 	y = start; 
 	while (y < end)
 	{
-		put_pixel(mlx->img, x, y, 100);
+		put_pixel(mlx->img, x, y, ray);
 		y++;
 	}
 }
+
+void		get_texture(t_raycast *ray)
+{
+	if (ray->tex == 'N' || ray->tex == 'S')
+		ray->color = 16711680;
+	else
+		ray->color = 14417920;
+}
+

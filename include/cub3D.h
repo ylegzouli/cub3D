@@ -116,6 +116,8 @@ typedef struct			s_raycast
 	t_point	A;
 	t_point	B;
 
+	char	tex;
+	int		color;
 	double	total_angle;
 	double	dist_wall;
 	double	wall;
@@ -185,7 +187,7 @@ void		affichage(t_mlx *mlx, t_raycast *ray, t_map *map, t_player *player);
 void		draw_column(t_mlx *mlx, t_raycast *ray, int x);
 //void		draw_floor();
 //void		draw_ceil();
-
+void		get_texture(t_raycast *ray);
 /*
 **----------------------------------- EVENT -------------------------------------------
 */
@@ -202,7 +204,7 @@ void		move_player(t_player *player, int key, t_map *map);
 
 t_image		*new_image(t_mlx *mlx, int l, int h);
 //t_image		*new_xpm_image(t_mlx *mlx, char *xpm, int l, int h);
-void		put_pixel(t_image *img, int x, int y, int color);
+void		put_pixel(t_image *img, int x, int y, t_raycast *ray);
 //void		get_pixel(t_mlx *mlx, int x, int y);
 void		clear_image(t_image *img, int l, int h);
 //void		destroy_image(t_image *img);
