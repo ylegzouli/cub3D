@@ -12,20 +12,39 @@
 
 #include "../include/cub3D.h"
 
-void		init_mlx(t_mlx *mlx)
+void		init_mlx(t_mlx *mlx, t_parse *data)
 {
+	mlx->res_x = data->res_x;
+	mlx->res_y = data->res_y;
 	mlx->ptr = mlx_init();
-	mlx->win = mlx_new_window(mlx->ptr, LARGEUR_SCREEN, HAUTEUR_SCREEN, "cub3D");
-	mlx->img = new_image(mlx, LARGEUR_SCREEN, HAUTEUR_SCREEN);
+	mlx->win = mlx_new_window(mlx->ptr, mlx->res_x, mlx->res_y, "cub3D");
+	mlx->img = new_image(mlx, mlx->res_x, mlx->res_y);
 }
 
-void		init_data(t_parse **data, t_map **map, t_player **player, t_raycast **ray, t_mlx **mlx, t_hook **hook)
+void		init_data(t_map **map, t_player **player, t_mlx **mlx, t_hook **hook)
+{
+	(*mlx) = malloc(sizeof(t_mlx));
+    (*map) = malloc(sizeof(t_map));
+	(*map)->map = NULL;
+	(*map)->size_x = 0;
+	(*map)->size_y = 0;
+	(*map)->dist_screen = 0;
+    (*player) = malloc(sizeof(t_player));
+	(*player)->pos.x = 0;
+	(*player)->pos.y = 0;
+	(*player)->v0.x = 0;
+	(*player)->v0.y = 0;
+	(*player)->v1.x = 0;
+	(*player)->v1.y = 0;
+	(*hook) = malloc(sizeof(t_hook));
+	(*hook)->mlx = (*mlx);
+	(*hook)->map = (*map);
+	(*hook)->player = (*player);
+}
+
+void		init_data2(t_parse **data, t_raycast **ray, t_hook **hook)
 {
 	(*data) = malloc(sizeof(t_parse));
-    (*map) = malloc(sizeof(t_map));
-    (*player) = malloc(sizeof(t_player));
-    (*ray) = malloc(sizeof(t_raycast));
-
 	(*data)->res_x = 0;
 	(*data)->res_y = 0;
 	(*data)->tex_no = NULL;
@@ -39,19 +58,7 @@ void		init_data(t_parse **data, t_map **map, t_player **player, t_raycast **ray,
 	(*data)->plafond.r = 0;
 	(*data)->plafond.g = 0;
 	(*data)->plafond.b = 0;
-
-	(*map)->map = NULL;
-	(*map)->size_x = 0;
-	(*map)->size_y = 0;
-	(*map)->dist_screen = 0;
-
-	(*player)->pos.x = 0;
-	(*player)->pos.y = 0;
-	(*player)->v0.x = 0;
-	(*player)->v0.y = 0;
-	(*player)->v1.x = 0;
-	(*player)->v1.y = 0;
-
+	(*ray) = malloc(sizeof(t_raycast));
 	(*ray)->Xa = 0;
 	(*ray)->Ya = 0;
 	(*ray)->A.x = 0;
@@ -62,11 +69,7 @@ void		init_data(t_parse **data, t_map **map, t_player **player, t_raycast **ray,
 	(*ray)->tmp_y = 0;
 	(*ray)->dist_wall = 0;
 	(*ray)->wall = 0;
-
-	(*hook)->mlx = (*mlx);
 	(*hook)->ray = (*ray);
-	(*hook)->map = (*map);
-	(*hook)->player = (*player);
 }
 
 void	ft_print_debugage(/*t_parse *data,*/ t_map *map, t_player *player, t_raycast *ray)
@@ -95,7 +98,7 @@ void	ft_print_debugage(/*t_parse *data,*/ t_map *map, t_player *player, t_raycas
 	printf("texture sprite: %s\n", data->tex_spr);
 	printf("\n");
 
-*/	printf("____________________ MAP _________________________\n");
+	printf("____________________ MAP _________________________\n");
 
 	i = 0;
 	printf("\n");
@@ -110,7 +113,7 @@ void	ft_print_debugage(/*t_parse *data,*/ t_map *map, t_player *player, t_raycas
 		i++;
 	}
 	printf("\n");
-	printf("__________________ PLAYER ______________________\n");
+*/	printf("__________________ PLAYER ______________________\n");
 
 	printf("\n");
 	printf("position x: %f\n", player->pos.x);

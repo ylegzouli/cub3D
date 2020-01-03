@@ -1,12 +1,11 @@
-R 1920 1080
-NO textures/wall_1.xpm
-SO textures/wall_2.xpm
-WE textures/wall_3.xpm
-EA textures/wall_4.xpm
-S textures/sprite_text.xpm
+R 848 480
+NO texture/tex_no
+SO texture/tex_su
+WE texture/tex_we
+EA texture/tex_ea
+S textures/sprite_1.xpm
 F 184,113,39
-C 51,198,227
-
+C 51,198,007
 11111111111111111111111111111
 10000000001100000000000000001
 10110000011102000000000010201

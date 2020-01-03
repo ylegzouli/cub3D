@@ -14,8 +14,8 @@
 
 void		get_ray_angle(int x, t_player *player, t_map *map, t_raycast *ray)
 {
-	ray->angle.x = -((player->v0.x * (x - LARGEUR_SCREEN / 2)) + (player->v1.x * map->dist_screen));
-	ray->angle.y = -((player->v0.y * (x - LARGEUR_SCREEN / 2)) + (player->v1.y * map->dist_screen));
+	ray->angle.x = -((player->v0.x * (x - map->res_x / 2)) + (player->v1.x * map->dist_screen));
+	ray->angle.y = -((player->v0.y * (x - map->res_x / 2)) + (player->v1.y * map->dist_screen));
 	ray->tan = fabs(ray->angle.y / ray->angle.x);
 }
 
@@ -132,18 +132,30 @@ void		distance_mur(t_player *player, t_raycast **ray)
 	dist_B = sqrt(dist_B);
 	if (dist_B <= dist_A)
 	{
-		if ((*ray)->B.y > player->pos.y)
+		if ((*ray)->B.x > player->pos.x * SIZE_WALL)
+		{
+			(*ray)->tex_x = (int)(*ray)->B.y % SIZE_WALL;
 			(*ray)->tex = 'E';
+		}
 		else
-			(*ray)->tex = 'O';
+		{
+			(*ray)->tex_x = (int)(*ray)->B.y % SIZE_WALL;
+			(*ray)->tex = 'W';
+		}
 		(*ray)->dist_wall = dist_B * cos((*ray)->total_angle * M_PI / 180);
 	}
 	else
 	{
-		if ((*ray)->A.x < player->pos.x)
+		if ((*ray)->A.y < player->pos.y * SIZE_WALL)
+		{
+			(*ray)->tex_x = (int)(*ray)->A.x % SIZE_WALL;
 			(*ray)->tex = 'N';
+		}
 		else
+		{	
+			(*ray)->tex_x = (int)(*ray)->A.x % SIZE_WALL;
 			(*ray)->tex = 'S';
+		}
 		(*ray)->dist_wall = dist_A * cos((*ray)->total_angle * M_PI / 180);
 	}
 }

@@ -1,8 +1,8 @@
-R 848 480
-NO textures/skekwegn.xpm
-SO textures/sky_1.xpm
-WE textures/sky_1.xpm
-EA textures/sky_1.xpm
+R 8048 4080
+NO texture/tex_no
+SO texture/tex_su
+WE texture/tex_we
+EA texture/tex_ea
 S textures/sprite_1.xpm
 F 184,113,39
 C 51,198,007

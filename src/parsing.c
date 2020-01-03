@@ -31,7 +31,7 @@ void		parse_file(char **av, t_parse **data, t_map **map, t_player **player)
 	while (li->next)
 	{
 		if (is_id(li->content) == 1)
-			parse_res(li, data);
+			parse_res(li, data, *map);
 		if (is_id(li->content) >= 2 && is_id(li->content) <= 6)
 			parse_tex(li, data);
 		if (is_id(li->content) == 7 || is_id(li->content) == 8)
@@ -45,17 +45,23 @@ void		parse_file(char **av, t_parse **data, t_map **map, t_player **player)
 	}
 	parse_player(*map, player);
 	li = tmp;
-//	ft_lstclear(&li, &free);
+	ft_lstclear(&li, &free);
 }
 
-void		parse_res(t_list *li, t_parse **data)
+void		parse_res(t_list *li, t_parse **data, t_map *map)
 {
 	char	**split;
 
 	split = ft_split(li->content, ' ');
 	(*data)->res_x = ft_atoi(split[1]);
 	(*data)->res_y = ft_atoi(split[2]);
-//	ft_free_split(split);
+	if ((*data)->res_x > LARGEUR_SCREEN)
+		(*data)->res_x = LARGEUR_SCREEN;
+	if ((*data)->res_y > HAUTEUR_SCREEN)
+		(*data)->res_y = HAUTEUR_SCREEN;
+	map->res_x = (*data)->res_x;
+	map->res_y = (*data)->res_y;
+	ft_free_split(split);
 }
 
 void		parse_tex(t_list *li, t_parse **data)
@@ -88,7 +94,7 @@ void		parse_tex(t_list *li, t_parse **data)
 		(*data)->tex_spr = malloc(sizeof(char) * (ft_strlen(split[1]) + 1));
 		ft_strcpy((*data)->tex_spr, split[1]);
 	}
-//	ft_free_split(split);
+	ft_free_split(split);
 }
 
 void		parse_color(t_list *li, t_parse **data)
@@ -108,7 +114,7 @@ void		parse_color(t_list *li, t_parse **data)
 		(*data)->plafond.g = ft_atoi(split[1]);
 		(*data)->plafond.b = ft_atoi(split[2]);
 	}
-//	ft_free_split(split);
+	ft_free_split(split);
 }
 
 void		parse_map(t_list *li, t_map **map )
@@ -172,25 +178,21 @@ void	get_case(t_player **player, char tmp, int i, int j)
 	(*player)->pos.y = j + 0.5;
 	if (tmp == 'N')
 	{
-//		(*player)->angle = 90;
 		(*player)->v1.x = 0;
 		(*player)->v1.y = 1;
 	}
 	if (tmp == 'S')
 	{
-//		(*player)->angle = 270;
 		(*player)->v1.x = 0;
 		(*player)->v1.y = -1;
 	}
 	if (tmp == 'E')
 	{
-//		(*player)->angle = 0;
 		(*player)->v1.x = -1;
 		(*player)->v1.y = 0;
 	}
 	if (tmp == 'W')
 	{
-//		(*player)->angle = 180;
 		(*player)->v1.x = -1;
 		(*player)->v1.y = 0;
 	}

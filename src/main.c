@@ -3,24 +3,29 @@
 int		main(int ac, char **av)
 {
 	t_parse		*data;
+	t_mlx		*mlx;
+
+	start(mlx, data, ac, av);
+	return (1);
+}
+
+int		start(t_mlx *mlx, t_parse *data, int ac, char **av)
+{
 	t_map		*map;
 	t_player	*player;
-	t_raycast	*ray;
-	t_mlx		*mlx;
 	t_hook		*hook;
+	t_raycast	*ray;
 
-//---------> a mettre dans init
-	mlx = malloc(sizeof(t_mlx));
-	hook = malloc(sizeof(t_hook));	
-	
-	init_data(&data, &map, &player, &ray, &mlx, &hook);
+	init_data(&map, &player, &mlx, &hook);
+	init_data2(&data, &ray, &hook);
 	parse_file(av, &data, &map, &player);
-//	init_texture(data, mlx);
-	init_mlx(mlx);
+	get_texture_fnc(ray, data);
+	init_mlx(mlx, data);
+	init_texture(data, mlx);
 	affichage(mlx, ray, map, player);
+	opt_save_bmp(mlx, ac, av);
 	mlx_hook(mlx->win, 2, 1L << 0, hook_keydown, hook);
-
-//	ft_print_debugage(data, map, player, ray);
 	mlx_loop(mlx->ptr);
 	return (1);
 }
+

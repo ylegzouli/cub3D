@@ -1,3 +1,11 @@
+R 848 480
+NO texture/tex_no
+SO texture/tex_su
+WE texture/tex_we
+EA texture/tex_ea
+S textures/sprite_1.xpm
+F 184,113,39
+C 51,198,007
 111111111111111111111111111
 100000000000000000000000001
 101111111110000000000000001

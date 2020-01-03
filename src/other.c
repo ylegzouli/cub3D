@@ -51,3 +51,21 @@ void	vect_mult(t_player *player)
 	player->v0.x = -player->v1.y;
 	player->v0.y = player->v1.x;
 }
+/*
+void	draw_pos(t_mlx *mlx, t_map *map, t_player *player)
+{
+	
+}
+*/
+void		ft_free_split(char **split)
+{
+	int		i;
+
+	i = 0;
+	while (split[i])
+	{
+		free(split[i]);
+		split[i] = NULL;
+		i++;
+	}
+}
