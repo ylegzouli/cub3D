@@ -73,6 +73,6 @@ void		draw_column(t_mlx *mlx, t_raycast *ray, int x)
 void		draw_map(t_mlx *mlx, t_player *player, t_map *map)
 {
 	int		x;
-	int		y;
+int		y;
 
 }*/

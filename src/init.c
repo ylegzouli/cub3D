@@ -12,39 +12,49 @@
 
 #include "../include/cub3D.h"
 
-void		init_mlx(t_mlx *mlx, t_parse *data)
+int		init_mlx(t_mlx *mlx, t_parse *data)
 {
 	mlx->res_x = data->res_x;
 	mlx->res_y = data->res_y;
-	mlx->ptr = mlx_init();
-	mlx->win = mlx_new_window(mlx->ptr, mlx->res_x, mlx->res_y, "cub3D");
-	mlx->img = new_image(mlx, mlx->res_x, mlx->res_y);
+	if (!(mlx->ptr = mlx_init()))
+		return (0);
+	if (!(mlx->win = mlx_new_window(mlx->ptr, mlx->res_x, mlx->res_y, "cub3D")))
+		return (0);
+	if (!(mlx->img = new_image(mlx, mlx->res_x, mlx->res_y)))
+		return (0);
+	return (1);
 }
 
-void		init_data(t_map **map, t_player **player, t_mlx **mlx, t_hook **hook)
+int			init_data(t_map **map, t_player **player, t_mlx **mlx, t_hook **hook)
 {
-	(*mlx) = malloc(sizeof(t_mlx));
-    (*map) = malloc(sizeof(t_map));
+	if (!((*mlx) = malloc(sizeof(t_mlx))))
+		return (0);
+    if (!((*map) = malloc(sizeof(t_map))))
+		return (0);
 	(*map)->map = NULL;
 	(*map)->size_x = 0;
 	(*map)->size_y = 0;
 	(*map)->dist_screen = 0;
-    (*player) = malloc(sizeof(t_player));
+    if (!((*player) = malloc(sizeof(t_player))))
+		return (0);
 	(*player)->pos.x = 0;
 	(*player)->pos.y = 0;
 	(*player)->v0.x = 0;
 	(*player)->v0.y = 0;
 	(*player)->v1.x = 0;
 	(*player)->v1.y = 0;
-	(*hook) = malloc(sizeof(t_hook));
+	if (!((*hook) = malloc(sizeof(t_hook))))
+		return (0);
 	(*hook)->mlx = (*mlx);
 	(*hook)->map = (*map);
 	(*hook)->player = (*player);
+	return (1);
 }
 
-void		init_data2(t_parse **data, t_raycast **ray, t_hook **hook)
+int			init_data2(t_parse **data, t_raycast **ray, t_hook **hook)
 {
-	(*data) = malloc(sizeof(t_parse));
+	if (!((*data) = malloc(sizeof(t_parse))))
+		return (0);
 	(*data)->res_x = 0;
 	(*data)->res_y = 0;
 	(*data)->tex_no = NULL;
@@ -58,7 +68,8 @@ void		init_data2(t_parse **data, t_raycast **ray, t_hook **hook)
 	(*data)->plafond.r = 0;
 	(*data)->plafond.g = 0;
 	(*data)->plafond.b = 0;
-	(*ray) = malloc(sizeof(t_raycast));
+	if (!((*ray) = malloc(sizeof(t_raycast))))
+		return (0);
 	(*ray)->Xa = 0;
 	(*ray)->Ya = 0;
 	(*ray)->A.x = 0;
@@ -70,6 +81,7 @@ void		init_data2(t_parse **data, t_raycast **ray, t_hook **hook)
 	(*ray)->dist_wall = 0;
 	(*ray)->wall = 0;
 	(*hook)->ray = (*ray);
+	return (1);
 }
 
 void	ft_print_debugage(/*t_parse *data,*/ t_map *map, t_player *player, t_raycast *ray)

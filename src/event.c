@@ -7,6 +7,7 @@ int		hook_keydown(int key, t_hook *hook)
 	if (key == K_UP || key == K_DOWN)
 		move_player(hook->player, key, hook->map);
 //	if (key == K_ESC)
+//		exit_all(hook);
 	affichage(hook->mlx, hook->ray, hook->map, hook->player);
 	ft_print_debugage(hook->map, hook->player, hook->ray);
 	return (0);
@@ -60,4 +61,19 @@ void		move_player(t_player *player, int key, t_map *map)
 		if (map->map[(int)tmp_y / SIZE_WALL][(int)(player->pos.x * SIZE_WALL) / SIZE_WALL] != '1')
 			player->pos.y = y;
 	}
+}
+
+void		exit_all(t_hook *hook)
+{
+	int		i;
+
+	i = 0;
+	while (i < NB_TEXTURE)
+	{
+		destroy_image(hook->mlx->xpm_img[i], hook->mlx->ptr);
+		i++;
+	}
+	destroy_image(hook->mlx->img, hook->mlx->ptr);
+	mlx_destroy_window(hook->mlx->ptr, hook->mlx->win);
+	free(hook);
 }

@@ -121,6 +121,7 @@ typedef struct			s_mlx
 	void	*win;
 	t_image	*img;
 	t_image	*xpm_img[NB_TEXTURE];
+	t_image	*png_img;
 }						t_mlx;
 
 typedef struct			s_fheader
@@ -160,13 +161,13 @@ typedef	struct			s_hook
 void		ft_print_debugage(/*t_parse *data, */t_map *map, t_player *player, t_raycast *ray);
 
 int			start(t_mlx *mlx, t_parse *data, int ac, char **av);
-void		init_data(t_map **map, t_player **player, t_mlx **mlx, t_hook **hook);
-void		init_data2(t_parse **data, t_raycast **ray, t_hook **hook);
-void		init_mlx(t_mlx *mlx, t_parse *data);
+int			init_data(t_map **map, t_player **player, t_mlx **mlx, t_hook **hook);
+int			init_data2(t_parse **data, t_raycast **ray, t_hook **hook);
+int			init_mlx(t_mlx *mlx, t_parse *data);
 /*
 **--------------------------------- PARSING ---------------------------------------
 */
-void		parse_file(char **av, t_parse **data, t_map **map, t_player **player);
+int			parse_file(char **av, t_parse **data, t_map **map, t_player **player);
 void		parse_res(t_list *li, t_parse **data, t_map *map);
 void		parse_tex(t_list *li, t_parse **data);
 void		parse_color(t_list *li, t_parse **data);
@@ -177,6 +178,7 @@ void		get_size_map(t_list *li, t_map **map);
 /*
 **--------------------------------- CHECK ------------------------------------------
 */
+int			check_map(t_map *map);
 /*
 **--------------------------------- RAYCAST ----------------------------------------
 */
@@ -201,12 +203,13 @@ void		draw_column(t_mlx *mlx, t_raycast *ray, int x);
 int			hook_keydown(int key, t_hook *hook);
 void		rotate_player(t_player *player, int key, double angle);
 void		move_player(t_player *player, int key, t_map *map);
-//void		exit(t_hook *hook);
+void		exit_all(t_hook *hook);
 /*
 **---------------------------------- IMAGE -----------------------------------------
 */
 t_image		*new_image(t_mlx *mlx, int l, int h);
 t_image		*new_xpm_image(t_mlx *mlx, char *xpm);
+t_image		*new_png_image(t_mlx *mlx, char *png);
 void		put_pixel(t_image *img, int x, int y, int color);
 int			get_pixel(t_image *img, int x, int y);
 void		clear_image(t_image *img, int l, int h);
@@ -214,7 +217,7 @@ void		destroy_image(t_image *img, t_mlx *mlx);
 /*
 **--------------------------------- TEXTURE ----------------------------------------
 */
-void		init_texture(t_parse *data, t_mlx *mlx);
+int			init_texture(t_parse *data, t_mlx *mlx);
 void		get_texture(t_raycast *ray, t_mlx *mlx, int x, int y);
 void		get_texture_fnc(t_raycast *ray, t_parse *data);
 /*
@@ -230,6 +233,7 @@ int			is_id(char *line);
 int			is_map_line(char *line);
 void		vect_mult(t_player *player);
 //void		draw_pos(t_mlx *mlx, t_map *map, t_player *player);
+void		ft_free_data(t_hook *hook);
 void		ft_free_split(char **split);
 /*
 **-----------------------------------------------------------------------------------

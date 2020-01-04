@@ -12,7 +12,7 @@
 
 #include "../include/cub3D.h"
 
-void		parse_file(char **av, t_parse **data, t_map **map, t_player **player)
+int			parse_file(char **av, t_parse **data, t_map **map, t_player **player)
 {
 	t_list	*li;
 	t_list	*tmp;
@@ -21,9 +21,13 @@ void		parse_file(char **av, t_parse **data, t_map **map, t_player **player)
 	char	*line;
 
 	fd = open(av[1], O_RDONLY);
+	if (fd == -1)
+		return (0);
 	li = NULL;
-	while (/*ret = */get_next_line(fd, &line))
+	while (ret == get_next_line(fd, &line))
 	{
+		if (ret == -1)
+			return (0);
 		tmp = ft_lstnew(line);
 		ft_lstadd_back(&li, tmp);
 	}
@@ -46,6 +50,7 @@ void		parse_file(char **av, t_parse **data, t_map **map, t_player **player)
 	parse_player(*map, player);
 	li = tmp;
 	ft_lstclear(&li, &free);
+	return (1);
 }
 
 void		parse_res(t_list *li, t_parse **data, t_map *map)

@@ -64,7 +64,8 @@ void		inter_x2(t_map *map, t_raycast **ray)
 
 	tmp_x = transfer_coords_x(map, (*ray)->A.x);
 	tmp_y = transfer_coords_y(map, (*ray)->A.y);
-	while (tmp_y < map->size_y && tmp_x < map->size_x && (map->map)[tmp_y][tmp_x] != '1')
+	while (tmp_y < map->size_y && tmp_x < map->size_x && 
+		((map->map)[tmp_y][tmp_x] != '1' && (map->map)[tmp_y][tmp_x] != 2))
 	{
 		(*ray)->A.x = (*ray)->A.x + (*ray)->Xa;
 		(*ray)->A.y = (*ray)->A.y + (*ray)->Ya;
@@ -109,7 +110,8 @@ void		inter_y2(t_map *map, t_raycast **ray)
 
 	tmp_x = transfer_coords_x(map, (*ray)->B.x);
 	tmp_y = transfer_coords_y(map, (*ray)->B.y);
-	while (tmp_y < map->size_y && tmp_x < map->size_x && (map->map)[tmp_y][tmp_x] != '1')
+	while (tmp_y < map->size_y && tmp_x < map->size_x 
+		&& ((map->map)[tmp_y][tmp_x] != '1' && (map->map)[tmp_y][tmp_x] != 2))
 	{
 		(*ray)->B.x = (*ray)->B.x + (*ray)->Xa;
 		(*ray)->B.y = (*ray)->B.y - (*ray)->Ya;
@@ -158,6 +160,7 @@ void		distance_mur(t_player *player, t_raycast **ray)
 		}
 		(*ray)->dist_wall = dist_A * cos((*ray)->total_angle * M_PI / 180);
 	}
+// AJOUT GESTION SPRITE !!!
 }
 
 int		transfer_coords_x(t_map *map, double x)

@@ -1,13 +1,20 @@
 #include "../include/cub3D.h"
 
-void		init_texture(t_parse *data, t_mlx *mlx)
+int			init_texture(t_parse *data, t_mlx *mlx)
 {
-	mlx->xpm_img[0] = new_xpm_image(mlx, data->tex_no);
-	mlx->xpm_img[1] = new_xpm_image(mlx, data->tex_su);
-	mlx->xpm_img[2] = new_xpm_image(mlx, data->tex_we);
-	mlx->xpm_img[3] = new_xpm_image(mlx, data->tex_ea);
+	if (!(mlx->xpm_img[0] = new_xpm_image(mlx, data->tex_no)))
+		return (0);
+	if (!(mlx->xpm_img[1] = new_xpm_image(mlx, data->tex_su)))
+		return (0);
+	if (!(mlx->xpm_img[2] = new_xpm_image(mlx, data->tex_we)))
+		return (0);
+	if (!(mlx->xpm_img[3] = new_xpm_image(mlx, data->tex_ea)))
+		return (0);
+	if (!(mlx->png_img = new_png_image(mlx, data->tex_spr)))
+		return (0);
 //	mlx->xpm_img[4] = new_xpm_image(mlx, "texture/sky");
 //	mlx->xpm_img[5] = new_xpm_image(mlx, "texture/floor");
+	return (1);
 }
 
 void        get_texture(t_raycast *ray, t_mlx *mlx, int x, int y)
@@ -32,6 +39,11 @@ void        get_texture(t_raycast *ray, t_mlx *mlx, int x, int y)
 		ray->tex_y = ((y - mlx->res_y / 2 + ray->wall / 2) * mlx->xpm_img[2]->h) / ray->wall;
 		ray->color = get_pixel(mlx->xpm_img[2], ray->tex_x, ray->tex_y);
 	}
+/*	else if ()
+	{
+			AJOUT GESTION SPRITE
+	}
+*/
 //	if (mlx->xpm_img[4])
 //    	ray->ceil = get_pixel(mlx->xpm_img[4], x, y);
 //	if (mlx->xpm_img[5])

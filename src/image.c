@@ -14,10 +14,7 @@
 
 void		put_pixel(t_image *img, int x, int y, int color)
 {
-//	if (!(x < 0 || y < 0 || x >= LARGEUR_SCREEN || y >= HAUTEUR_SCREEN))
-//	{
 		*(int *)(img->data + ((x + y * LARGEUR_SCREEN)  * img->bpp)) = color;
-//	}
 }
 
 int			get_pixel(t_image *img, int x, int y)
@@ -34,7 +31,8 @@ t_image		*new_image(t_mlx *mlx, int l, int h)
 	
 	if (!(img = malloc(sizeof(t_image))))
 		return (NULL);
-	img->img = mlx_new_image(mlx->ptr, l, h);
+	if (!(img->img = mlx_new_image(mlx->ptr, l, h)))
+		return (NULL);
 	img->data = mlx_get_data_addr(img->img, &(img->bpp), &(img->size), &(img->en));
 	img->bpp = img->bpp / 8;
 	img->l = l;
@@ -48,12 +46,27 @@ t_image		*new_xpm_image(t_mlx *mlx, char *xpm)
 
 	if (!(img = malloc(sizeof(t_image))))
 		return (NULL);
-	img->img = mlx_xpm_file_to_image(mlx->ptr, xpm, &(img->l), &(img->h));
+	if (!(img->img = mlx_xpm_file_to_image(mlx->ptr, xpm, &(img->l), &(img->h))))
+		return (NULL);
 	img->data = mlx_get_data_addr(img->img, &(img->bpp), &(img->size), &(img->en));
 	img->bpp = img->bpp / 8;
 	img->l = img->size / img->bpp;
 	img->h = img->size / img->bpp;
 	return (img);
+}
+
+t_image		*new_png_image(t_mlx *mlx, char *png)
+{
+	t_image		*img;
+
+	if (!(img = malloc(sizeof(t_image))))
+		return (NULL);
+	img->img = mlx_png_file_to_image(mlx->ptr, png, &(img->l), &(img->h));
+	img->data = mlx_get_data_addr(img->img, &(img->bpp), &(img->size), &(img->en));
+	img->bpp = img->bpp / 8;
+    img->l = img->size / img->bpp;
+    img->h = img->size / img->bpp;
+    return (img);
 }
 
 void		clear_image(t_image *img, int l, int h)

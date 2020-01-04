@@ -57,6 +57,12 @@ void	draw_pos(t_mlx *mlx, t_map *map, t_player *player)
 	
 }
 */
+
+void 		ft_free_data(t_hook *hook)
+{
+	free(hook);
+}
+
 void		ft_free_split(char **split)
 {
 	int		i;
