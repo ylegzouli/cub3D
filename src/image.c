@@ -62,11 +62,11 @@ t_image		*new_png_image(t_mlx *mlx, char *png)
 	if (!(img = malloc(sizeof(t_image))))
 		return (NULL);
 	img->img = mlx_png_file_to_image(mlx->ptr, png, &(img->l), &(img->h));
-	img->data = mlx_get_data_addr(img->img, &(img->bpp), &(img->size), &(img->en));
-	img->bpp = img->bpp / 8;
-    img->l = img->size / img->bpp;
-    img->h = img->size / img->bpp;
-    return (img);
+//	img->data = mlx_get_data_addr(img->img, &(img->bpp), &(img->size), &(img->en));
+//	img->bpp = img->bpp / 8;
+//	img->l = img->size / img->bpp;
+//	img->h = img->size / img->bpp;
+	return (img);
 }
 
 void		clear_image(t_image *img, int l, int h)

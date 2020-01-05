@@ -176,10 +176,6 @@ void		parse_player(t_map *map, t_player **player);
 void		get_case(t_player **player, char tmp, int i, int j);
 void		get_size_map(t_list *li, t_map **map);
 /*
-**--------------------------------- CHECK ------------------------------------------
-*/
-int			check_map(t_map *map);
-/*
 **--------------------------------- RAYCAST ----------------------------------------
 */
 void		raycast(t_map *map, t_player *player, t_raycast **ray);
@@ -231,10 +227,10 @@ void		bitmap_image(t_mlx *mlx, int fd);
 */
 int			is_id(char *line);
 int			is_map_line(char *line);
+int			check_map(t_map *map);
 void		vect_mult(t_player *player);
-//void		draw_pos(t_mlx *mlx, t_map *map, t_player *player);
-void		ft_free_data(t_hook *hook);
 void		ft_free_split(char **split);
+//void		draw_pos(t_mlx *mlx, t_map *map, t_player *player);
 /*
 **-----------------------------------------------------------------------------------
 */
