@@ -15,7 +15,6 @@
 void		affichage(t_mlx *mlx, t_raycast *ray, t_map *map, t_player *player )
 {
 	int		x;
-	double	angle;
 	double	tmp;
 
 	x = 0;
@@ -58,7 +57,7 @@ void		draw_column(t_mlx *mlx, t_raycast *ray, int x)
 	}
 	while (y < end)
 	{
-		get_texture(ray, mlx, x, y);
+		get_texture(ray, mlx, y);
 		put_pixel(mlx->img, x, y, ray->color);
 		y++;
 	}

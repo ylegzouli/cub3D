@@ -83,11 +83,11 @@ int			init_data2(t_parse **data, t_raycast **ray, t_hook **hook)
 	(*hook)->ray = (*ray);
 	return (1);
 }
-
-void	ft_print_debugage(/*t_parse *data,*/ t_map *map, t_player *player, t_raycast *ray)
+/*
+void	ft_print_debugage(t_parse *data, t_map *map, t_player *player, t_raycast *ray)
 {
 	int	i;
-/*
+
 	printf("__________________ DATA ______________________\n");
 
 	printf("\n");
@@ -125,7 +125,7 @@ void	ft_print_debugage(/*t_parse *data,*/ t_map *map, t_player *player, t_raycas
 		i++;
 	}
 	printf("\n");
-*/	printf("__________________ PLAYER ______________________\n");
+	printf("__________________ PLAYER ______________________\n");
 
 	printf("\n");
 	printf("position x: %f\n", player->pos.x);
@@ -156,4 +156,4 @@ void	ft_print_debugage(/*t_parse *data,*/ t_map *map, t_player *player, t_raycas
 	printf("taille mur: %f\n", ray->wall);
 
 	printf("_________________________________________________\n");
-}
+}*/

@@ -2,14 +2,15 @@
 
 int		hook_keydown(int key, t_hook *hook)
 {
+	printf("%d\n", key);
 	if (key == K_LEFT || key == K_RIGHT)
 		rotate_player(hook->player, key, 5);
 	if (key == K_UP || key == K_DOWN)
 		move_player(hook->player, key, hook->map);
 //	if (key == K_ESC)
-//		exit_all(hook);
+//		return (exit_all(hook));
 	affichage(hook->mlx, hook->ray, hook->map, hook->player);
-	ft_print_debugage(hook->map, hook->player, hook->ray);
+//	ft_print_debugage(hook->map, hook->player, hook->ray);
 	return (0);
 }
 
@@ -63,7 +64,7 @@ void		move_player(t_player *player, int key, t_map *map)
 	}
 }
 
-void		exit_all(t_hook *hook)
+int			exit_all(t_hook *hook)
 {
 	int		i;
 
@@ -76,4 +77,5 @@ void		exit_all(t_hook *hook)
 	destroy_image(hook->mlx->img, hook->mlx->ptr);
 	mlx_destroy_window(hook->mlx->ptr, hook->mlx->win);
 	free(hook);
+	return (0);
 }

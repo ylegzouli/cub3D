@@ -10,14 +10,14 @@ int			init_texture(t_parse *data, t_mlx *mlx)
 		return (0);
 	if (!(mlx->xpm_img[3] = new_xpm_image(mlx, data->tex_ea)))
 		return (0);
-	if (!(mlx->png_img = new_png_image(mlx, data->tex_spr)))
-		return (0);
+//	if (!(mlx->png_img = new_png_image(mlx, data->tex_spr)))
+//		return (0);
 //	mlx->xpm_img[4] = new_xpm_image(mlx, "texture/sky");
 //	mlx->xpm_img[5] = new_xpm_image(mlx, "texture/floor");
 	return (1);
 }
 
-void        get_texture(t_raycast *ray, t_mlx *mlx, int x, int y)
+void        get_texture(t_raycast *ray, t_mlx *mlx, int y)
 {
 	if (ray->tex == 'S')
     {

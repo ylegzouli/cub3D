@@ -54,7 +54,7 @@ t_image		*new_xpm_image(t_mlx *mlx, char *xpm)
 	img->h = img->size / img->bpp;
 	return (img);
 }
-
+/*
 t_image		*new_png_image(t_mlx *mlx, char *png)
 {
 	t_image		*img;
@@ -68,7 +68,7 @@ t_image		*new_png_image(t_mlx *mlx, char *png)
 //	img->h = img->size / img->bpp;
 	return (img);
 }
-
+*/
 void		clear_image(t_image *img, int l, int h)
 {
 	int		size;

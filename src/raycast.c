@@ -23,13 +23,13 @@ void		raycast(t_map *map, t_player *player, t_raycast **ray)
 {
 	(*ray)->tmp_x = player->pos.x * SIZE_WALL;
 	(*ray)->tmp_y = player->pos.y * SIZE_WALL;
-	inter_x(map, player, ray);
-	inter_y(map, player, ray);
+	inter_x(map, ray);
+	inter_y(map, ray);
 	distance_mur(player, ray);
 	(*ray)->wall = (SIZE_WALL / (*ray)->dist_wall) * map->dist_screen;
 }
 
-void        inter_x(t_map *map, t_player *player, t_raycast **ray)
+void        inter_x(t_map *map, t_raycast **ray)
 {
 	int		tmp;
 
@@ -75,7 +75,7 @@ void		inter_x2(t_map *map, t_raycast **ray)
 	(*ray)->A.x = (int)((*ray)->A.x);
 }
 
-void		inter_y(t_map *map, t_player *player, t_raycast **ray)
+void		inter_y(t_map *map, t_raycast **ray)
 {
 	int		tmp;
 

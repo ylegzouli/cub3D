@@ -76,14 +76,15 @@ int			check_map(t_map *map)
 				count++;
 			if (count <= 1)
 			{
-				if (map->map[i][j] != '0' || map->map[i][j] != '1'
-					|| map->map[i][j] != 2 || map->map[i][j] != 'W'
-					|| map->map[i][j] != 'E' || map->map[i][j] != 'N' 
-					|| map->map[i][j] != 'S')
+				if (map->map[i][j] != '0' && map->map[i][j] != '1'
+					&& map->map[i][j] != 2 && map->map[i][j] != 'W'
+					&& map->map[i][j] != 'E' && map->map[i][j] != 'N' 
+					&& map->map[i][j] != 'S')
 					return (0);
-				if ((i == 0 || i == map->res_x - 1 || j == 0
-					|| j == map->res_y - 1) && map->map[i][j] != 1)
+				if ((i == 0 || i == map->res_y - 1 || j == 0
+					|| j == map->res_x - 1) && map->map[i][j] != 1)
 					return (0);
+				write(1, "ERR\n", 4);
 			}
 			else
 				return (0);

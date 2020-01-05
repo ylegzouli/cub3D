@@ -5,6 +5,8 @@ int		main(int ac, char **av)
 	t_parse		*data;
 	t_mlx		*mlx;
 
+	data = NULL;
+	mlx = NULL;
 	if (!(start(mlx, data, ac, av)))
 	{
 		free(data);
@@ -28,8 +30,9 @@ int		start(t_mlx *mlx, t_parse *data, int ac, char **av)
 		return (0);
 	if (!(parse_file(av, &data, &map, &player)))
 		return (0);
-	if (!(check_map(map)))
-		return (0);
+//	if (!(check_map(map)))
+//		return (0);
+//	write(1,"ICI\n", 4);
 	get_texture_fnc(ray, data);
 	if (!(init_mlx(mlx, data)))
 		return (0);
@@ -37,6 +40,7 @@ int		start(t_mlx *mlx, t_parse *data, int ac, char **av)
 		return (0);
 	affichage(mlx, ray, map, player);
 	opt_save_bmp(mlx, ac, av);
+//	mlx_hook(mlx->win, 17, 0, exit_all, hook);
 	mlx_hook(mlx->win, 2, 1L << 0, hook_keydown, hook);
 	mlx_loop(mlx->ptr);
 	return (1);

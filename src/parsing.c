@@ -17,17 +17,17 @@ int			parse_file(char **av, t_parse **data, t_map **map, t_player **player)
 	t_list	*li;
 	t_list	*tmp;
 	int		fd;
-	int		ret;
+//	int		ret;
 	char	*line;
 
 	fd = open(av[1], O_RDONLY);
-	if (fd == -1)
-		return (0);
+//	if (fd == -1)
+//		return (0);
 	li = NULL;
-	while (ret == get_next_line(fd, &line))
+	while (/*ret == */get_next_line(fd, &line))
 	{
-		if (ret == -1)
-			return (0);
+	//	if (ret == -1)
+	//		return (0);
 		tmp = ft_lstnew(line);
 		ft_lstadd_back(&li, tmp);
 	}
@@ -47,6 +47,7 @@ int			parse_file(char **av, t_parse **data, t_map **map, t_player **player)
 		}
 		li = li->next;
 	}
+//	write(1,"ICI\n", 4);
 	parse_player(*map, player);
 	li = tmp;
 	ft_lstclear(&li, &free);
