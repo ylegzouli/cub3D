@@ -30,9 +30,8 @@ int		start(t_mlx *mlx, t_parse *data, int ac, char **av)
 		return (0);
 	if (!(parse_file(av, &data, &map, &player)))
 		return (0);
-//	if (!(check_map(map)))
-//		return (0);
-//	write(1,"ICI\n", 4);
+	if (!(check_map(map)))
+		return (0);
 	get_texture_fnc(ray, data);
 	if (!(init_mlx(mlx, data)))
 		return (0);

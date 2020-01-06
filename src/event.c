@@ -2,7 +2,7 @@
 
 int		hook_keydown(int key, t_hook *hook)
 {
-	printf("%d\n", key);
+//	printf("%d\n", key);
 	if (key == K_LEFT || key == K_RIGHT)
 		rotate_player(hook->player, key, 5);
 	if (key == K_UP || key == K_DOWN)

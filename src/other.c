@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 10:33:58 by ylegzoul          #+#    #+#             */
-/*   Updated: 2019/12/04 14:39:05 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/06 19:28:36 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,10 @@ int			check_map(t_map *map)
 
 	i = 0;
 	count = 0;
-	while (i < map->res_x)
+	while (i < map->size_y)
 	{
 		j = 0;
-		while (j < map->res_y)
+		while (j < map->size_x)
 		{
 			if (map->map[i][j] == 'W' || map->map[i][j] == 'E'
 				|| map->map[i][j] == 'N' || map->map[i][j] == 'S')
@@ -81,18 +81,15 @@ int			check_map(t_map *map)
 					&& map->map[i][j] != 'E' && map->map[i][j] != 'N' 
 					&& map->map[i][j] != 'S')
 					return (0);
-				if ((i == 0 || i == map->res_y - 1 || j == 0
-					|| j == map->res_x - 1) && map->map[i][j] != 1)
+				if ((i == 0 || i == map->size_y - 1 || j == 0
+					|| j == map->size_x - 1) && map->map[i][j] != '1')
 					return (0);
-				write(1, "ERR\n", 4);
 			}
-			else
-				return (0);
 			j++;
 		}
 		i++;
 	}
-	if (count == 0)
+	if (count != 1)
 		return (0);
 	return (1);
 }

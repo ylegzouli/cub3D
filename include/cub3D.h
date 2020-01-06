@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 13:07:32 by ylegzoul          #+#    #+#             */
-/*   Updated: 2019/12/16 20:00:07 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/06 19:28:30 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,6 +220,7 @@ void		get_texture_fnc(t_raycast *ray, t_parse *data);
 **----------------------------------- BMP ------------------------------------------
 */
 void		opt_save_bmp(t_mlx *mlx, int ac, char **av);
+void		int_to_char(char *str, int nb);
 void		save_bitmap(char *filename, t_mlx *mlx);
 void		bitmap_image(t_mlx *mlx, int fd);
 /*
