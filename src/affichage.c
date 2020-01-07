@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 19:37:57 by ylegzoul          #+#    #+#             */
-/*   Updated: 2019/12/16 19:49:00 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/07 22:11:58 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void		draw_column(t_mlx *mlx, t_raycast *ray, int x)
 	}
 	while (y < end)
 	{
-		get_texture(ray, mlx, y);
+		get_texture(ray, mlx, x, y);
 		put_pixel(mlx->img, x, y, ray->color);
 		y++;
 	}

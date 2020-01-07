@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 13:07:32 by ylegzoul          #+#    #+#             */
-/*   Updated: 2020/01/06 19:28:30 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/07 22:11:53 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define CUB3D_H
 
 # include "../lib/libft.h"
-# include "../lib/gnl/get_next_line.h"
+# include "../lib/get_next_line.h"
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
@@ -121,32 +121,8 @@ typedef struct			s_mlx
 	void	*win;
 	t_image	*img;
 	t_image	*xpm_img[NB_TEXTURE];
-	t_image	*png_img;
+	t_image	*spr_img;
 }						t_mlx;
-
-typedef struct			s_fheader
-{
-	unsigned char	type[2];
-	int				size;
-	short			reserved1;
-//	short			reserved2;
-	unsigned int	offset;
-}						t_fheader;
-
-typedef struct			s_iheader
-{
-	unsigned int	size_header;
-	unsigned int	width;
-	unsigned int	height;
-	short int		planes;
-	short int		bit_count;
-	unsigned int	compression;
-	unsigned int	image_size;
-	unsigned int	x;
-	unsigned int	y;
-	unsigned int	used;
-	unsigned int	important;
-}						t_iheader;
 
 typedef	struct			s_hook
 {
@@ -214,7 +190,7 @@ void		destroy_image(t_image *img, t_mlx *mlx);
 **--------------------------------- TEXTURE ----------------------------------------
 */
 int			init_texture(t_parse *data, t_mlx *mlx);
-void		get_texture(t_raycast *ray, t_mlx *mlx, int y);
+void		get_texture(t_raycast *ray, t_mlx *mlx, int x, int y);
 void		get_texture_fnc(t_raycast *ray, t_parse *data);
 /*
 **----------------------------------- BMP ------------------------------------------

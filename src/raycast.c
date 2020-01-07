@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 09:30:35 by ylegzoul          #+#    #+#             */
-/*   Updated: 2019/12/17 09:30:57 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/07 22:11:56 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,10 @@ void		inter_x2(t_map *map, t_raycast **ray)
 		tmp_x = transfer_coords_x(map, (*ray)->A.x);
 		tmp_y = transfer_coords_y(map, (*ray)->A.y);
 	}
+	if ((map->map)[tmp_y][tmp_x] == '2')
+		(*ray)->tex = 'Z';
+	else
+		(*ray)->tex = '0';
 	(*ray)->A.x = (int)((*ray)->A.x);
 }
 
@@ -111,13 +115,17 @@ void		inter_y2(t_map *map, t_raycast **ray)
 	tmp_x = transfer_coords_x(map, (*ray)->B.x);
 	tmp_y = transfer_coords_y(map, (*ray)->B.y);
 	while (tmp_y < map->size_y && tmp_x < map->size_x 
-		&& ((map->map)[tmp_y][tmp_x] != '1' && (map->map)[tmp_y][tmp_x] != 2))
+		&& ((map->map)[tmp_y][tmp_x] != '1' && (map->map)[tmp_y][tmp_x] != '2'))
 	{
 		(*ray)->B.x = (*ray)->B.x + (*ray)->Xa;
 		(*ray)->B.y = (*ray)->B.y - (*ray)->Ya;
 		tmp_x = transfer_coords_x(map, (*ray)->B.x);
 		tmp_y = transfer_coords_y(map, (*ray)->B.y);
 	}
+	if ((map->map)[tmp_y][tmp_x] == '2')
+		(*ray)->tex = 'Z';
+	else
+		(*ray)->tex = '0';
 	(*ray)->B.y = (int)((*ray)->B.y);
 }
 
@@ -134,12 +142,12 @@ void		distance_mur(t_player *player, t_raycast **ray)
 	dist_B = sqrt(dist_B);
 	if (dist_B <= dist_A)
 	{
-		if ((*ray)->B.x > player->pos.x * SIZE_WALL)
+		if ((*ray)->B.x > player->pos.x * SIZE_WALL && (*ray)->tex != 'Z')
 		{
 			(*ray)->tex_x = (int)(*ray)->B.y % SIZE_WALL;
 			(*ray)->tex = 'E';
 		}
-		else
+		else if ((*ray)->tex != 'Z')
 		{
 			(*ray)->tex_x = (int)(*ray)->B.y % SIZE_WALL;
 			(*ray)->tex = 'W';
@@ -148,19 +156,18 @@ void		distance_mur(t_player *player, t_raycast **ray)
 	}
 	else
 	{
-		if ((*ray)->A.y < player->pos.y * SIZE_WALL)
+		if ((*ray)->A.y < player->pos.y * SIZE_WALL && (*ray)->tex != 'Z')
 		{
 			(*ray)->tex_x = (int)(*ray)->A.x % SIZE_WALL;
 			(*ray)->tex = 'N';
 		}
-		else
+		else if ((*ray)->tex != 'Z')
 		{	
 			(*ray)->tex_x = (int)(*ray)->A.x % SIZE_WALL;
 			(*ray)->tex = 'S';
 		}
 		(*ray)->dist_wall = dist_A * cos((*ray)->total_angle * M_PI / 180);
 	}
-// AJOUT GESTION SPRITE !!!
 }
 
 int		transfer_coords_x(t_map *map, double x)
