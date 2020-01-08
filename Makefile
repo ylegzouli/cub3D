@@ -4,8 +4,6 @@ CC = gcc
 
 FLAGS = -Wall -Wextra -Werror
 
-CPP_FLAGS = -Iinclude
-
 NAME = Cub3D
 
 SRC_PATH = ./src
@@ -36,14 +34,17 @@ OBJLIB = $(addprefix $(OBJLIB_PATH)/,$(OBJLIB_NAME))
 all: $(NAME)
 
 $(NAME): $(OBJ) $(OBJLIB)
-	gcc -Wall -Wextra -Werror -o ${NAME} /usr/local/lib/libmlx.a ${OBJLIB} -l mlx -framework OpenGL -framework AppKit ${OBJ}
+	gcc -Wall -Wextra -Werror -o ${NAME} /usr/local/lib/libmlx.a -l mlx -framework OpenGL -framework AppKit ${OBJLIB} ${OBJ}
+
+maison: $(OBJ) $(OBJLIB)
+	gcc ${FLAG} -o ${NAME} other/libmlx.a -l mlx -framework OpenGL -framework AppKit ${OBJLIB} ${OBJ}
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
-	mkdir $(OBJ_PATH) 2> /dev/null || true
+	@mkdir $(OBJ_PATH) 2> /dev/null || true
 	$(CC) -o $@ -c $<
 
 $(OBJLIB_PATH)/%.o: $(LIB_PATH)/%.c
-	mkdir $(OBJLIB_PATH) 2> /dev/null || true
+	@mkdir $(OBJLIB_PATH) 2> /dev/null || true
 	$(CC) -o $@ -c $<
 
 clean:
