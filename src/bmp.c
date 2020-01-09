@@ -1,4 +1,4 @@
-#include "../include/cub3D.h"
+#include "../inc/cub3D.h"
 
 void			opt_save_bmp(t_mlx *mlx, int ac, char **av)
 {

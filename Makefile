@@ -4,23 +4,21 @@ CC = gcc
 
 FLAGS = -Wall -Wextra -Werror
 
-NAME = Cub3D
+NAME = cub3D
 
 SRC_PATH = ./src
 LIB_PATH = ./lib
-INC_PATH = ./include
+INC_PATH = ./inc
 OBJ_PATH = ./obj
 OBJLIB_PATH = ./obj
 
+INC_NAME =	cub3D.h
 SRC_NAME =	start.c affichage.c event.c init.c parsing.c \
-            bmp.c image.c other.c raycast.c texture.c
-
-LIB_NAME = ft_atoi.c ft_bzero.c ft_lstadd_back.c ft_lstclear.c \
-                ft_lstnew.c ft_memcpy.c ft_split.c ft_strcpy.c ft_strjoin.c \
-                ft_strlen.c ft_strncmp.c ft_substr.c get_next_line.c \
-                ft_memset.c \
-
-INC_NAME = cub3D.h
+			bmp.c image.c other.c raycast.c texture.c
+LIB_NAME =	ft_atoi.c ft_bzero.c ft_lstadd_back.c ft_lstclear.c \
+			ft_lstnew.c ft_memcpy.c ft_split.c ft_strcpy.c ft_strjoin.c \
+			ft_strlen.c ft_strncmp.c ft_substr.c get_next_line.c \
+			ft_memset.c \
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 OBJLIB_NAME = $(LIB_NAME:.c=.o)

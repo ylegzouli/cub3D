@@ -1,4 +1,4 @@
-#include "../include/cub3D.h"
+#include "../inc/cub3D.h"
 
 int		hook_keydown(int key, t_hook *hook)
 {

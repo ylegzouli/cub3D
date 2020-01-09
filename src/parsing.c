@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3D.h"
+#include "../inc/cub3D.h"
 
 int			parse_file(char **av, t_parse **data, t_map **map, t_player **player)
 {

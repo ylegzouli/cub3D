@@ -1,4 +1,4 @@
-#include "../include/cub3D.h"
+#include "../inc/cub3D.h"
 
 int			init_texture(t_parse *data, t_mlx *mlx)
 {

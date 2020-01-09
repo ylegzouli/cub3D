@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3D.h"
+#include "../inc/cub3D.h"
 
 void		get_ray_angle(int x, t_player *player, t_map *map, t_raycast *ray)
 {

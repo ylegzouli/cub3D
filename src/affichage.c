@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3D.h"
+#include "../inc/cub3D.h"
 
 void		affichage(t_mlx *mlx, t_raycast *ray, t_map *map, t_player *player )
 {
