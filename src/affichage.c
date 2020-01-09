@@ -26,9 +26,10 @@ void		affichage(t_mlx *mlx, t_raycast *ray, t_map *map, t_player *player )
 		get_ray_angle(x, player, map, ray);
 		raycast(map, player, &ray);
 		draw_column(mlx, ray, x);
-		if (((ray->sprA.x && ray->sprA.y) || (ray->sprB.x && ray->sprB.y))
-			&& ray->spr_x < ray->sprite)
+		if (((ray->sprA.x && ray->sprA.y) || (ray->sprB.x && ray->sprB.y)))
+//			&& ray->spr_x < ray->sprite)
 		{
+			write(1, "O\n", 2);
 			draw_spr_column(ray, map, mlx, x);
 			(ray->spr_x)++;
 			if (ray->spr_x == ray->sprite - 1)

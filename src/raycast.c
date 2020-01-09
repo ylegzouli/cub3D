@@ -67,15 +67,15 @@ void		inter_x2(t_map *map, t_raycast **ray)
 	while (tmp_y < map->size_y && tmp_x < map->size_x && 
 		((map->map)[tmp_y][tmp_x] != '1'))
 	{
-		(*ray)->A.x = (*ray)->A.x + (*ray)->Xa;
-		(*ray)->A.y = (*ray)->A.y + (*ray)->Ya;
-		tmp_x = transfer_coords_x(map, (*ray)->A.x);
-		tmp_y = transfer_coords_y(map, (*ray)->A.y);
 		if ((map->map)[tmp_y][tmp_x] == '2')
 		{
 			(*ray)->sprA.x = (*ray)->A.x;
 			(*ray)->sprA.y = (*ray)->A.y;
 		}
+		(*ray)->A.x = (*ray)->A.x + (*ray)->Xa;
+		(*ray)->A.y = (*ray)->A.y + (*ray)->Ya;
+		tmp_x = transfer_coords_x(map, (*ray)->A.x);
+		tmp_y = transfer_coords_y(map, (*ray)->A.y);
 	}
 	(*ray)->A.x = (int)((*ray)->A.x);
 }
@@ -118,15 +118,15 @@ void		inter_y2(t_map *map, t_raycast **ray)
 	while (tmp_y < map->size_y && tmp_x < map->size_x 
 		&& ((map->map)[tmp_y][tmp_x] != '1'))
 	{
-		(*ray)->B.x = (*ray)->B.x + (*ray)->Xa;
-		(*ray)->B.y = (*ray)->B.y - (*ray)->Ya;
-		tmp_x = transfer_coords_x(map, (*ray)->B.x);
-		tmp_y = transfer_coords_y(map, (*ray)->B.y);
 		if ((map->map)[tmp_y][tmp_x] == '2')
 		{
 			(*ray)->sprB.x = (*ray)->B.x;
 			(*ray)->sprB.y = (*ray)->B.y;
 		}
+		(*ray)->B.x = (*ray)->B.x + (*ray)->Xa;
+		(*ray)->B.y = (*ray)->B.y - (*ray)->Ya;
+		tmp_x = transfer_coords_x(map, (*ray)->B.x);
+		tmp_y = transfer_coords_y(map, (*ray)->B.y);
 	}
 	(*ray)->B.y = (int)((*ray)->B.y);
 }
