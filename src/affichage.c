@@ -21,6 +21,7 @@ void		affichage(t_mlx *mlx, t_raycast *ray, t_map *map, t_player *player )
 	tmp = (double)LARGEUR_CHAMP / (double)mlx->res_x;
 	vect_mult(player);
 	clear_image(mlx->img, mlx->res_x, mlx->res_y);	
+	printf("sprA.x=%f\nsprA.y=%f\nsprB.x=%f\nsprB.y=%f\ndist_spr=%f\nsprite=%f\nspr_color=%d\nspr_x=%d\n\n", ray->sprA.x, ray->sprA.y, ray->sprB.x, ray->sprB.y, ray->dist_spr, ray->sprite, ray->spr_color, ray->spr_x);
 	while (x < mlx->res_x)
 	{
 		get_ray_angle(x, player, map, ray);
@@ -29,15 +30,15 @@ void		affichage(t_mlx *mlx, t_raycast *ray, t_map *map, t_player *player )
 		if (((ray->sprA.x && ray->sprA.y) || (ray->sprB.x && ray->sprB.y)))
 //			&& ray->spr_x < ray->sprite)
 		{
-			write(1, "O\n", 2);
+//			write(1, "O\n", 2);
 			draw_spr_column(ray, map, mlx, x);
 			(ray->spr_x)++;
-			if (ray->spr_x == ray->sprite - 1)
-			{	
-				ray->sprA.x = 0;
-				ray->sprB.x = 0;
-				ray->spr_x = 0;
-			}
+//			if (ray->spr_x == ray->sprite - 1)
+//			{	
+//				ray->sprA.x = 0;
+//				ray->sprB.x = 0;
+//				ray->spr_x = 0;
+//			}
 		}
 		x++;
 		if (x < mlx->res_x / 2)
