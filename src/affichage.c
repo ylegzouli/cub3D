@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 19:37:57 by ylegzoul          #+#    #+#             */
-/*   Updated: 2020/01/07 22:11:58 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/09 20:15:55 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,18 @@ void		affichage(t_mlx *mlx, t_raycast *ray, t_map *map, t_player *player )
 		get_ray_angle(x, player, map, ray);
 		raycast(map, player, &ray);
 		draw_column(mlx, ray, x);
+		if (((ray->sprA.x && ray->sprA.y) || (ray->sprB.x && ray->sprB.y))
+			&& ray->spr_x < ray->sprite)
+		{
+			draw_spr_column(ray, map, mlx, x);
+			(ray->spr_x)++;
+			if (ray->spr_x == ray->sprite - 1)
+			{	
+				ray->sprA.x = 0;
+				ray->sprB.x = 0;
+				ray->spr_x = 0;
+			}
+		}
 		x++;
 		if (x < mlx->res_x / 2)
 			ray->total_angle =  -(x - mlx->res_x / 2) * tmp;
@@ -68,6 +80,7 @@ void		draw_column(t_mlx *mlx, t_raycast *ray, int x)
 		y++;
 	}
 }
+
 /*
 void		draw_map(t_mlx *mlx, t_player *player, t_map *map)
 {

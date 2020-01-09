@@ -40,11 +40,6 @@ void        get_texture(t_raycast *ray, t_mlx *mlx, int x, int y)
 		ray->tex_y = ((y - mlx->res_y / 2 + ray->wall / 2) * mlx->xpm_img[2]->h) / ray->wall;
 		ray->color = get_pixel(mlx->xpm_img[2], ray->tex_x, ray->tex_y);
 	}
-	else if (ray->tex == 'Z')
-	{
-		ray->tex_y = ((y - mlx->res_y / 2 + ray->wall / 2) * mlx->spr_img->h) / ray->wall;
-		ray->color = get_pixel(mlx->spr_img, ray->tex_x, ray->tex_y);
-	}
 //	if (mlx->xpm_img[4])
 //    	ray->ceil = get_pixel(mlx->xpm_img[4], x, y);
 //	if (mlx->xpm_img[5])
@@ -55,4 +50,11 @@ void		get_texture_fnc(t_raycast *ray, t_parse *data)
 {
 		ray->ceil = 65536 * data->plafond.r + 256 * data->plafond.g + data->plafond.b;
 		ray->floor = 65536 * data->sol.r + 256 * data->sol.g + data->sol.b;
+}
+
+void		get_texture_spr(t_raycast *ray, t_mlx *mlx, int	x, int y)
+{
+	(void)x;
+	ray->tex_y = ((y - mlx->res_y / 2 + ray->sprite / 2) * mlx->spr_img->h) / ray->sprite;
+	ray->spr_color = get_pixel(mlx->spr_img, ray->tex_x, ray->tex_y);
 }

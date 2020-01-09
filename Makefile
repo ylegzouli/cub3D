@@ -14,7 +14,7 @@ OBJLIB_PATH = ./obj
 
 INC_NAME =	cub3D.h
 SRC_NAME =	start.c affichage.c event.c init.c parsing.c \
-			bmp.c image.c other.c raycast.c texture.c
+			bmp.c image.c other.c raycast.c texture.c sprite.c
 LIB_NAME =	ft_atoi.c ft_bzero.c ft_lstadd_back.c ft_lstclear.c \
 			ft_lstnew.c ft_memcpy.c ft_split.c ft_strcpy.c ft_strjoin.c \
 			ft_strlen.c ft_strncmp.c ft_substr.c get_next_line.c \

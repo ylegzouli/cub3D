@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 19:38:01 by ylegzoul          #+#    #+#             */
-/*   Updated: 2019/12/16 19:49:45 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/09 19:38:44 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,10 @@ int			init_data2(t_parse **data, t_raycast **ray, t_hook **hook)
 	(*ray)->tmp_y = 0;
 	(*ray)->dist_wall = 0;
 	(*ray)->wall = 0;
+	(*ray)->sprite = 0;
+	(*ray)->sprA.x = 0;
+	(*ray)->sprB.x = 0;
+	(*ray)->spr_x = 0;
 	(*hook)->ray = (*ray);
 	return (1);
 }

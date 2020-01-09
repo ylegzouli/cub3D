@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 13:07:32 by ylegzoul          #+#    #+#             */
-/*   Updated: 2020/01/07 22:11:53 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/09 19:55:50 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,15 @@ typedef struct			s_raycast
 	double	Xa;
 	t_point	A;
 	t_point	B;
+
+	t_point	sprA;
+	t_point	sprB;
+	double	dist_spr;
+	double	sprite;
+	int		spr_color;
+	int		spr_x;
+
+	
 	char	tex;
 	int		tex_x;
 	int		tex_y;
@@ -192,6 +201,12 @@ void		destroy_image(t_image *img, t_mlx *mlx);
 int			init_texture(t_parse *data, t_mlx *mlx);
 void		get_texture(t_raycast *ray, t_mlx *mlx, int x, int y);
 void		get_texture_fnc(t_raycast *ray, t_parse *data);
+void        get_texture_spr(t_raycast *ray, t_mlx *mlx, int x, int y);
+/*
+**--------------------------------- SPRITE ----------------------------------------
+*/
+void        dist_spr(t_raycast *ray, t_map *map);
+void        draw_spr_column(t_raycast *ray, t_map *map, t_mlx *mlx, int x);
 /*
 **----------------------------------- BMP ------------------------------------------
 */

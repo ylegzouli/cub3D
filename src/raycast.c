@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 09:30:35 by ylegzoul          #+#    #+#             */
-/*   Updated: 2020/01/07 22:11:56 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/09 18:27:44 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,17 +65,18 @@ void		inter_x2(t_map *map, t_raycast **ray)
 	tmp_x = transfer_coords_x(map, (*ray)->A.x);
 	tmp_y = transfer_coords_y(map, (*ray)->A.y);
 	while (tmp_y < map->size_y && tmp_x < map->size_x && 
-		((map->map)[tmp_y][tmp_x] != '1' && (map->map)[tmp_y][tmp_x] != 2))
+		((map->map)[tmp_y][tmp_x] != '1'))
 	{
 		(*ray)->A.x = (*ray)->A.x + (*ray)->Xa;
 		(*ray)->A.y = (*ray)->A.y + (*ray)->Ya;
 		tmp_x = transfer_coords_x(map, (*ray)->A.x);
 		tmp_y = transfer_coords_y(map, (*ray)->A.y);
+		if ((map->map)[tmp_y][tmp_x] == '2')
+		{
+			(*ray)->sprA.x = (*ray)->A.x;
+			(*ray)->sprA.y = (*ray)->A.y;
+		}
 	}
-	if ((map->map)[tmp_y][tmp_x] == '2')
-		(*ray)->tex = 'Z';
-	else
-		(*ray)->tex = '0';
 	(*ray)->A.x = (int)((*ray)->A.x);
 }
 
@@ -115,17 +116,18 @@ void		inter_y2(t_map *map, t_raycast **ray)
 	tmp_x = transfer_coords_x(map, (*ray)->B.x);
 	tmp_y = transfer_coords_y(map, (*ray)->B.y);
 	while (tmp_y < map->size_y && tmp_x < map->size_x 
-		&& ((map->map)[tmp_y][tmp_x] != '1' && (map->map)[tmp_y][tmp_x] != '2'))
+		&& ((map->map)[tmp_y][tmp_x] != '1'))
 	{
 		(*ray)->B.x = (*ray)->B.x + (*ray)->Xa;
 		(*ray)->B.y = (*ray)->B.y - (*ray)->Ya;
 		tmp_x = transfer_coords_x(map, (*ray)->B.x);
 		tmp_y = transfer_coords_y(map, (*ray)->B.y);
+		if ((map->map)[tmp_y][tmp_x] == '2')
+		{
+			(*ray)->sprB.x = (*ray)->B.x;
+			(*ray)->sprB.y = (*ray)->B.y;
+		}
 	}
-	if ((map->map)[tmp_y][tmp_x] == '2')
-		(*ray)->tex = 'Z';
-	else
-		(*ray)->tex = '0';
 	(*ray)->B.y = (int)((*ray)->B.y);
 }
 
@@ -142,12 +144,12 @@ void		distance_mur(t_player *player, t_raycast **ray)
 	dist_B = sqrt(dist_B);
 	if (dist_B <= dist_A)
 	{
-		if ((*ray)->B.x > player->pos.x * SIZE_WALL && (*ray)->tex != 'Z')
+		if ((*ray)->B.x > player->pos.x * SIZE_WALL)
 		{
 			(*ray)->tex_x = (int)(*ray)->B.y % SIZE_WALL;
 			(*ray)->tex = 'E';
 		}
-		else if ((*ray)->tex != 'Z')
+		else
 		{
 			(*ray)->tex_x = (int)(*ray)->B.y % SIZE_WALL;
 			(*ray)->tex = 'W';
@@ -156,12 +158,12 @@ void		distance_mur(t_player *player, t_raycast **ray)
 	}
 	else
 	{
-		if ((*ray)->A.y < player->pos.y * SIZE_WALL && (*ray)->tex != 'Z')
+		if ((*ray)->A.y < player->pos.y * SIZE_WALL)
 		{
 			(*ray)->tex_x = (int)(*ray)->A.x % SIZE_WALL;
 			(*ray)->tex = 'N';
 		}
-		else if ((*ray)->tex != 'Z')
+		else
 		{	
 			(*ray)->tex_x = (int)(*ray)->A.x % SIZE_WALL;
 			(*ray)->tex = 'S';
@@ -169,6 +171,8 @@ void		distance_mur(t_player *player, t_raycast **ray)
 		(*ray)->dist_wall = dist_A * cos((*ray)->total_angle * M_PI / 180);
 	}
 }
+
+
 
 int		transfer_coords_x(t_map *map, double x)
 {
