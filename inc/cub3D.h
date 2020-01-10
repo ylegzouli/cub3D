@@ -29,7 +29,7 @@
 # define NB_TEXTURE 5
 
 #  define K_ESC			53
-#  define K_UP			126 //
+#  define K_UP			126
 #  define K_DOWN		125
 #  define K_LEFT		123
 #  define K_RIGHT		124
@@ -59,6 +59,24 @@ typedef struct			s_image
 	int		l;
 	int		h;
 }						t_image;
+
+typedef struct			s_sprite
+{
+    double  dist;
+    double  size;
+
+	int		mapx;
+	int		mapy;
+	int		imgx;
+	int		imgy;
+	int		sx;
+	int		sy;
+	
+	int		start;
+	int		xmax;
+	int		color;
+}						t_sprite;
+
 /*
 **-------------------------------------------------------------------------------
 */
@@ -103,14 +121,6 @@ typedef struct			s_raycast
 	t_point	A;
 	t_point	B;
 
-	t_point	sprA;
-	t_point	sprB;
-	double	dist_spr;
-	double	sprite;
-	int		spr_color;
-	int		spr_x;
-
-	
 	char	tex;
 	int		tex_x;
 	int		tex_y;
@@ -120,6 +130,11 @@ typedef struct			s_raycast
 	double	total_angle;
 	double	dist_wall;
 	double	wall;
+
+	int			nb_sprite;
+	int			start;
+	double		dist_spr;
+	t_sprite	*spr[100];
 }						t_raycast;
 
 typedef struct			s_mlx
@@ -131,6 +146,7 @@ typedef struct			s_mlx
 	t_image	*img;
 	t_image	*xpm_img[NB_TEXTURE];
 	t_image	*spr_img;
+	t_image	*arme;
 }						t_mlx;
 
 typedef	struct			s_hook
@@ -144,7 +160,6 @@ typedef	struct			s_hook
 **---------------------------------- START ----------------------------------------
 */
 void		ft_print_debugage(/*t_parse *data, */t_map *map, t_player *player, t_raycast *ray);
-
 int			start(t_mlx *mlx, t_parse *data, int ac, char **av);
 int			init_data(t_map **map, t_player **player, t_mlx **mlx, t_hook **hook);
 int			init_data2(t_parse **data, t_raycast **ray, t_hook **hook);
@@ -177,6 +192,7 @@ int			transfer_coords_y(t_map *map, double y);
 */
 void		affichage(t_mlx *mlx, t_raycast *ray, t_map *map, t_player *player);
 void		draw_column(t_mlx *mlx, t_raycast *ray, int x);
+void		draw_arme(t_mlx *mlx);
 //void		draw_map(t_mlx *mlx, t_player *player, t_map *map);
 /*
 **---------------------------------- EVENT -----------------------------------------
@@ -201,12 +217,16 @@ void		destroy_image(t_image *img, t_mlx *mlx);
 int			init_texture(t_parse *data, t_mlx *mlx);
 void		get_texture(t_raycast *ray, t_mlx *mlx, int x, int y);
 void		get_texture_fnc(t_raycast *ray, t_parse *data);
-void        get_texture_spr(t_raycast *ray, t_mlx *mlx, int x, int y);
+int			get_texture_spr(t_sprite *spr, t_mlx *mlx, int x, int y);
 /*
 **--------------------------------- SPRITE ----------------------------------------
 */
-void        dist_spr(t_raycast *ray, t_map *map);
-void        draw_spr_column(t_raycast *ray, t_map *map, t_mlx *mlx, int x);
+void		draw_sprite(t_mlx *mlx, t_raycast *ray);
+void		init_sprite(t_raycast *ray);
+void		save_data_spr(t_raycast *ray, t_map *map, int x, int y);
+void		save_pos_spr(t_raycast *ray, int x, t_map *map);
+void		display_sprite(t_mlx *mlx, t_sprite *spr, t_raycast *ray);
+double		size_spr(t_raycast *ray, t_map *map);
 /*
 **----------------------------------- BMP ------------------------------------------
 */

@@ -21,25 +21,13 @@ void		affichage(t_mlx *mlx, t_raycast *ray, t_map *map, t_player *player )
 	tmp = (double)LARGEUR_CHAMP / (double)mlx->res_x;
 	vect_mult(player);
 	clear_image(mlx->img, mlx->res_x, mlx->res_y);	
-	printf("sprA.x=%f\nsprA.y=%f\nsprB.x=%f\nsprB.y=%f\ndist_spr=%f\nsprite=%f\nspr_color=%d\nspr_x=%d\n\n", ray->sprA.x, ray->sprA.y, ray->sprB.x, ray->sprB.y, ray->dist_spr, ray->sprite, ray->spr_color, ray->spr_x);
+	init_sprite(ray);
 	while (x < mlx->res_x)
 	{
 		get_ray_angle(x, player, map, ray);
 		raycast(map, player, &ray);
+		save_pos_spr(ray, x, map);
 		draw_column(mlx, ray, x);
-		if (((ray->sprA.x && ray->sprA.y) || (ray->sprB.x && ray->sprB.y)))
-//			&& ray->spr_x < ray->sprite)
-		{
-//			write(1, "O\n", 2);
-			draw_spr_column(ray, map, mlx, x);
-			(ray->spr_x)++;
-//			if (ray->spr_x == ray->sprite - 1)
-//			{	
-//				ray->sprA.x = 0;
-//				ray->sprB.x = 0;
-//				ray->spr_x = 0;
-//			}
-		}
 		x++;
 		if (x < mlx->res_x / 2)
 			ray->total_angle =  -(x - mlx->res_x / 2) * tmp;
@@ -47,6 +35,9 @@ void		affichage(t_mlx *mlx, t_raycast *ray, t_map *map, t_player *player )
 			ray->total_angle = (x - mlx->res_x / 2) * tmp;
 
 	}
+//	draw_arme(mlx);
+	draw_sprite(mlx, ray);
+//	printf("nb_sprite=%d \ndist_sprite=%f \ndist=%f \nsize=%f \nmapx=%d\nmapy=%d\nimgx=%d\nimgy=%d\nsx=%d\nsy=%d\nxmax=%d\ncolor=%d\n______________________________\n", ray->nb_sprite, ray->dist_spr, ray->spr[0]->dist, ray->spr[0]->size, ray->spr[0]->mapx, ray->spr[0]->mapy, ray->spr[0]->imgx, ray->spr[0]->imgy, ray->spr[0]->sx, ray->spr[0]->sy, ray->spr[0]->xmax, ray->spr[0]->color);
 	mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->img->img, 0, 0);
 }
 
@@ -65,7 +56,6 @@ void		draw_column(t_mlx *mlx, t_raycast *ray, int x)
 	y = 0;
 	while (y < start)
 	{
-//		get_texture(ray, mlx, x, y);
 		put_pixel(mlx->img, x, y, ray->ceil);
 		y++;
 	}
@@ -77,12 +67,33 @@ void		draw_column(t_mlx *mlx, t_raycast *ray, int x)
 	}
 	while (y < mlx->res_y)
 	{
-//		get_texture(ray, mlx, x, y);
 		put_pixel(mlx->img, x, y, ray->floor);
 		y++;
 	}
 }
+/*
+void		draw_arme(t_mlx *mlx)
+{
+	int		x;
+	int		y;
+	int		tmp;
+	int		color;
 
+	x = 0;
+	while (x < LARGEUR_SCREEN)
+	{
+		y = HAUTEUR_SCREEN / 2;
+		while (y < HAUTEUR_SCREEN)
+		{
+			tmp = y * (mlx->arme->l / LARGEUR_SCREEN);
+			color =	get_pixel(mlx->arme, (x * (mlx->arme->l / LARGEUR_SCREEN), tmp));
+			if (color != )
+				put_pixel(mlx, x, y, color);
+			y++;
+		}
+		x++;
+}
+*/
 /*
 void		draw_map(t_mlx *mlx, t_player *player, t_map *map)
 {

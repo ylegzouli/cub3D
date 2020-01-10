@@ -68,10 +68,7 @@ void		inter_x2(t_map *map, t_raycast **ray)
 		((map->map)[tmp_y][tmp_x] != '1'))
 	{
 		if ((map->map)[tmp_y][tmp_x] == '2')
-		{
-			(*ray)->sprA.x = (*ray)->A.x;
-			(*ray)->sprA.y = (*ray)->A.y;
-		}
+			save_data_spr(*ray, map, tmp_x, tmp_y);
 		(*ray)->A.x = (*ray)->A.x + (*ray)->Xa;
 		(*ray)->A.y = (*ray)->A.y + (*ray)->Ya;
 		tmp_x = transfer_coords_x(map, (*ray)->A.x);
@@ -119,10 +116,7 @@ void		inter_y2(t_map *map, t_raycast **ray)
 		&& ((map->map)[tmp_y][tmp_x] != '1'))
 	{
 		if ((map->map)[tmp_y][tmp_x] == '2')
-		{
-			(*ray)->sprB.x = (*ray)->B.x;
-			(*ray)->sprB.y = (*ray)->B.y;
-		}
+			save_data_spr(*ray, map, tmp_x, tmp_y);
 		(*ray)->B.x = (*ray)->B.x + (*ray)->Xa;
 		(*ray)->B.y = (*ray)->B.y - (*ray)->Ya;
 		tmp_x = transfer_coords_x(map, (*ray)->B.x);
@@ -171,8 +165,6 @@ void		distance_mur(t_player *player, t_raycast **ray)
 		(*ray)->dist_wall = dist_A * cos((*ray)->total_angle * M_PI / 180);
 	}
 }
-
-
 
 int		transfer_coords_x(t_map *map, double x)
 {

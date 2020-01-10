@@ -80,10 +80,6 @@ int			init_data2(t_parse **data, t_raycast **ray, t_hook **hook)
 	(*ray)->tmp_y = 0;
 	(*ray)->dist_wall = 0;
 	(*ray)->wall = 0;
-	(*ray)->sprite = 0;
-	(*ray)->sprA.x = 0;
-	(*ray)->sprB.x = 0;
-	(*ray)->spr_x = 0;
 	(*hook)->ray = (*ray);
 	return (1);
 }
