@@ -7,6 +7,12 @@ int		hook_keydown(int key, t_hook *hook)
 		rotate_player(hook->player, key, 5);
 	if (key == K_UP || key == K_DOWN)
 		move_player(hook->player, key, hook->map);
+	if (key == K_SPACE)
+		hook->player->arme = (hook->player->arme == 0 ? 1 : 0);
+	if (key == K_C)
+		hook->player->cible = (hook->player->cible == 0 ? 1 : 0);
+	if (key == K_M)
+		hook->player->map = (hook->player->map == 0 ? 1 : 0);
 //	if (key == K_ESC)
 //		return (exit_all(hook));
 	affichage(hook->mlx, hook->ray, hook->map, hook->player);

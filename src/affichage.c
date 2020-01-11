@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 19:37:57 by ylegzoul          #+#    #+#             */
-/*   Updated: 2020/01/09 20:15:55 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/11 19:16:02 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,13 @@ void		affichage(t_mlx *mlx, t_raycast *ray, t_map *map, t_player *player )
 			ray->total_angle = (x - mlx->res_x / 2) * tmp;
 
 	}
-//	draw_arme(mlx);
+	if (player->cible == 1)
+		draw_cible(mlx);
+	if (player->arme == 1)
+		draw_arme(mlx);
+	if (player->map == 1)
+		draw_map(mlx, player, map);
 	draw_sprite(mlx, ray);
-//	printf("nb_sprite=%d \ndist_sprite=%f \ndist=%f \nsize=%f \nmapx=%d\nmapy=%d\nimgx=%d\nimgy=%d\nsx=%d\nsy=%d\nxmax=%d\ncolor=%d\n______________________________\n", ray->nb_sprite, ray->dist_spr, ray->spr[0]->dist, ray->spr[0]->size, ray->spr[0]->mapx, ray->spr[0]->mapy, ray->spr[0]->imgx, ray->spr[0]->imgy, ray->spr[0]->sx, ray->spr[0]->sy, ray->spr[0]->xmax, ray->spr[0]->color);
 	mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->img->img, 0, 0);
 }
 
@@ -80,19 +84,16 @@ void		draw_arme(t_mlx *mlx)
 	int		tmpy;
 	int		color;
 
-	x = LARGEUR_SCREEN - (mlx->arme->l + 10);
+	x = LARGEUR_SCREEN - mlx->arme->l;
 	tmpx = 0;
 	while (tmpx < mlx->arme->l)
 	{
-		y = HAUTEUR_SCREEN - (mlx->arme->h + 100);
-		printf("%d\n", y);
-		tmpy = 5;
-//		printf("arme->l:%d\narme->h:%d\ntmpx:%d\ntmpy:%d\nx:%d\ny:%d/n", mlx->arme->l, mlx->arme->h, tmpx, tmpy, x, y);
-		while (y < HAUTEUR_SCREEN && tmpy < mlx->arme->h)
+		y = HAUTEUR_SCREEN - 350;
+		tmpy = 0;
+		while (tmpy < 350)
 		{
 			color =	get_pixel(mlx->arme, tmpx, tmpy);
-//			printf("%d ", color);
-			if (color != 0)
+			if (color != 16185078 && color < 13181000 && color)
 				put_pixel(mlx->img, x, y, color);
 			y++;
 			tmpy++;
@@ -102,10 +103,66 @@ void		draw_arme(t_mlx *mlx)
 	}
 }
 
-/*
+void		draw_cible(t_mlx *mlx)
+{
+	int		x;
+	int		y;
+	int		tmpx;
+	int		tmpy;
+	int		color;
+
+	x = LARGEUR_SCREEN / 2 - 30;
+	tmpx = 0;
+	while (tmpx < mlx->arme->l)
+	{
+		y = HAUTEUR_SCREEN / 2 - 30;
+		tmpy = 0;
+		while (tmpy < 350)
+		{
+			color = get_pixel(mlx->cible, tmpx, tmpy);
+			if (color != 0 && color != 16777215 && color < 14314043)
+				put_pixel(mlx->img, x, y, 1611000);
+			y++;
+			tmpy++;
+		}
+		x++;
+		tmpx++;
+	}
+}
+
+
 void		draw_map(t_mlx *mlx, t_player *player, t_map *map)
 {
 	int		x;
-int		y;
+	int		y;
 
-}*/
+	x = 0;
+	while (x < map->size_x + 1)
+	{
+		draw_square(mlx, (x * 5), 0, 0);
+		x++;
+	}
+	y = 0;
+	while (y < map->size_y + 1)
+	{
+		draw_square(mlx, 0, (y * 5), 0);
+		y++;
+	}
+	x = 0;
+	while (x < map->size_x)
+	{
+		y = 0;
+		while (y < map->size_y)
+		{
+			if (map->map[y][x] == '1')
+				draw_square(mlx, (x * 5 + 5), (y * 5 + 5), 13158600);
+			else
+				draw_square(mlx, (x * 5 + 5), (y * 5 + 5), 200);
+			if (x == (int)player->pos.x && y == (int)player->pos.y)
+				draw_square(mlx, (x * 5 + 5), (y * 5 + 5), 16711680);
+			y++;
+		}
+		x++;
+	}
+}
+

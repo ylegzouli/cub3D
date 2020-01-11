@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 10:33:58 by ylegzoul          #+#    #+#             */
-/*   Updated: 2020/01/07 21:13:58 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/11 17:17:04 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,24 @@ void	vect_mult(t_player *player)
 	player->v0.x = -player->v1.y;
 	player->v0.y = player->v1.x;
 }
-/*
-void	draw_pos(t_mlx *mlx, t_map *map, t_player *player)
+
+void	draw_square(t_mlx *mlx, int x, int y, int color)
 {
-	
+	int		i;
+	int		j;
+
+	i = 0;
+	while (i < 5)
+	{
+		j = 0;
+		while (j < 5)
+		{
+			put_pixel(mlx->img, (x + i), (y + j), color);
+			j++;
+		}
+		i++;
+	}
 }
-*/
 
 int			check_map(t_map *map)
 {

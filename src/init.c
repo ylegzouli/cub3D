@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 19:38:01 by ylegzoul          #+#    #+#             */
-/*   Updated: 2020/01/09 19:38:44 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/11 17:24:23 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,10 @@ int			init_data(t_map **map, t_player **player, t_mlx **mlx, t_hook **hook)
 	(*player)->v0.y = 0;
 	(*player)->v1.x = 0;
 	(*player)->v1.y = 0;
+	(*player)->arme = 0;
+	(*player)->cible = 0;
+	(*player)->map = 0;
+
 	if (!((*hook) = malloc(sizeof(t_hook))))
 		return (0);
 	(*hook)->mlx = (*mlx);

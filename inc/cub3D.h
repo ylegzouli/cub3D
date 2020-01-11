@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 13:07:32 by ylegzoul          #+#    #+#             */
-/*   Updated: 2020/01/09 19:55:50 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/11 19:16:07 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@
 #  define K_DOWN		125
 #  define K_LEFT		123
 #  define K_RIGHT		124
+#  define K_SPACE		49
+#  define K_C			8
+#  define K_M			46
+
 /*
 **-------------------------------------------------------------------------------
 */
@@ -108,6 +112,9 @@ typedef struct			s_player
 	t_point	pos;
 	t_point	v0;
 	t_point	v1;
+	int		arme;
+	int		cible;
+	int		map;
 }						t_player;
 
 typedef struct			s_raycast
@@ -147,6 +154,7 @@ typedef struct			s_mlx
 	t_image	*xpm_img[NB_TEXTURE];
 	t_image	*spr_img;
 	t_image	*arme;
+	t_image *cible;
 }						t_mlx;
 
 typedef	struct			s_hook
@@ -193,7 +201,8 @@ int			transfer_coords_y(t_map *map, double y);
 void		affichage(t_mlx *mlx, t_raycast *ray, t_map *map, t_player *player);
 void		draw_column(t_mlx *mlx, t_raycast *ray, int x);
 void		draw_arme(t_mlx *mlx);
-//void		draw_map(t_mlx *mlx, t_player *player, t_map *map);
+void        draw_cible(t_mlx *mlx);
+void		draw_map(t_mlx *mlx, t_player *player, t_map *map);
 /*
 **---------------------------------- EVENT -----------------------------------------
 */
@@ -242,7 +251,7 @@ int			is_map_line(char *line);
 int			check_map(t_map *map);
 void		vect_mult(t_player *player);
 void		ft_free_split(char **split);
-//void		draw_pos(t_mlx *mlx, t_map *map, t_player *player);
+void		draw_square(t_mlx *mlx, int x, int y, int color);
 /*
 **-----------------------------------------------------------------------------------
 */

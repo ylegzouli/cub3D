@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 18:16:40 by ylegzoul          #+#    #+#             */
-/*   Updated: 2020/01/09 19:55:03 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/11 19:16:00 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,14 @@ void		init_sprite(t_raycast *ray)
 		ray->spr[i]->mapy = 0;
 		ray->spr[i]->dist = 0;
 		ray->spr[i]->size = 0;
-		ray->spr[i]->xmax = 0;
 		ray->spr[i]->imgx = 0;
 		ray->spr[i]->imgy = 0;
 		ray->spr[i]->color = 0;
+
+		ray->start = -1;
 		ray->spr[i]->start = 0;
+		ray->spr[i]->xmax = 0;
+		
 		i++;
 	}
 }
@@ -57,7 +60,6 @@ void		save_data_spr(t_raycast *ray, t_map *map, int x, int y)
 	if (i == 0 || (ray->spr[i - 1]->mapx != x && ray->spr[i - 1]->mapy != y))
 	{
 		ray->spr[i]->size = size_spr(ray, map);
-		ray->spr[i]->start = ray->start;;
 		ray->spr[i]->dist = ray->dist_spr;
 		ray->spr[i]->mapx = x;
 		ray->spr[i]->mapy = y;
@@ -76,12 +78,12 @@ void		save_pos_spr(t_raycast *ray, int x, t_map *map)
 	if (i != 0 && ray->spr[i - 1]->sx != x && !(ray->spr[i - 1]->sx))
 	{
 		ray->spr[i - 1]->sx = x;
-		ray->spr[i - 1]->sy = (HAUTEUR_SCREEN / 2) - 32 * (map->dist_screen / ray->dist_spr);// HAUTEUR_SCREEN / 2;  /// SIZE_WALL, ray->spr[i]->dist, ray->spr[i]->size, HAUTEUR_SCREEN ///
+		ray->spr[i - 1]->sy = (HAUTEUR_SCREEN / 2) - 32 * (map->dist_screen / ray->dist_spr);
 	}
 	else if (i == 0 && ray->spr[i]->mapx != 0)
 	{
 		ray->spr[i]->sx = x;
-		ray->spr[i - 1]->sy = (HAUTEUR_SCREEN / 2) - 32 * (map->dist_screen / ray->dist_spr);// HAUTEUR_SCREEN / 2;  /// SIZE_WALL, ray->spr[i]->dist, ray->spr[i]->size, HAUTEUR_SCREEN ///
+		ray->spr[i - 1]->sy = (HAUTEUR_SCREEN / 2) - 32 * (map->dist_screen / ray->dist_spr);
 	}
 }
 
@@ -90,22 +92,19 @@ void		display_sprite(t_mlx *mlx, t_sprite *spr, t_raycast *ray)
 	int		x;
 	int		y;
 
-	x = spr->start;
-	if (spr->sx < 0)
-	{
-		spr->xmax -= spr->sx;
-		spr->sx = 0;
-	}
-	while ((spr->sx + x) < (spr->sx + spr->xmax))
+	x = 0;
+//	x = spr->start;;
+//	printf("start:%d\nmax:%d\nsize:%f\nspr_sx:%d\nspr_sy:%d\n", spr->start, spr->xmax, spr->size, spr->sx, spr->sy);
+	while (x < spr->xmax)
 	{
 		y = 0;
-		while ((spr->sy + y) < (spr->sy + spr->size))
+		while (y < spr->size)
 		{
 			spr->color = get_texture_spr(spr, mlx, x, y);
-			if (spr->color != 0 
-				&& (get_pixel(mlx->img, (spr->sx + x), (spr->sy + y) != ray->color)
-				|| !(get_pixel(mlx->img, (spr->sx + x), (spr->sy + y)))))
+			if (spr->color != 0)
+			{
 				put_pixel(mlx->img, (x + spr->sx), (y + spr->sy), spr->color);
+			}
 			y++;
 		}
 		x++;
@@ -125,12 +124,10 @@ double		size_spr(t_raycast *ray, t_map *map)
 	dist_B = sqrt(dist_B);
 	if (dist_A < dist_B)
 	{
-		ray->start = (int)(ray->A.x) % SIZE_WALL;
 		ray->dist_spr = dist_A;
 	}
 	else
 	{	
-		ray->start = (int)(ray->B.x) % SIZE_WALL;
 		ray->dist_spr = dist_B;
 	}
 	return (SIZE_WALL * (map->dist_screen / ray->dist_spr));
