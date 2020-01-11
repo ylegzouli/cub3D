@@ -12,8 +12,8 @@ int			init_texture(t_parse *data, t_mlx *mlx)
 		return (0);
 	if (!(mlx->spr_img = new_xpm_image(mlx, data->tex_spr)))
 		return (0);
-//	if (!(mlx->arme = new_xpm_image(mlx, "texture/arme")))
-//		return (0);
+	if (!(mlx->arme = new_xpm_image(mlx, "texture/arme.xpm")))
+		return (0);
 	return (1);
 }
 

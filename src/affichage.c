@@ -71,29 +71,37 @@ void		draw_column(t_mlx *mlx, t_raycast *ray, int x)
 		y++;
 	}
 }
-/*
+
 void		draw_arme(t_mlx *mlx)
 {
 	int		x;
 	int		y;
-	int		tmp;
+	int		tmpx;
+	int		tmpy;
 	int		color;
 
-	x = 0;
-	while (x < LARGEUR_SCREEN)
+	x = LARGEUR_SCREEN - (mlx->arme->l + 10);
+	tmpx = 0;
+	while (tmpx < mlx->arme->l)
 	{
-		y = HAUTEUR_SCREEN / 2;
-		while (y < HAUTEUR_SCREEN)
+		y = HAUTEUR_SCREEN - (mlx->arme->h + 100);
+		printf("%d\n", y);
+		tmpy = 5;
+//		printf("arme->l:%d\narme->h:%d\ntmpx:%d\ntmpy:%d\nx:%d\ny:%d/n", mlx->arme->l, mlx->arme->h, tmpx, tmpy, x, y);
+		while (y < HAUTEUR_SCREEN && tmpy < mlx->arme->h)
 		{
-			tmp = y * (mlx->arme->l / LARGEUR_SCREEN);
-			color =	get_pixel(mlx->arme, (x * (mlx->arme->l / LARGEUR_SCREEN), tmp));
-			if (color != )
-				put_pixel(mlx, x, y, color);
+			color =	get_pixel(mlx->arme, tmpx, tmpy);
+//			printf("%d ", color);
+			if (color != 0)
+				put_pixel(mlx->img, x, y, color);
 			y++;
+			tmpy++;
 		}
 		x++;
+		tmpx++;
+	}
 }
-*/
+
 /*
 void		draw_map(t_mlx *mlx, t_player *player, t_map *map)
 {
