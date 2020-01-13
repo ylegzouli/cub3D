@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 09:30:35 by ylegzoul          #+#    #+#             */
-/*   Updated: 2020/01/09 18:27:44 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/13 22:58:33 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void		get_ray_angle(int x, t_player *player, t_map *map, t_raycast *ray)
 	ray->angle.x = -((player->v0.x * (x - map->res_x / 2)) + (player->v1.x * map->dist_screen));
 	ray->angle.y = -((player->v0.y * (x - map->res_x / 2)) + (player->v1.y * map->dist_screen));
 	ray->tan = fabs(ray->angle.y / ray->angle.x);
+//	map->pos.x = player->pos.x;
+//	map->pos.y = player->pos.y;
 }
 
 void		raycast(t_map *map, t_player *player, t_raycast **ray)

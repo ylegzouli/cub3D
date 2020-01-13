@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 13:07:32 by ylegzoul          #+#    #+#             */
-/*   Updated: 2020/01/11 19:16:07 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/13 22:58:27 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ typedef	struct			s_map
 	int		size_x;
 	int		size_y;
 	char	**map;
+//	t_point	pos;
 	double	dist_screen;
 }						t_map;
 
@@ -235,7 +236,7 @@ void		init_sprite(t_raycast *ray);
 void		save_data_spr(t_raycast *ray, t_map *map, int x, int y);
 void		save_pos_spr(t_raycast *ray, int x, t_map *map);
 void		display_sprite(t_mlx *mlx, t_sprite *spr, t_raycast *ray);
-double		size_spr(t_raycast *ray, t_map *map);
+double		size_spr(t_raycast *ray, t_map *map, t_sprite *spr);
 /*
 **----------------------------------- BMP ------------------------------------------
 */

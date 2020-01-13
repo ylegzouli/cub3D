@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 19:37:57 by ylegzoul          #+#    #+#             */
-/*   Updated: 2020/01/11 19:16:02 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/13 22:58:31 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void		affichage(t_mlx *mlx, t_raycast *ray, t_map *map, t_player *player )
 			ray->total_angle =  -(x - mlx->res_x / 2) * tmp;
 		else
 			ray->total_angle = (x - mlx->res_x / 2) * tmp;
-
 	}
 	if (player->cible == 1)
 		draw_cible(mlx);
@@ -41,7 +40,8 @@ void		affichage(t_mlx *mlx, t_raycast *ray, t_map *map, t_player *player )
 		draw_arme(mlx);
 	if (player->map == 1)
 		draw_map(mlx, player, map);
-	draw_sprite(mlx, ray);
+	if (ray->spr[0]->size != 0)
+		draw_sprite(mlx, ray);
 	mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->img->img, 0, 0);
 }
 
