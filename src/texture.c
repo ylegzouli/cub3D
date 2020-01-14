@@ -52,7 +52,10 @@ void		get_texture_fnc(t_raycast *ray, t_parse *data)
 
 int			get_texture_spr(t_sprite *spr, t_mlx *mlx, int x, int y)
 {
-	spr->imgx = x * (mlx->spr_img->l / spr->size);
-	spr->imgy = y * (mlx->spr_img->h / spr->size);
-	return (get_pixel(mlx->spr_img, spr->imgx, spr->imgy));
+	int		imgx;
+	int		imgy;
+
+	imgx = x * (mlx->spr_img->l / spr->size);
+	imgy = y * (mlx->spr_img->h / spr->size);
+	return (get_pixel(mlx->spr_img, imgx, imgy));
 }

@@ -211,9 +211,7 @@ void	get_size_map(t_list *li, t_map **map)
 	i = 1 ;
 	j = 1;
 	while (((char *)(li->content))[i] != '\0')
-	{
 		i++;
-	}
 	if (i > 0 && is_map_line(li->content))
 	{
 

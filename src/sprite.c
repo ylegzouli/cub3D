@@ -1,217 +1,182 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   sprite.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/09 18:16:40 by ylegzoul          #+#    #+#             */
-/*   Updated: 2020/01/13 22:58:29 by ylegzoul         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../inc/cub3D.h"
-
-void		draw_sprite(t_mlx *mlx, t_raycast *ray)
-{
-	int		i;
-
-	i = ray->nb_sprite - 1;
-	while (i >= 0)
-	{
-		printf("dist:%f\nsize:%f\nmapx:%d\nmapy:%d\nsx:%d\nsy:%d\nstart:%d\nxmax:%d\n------------------\n", ray->spr[i]->dist, ray->spr[i]->size, ray->spr[i]->mapx, ray->spr[i]->mapy, ray->spr[i]->sx, ray->spr[i]->sy, ray->spr[i]->start, ray->spr[i]->xmax);
-		display_sprite(mlx, ray->spr[i], ray);
-		i--;
-	}
-	printf("\n------------------------\n");
-}
 
 void		init_sprite(t_raycast *ray)
 {
-	int		i;
-
-	i = 0;
-	ray->nb_sprite = 0;
-	ray->dist_spr = 0;
-	ray->start = 0;
-	while (i < 99)
-	{
-		ray->spr[i] = malloc(sizeof(t_sprite));
-		ray->spr[i]->sx = 0;
-		ray->spr[i]->sy = 0;
-		ray->spr[i]->mapx = 0;
-		ray->spr[i]->mapy = 0;
-		ray->spr[i]->dist = 0;
-		ray->spr[i]->size = 0;
-		ray->spr[i]->imgx = 0;
-		ray->spr[i]->imgy = 0;
-		ray->spr[i]->color = 0;
-
-		ray->start = 0;
-		ray->spr[i]->start = 0;
-		ray->spr[i]->xmax = 0;
-		
-		i++;
-	}
+	ray->spr = new_sprite(0, 0);
 }
 
-void		save_data_spr(t_raycast *ray, t_map *map, int x, int y)
+t_sprite	*new_sprite(int x, int y)
 {
-	int		i;
+	t_sprite	*new;
 
-	i = ray->nb_sprite;
-	if (i == 0 || (ray->spr[i - 1]->mapx != x && ray->spr[i - 1]->mapy != y))
-	{
-		ray->spr[i]->mapx = x;
-		ray->spr[i]->mapy = y;
-		ray->spr[i]->size = size_spr(ray, map, ray->spr[i]);
-		ray->spr[i]->dist = ray->dist_spr;
-		ray->spr[i]->start = ray->start * (map->dist_screen / ray->spr[i]->dist);
-		ray->spr[i]->xmax = 1;
-		ray->nb_sprite++;
-	}
-	else if (ray->spr[i - 1]->mapx == x || ray->spr[i - 1]->mapy == y)
-		(ray->spr[i - 1]->xmax)++;
+	if (!(new = (t_sprite*)malloc(sizeof(t_sprite))))
+		return (NULL);
+	new->x = (double)x + 0.5;
+	new->y = (double)y + 0.5;
+	new->dist = 0.0;
+	new->next = NULL;
+	return (new);
 }
 
-void		save_pos_spr(t_raycast *ray, int x, t_map *map)
+void			sprite_add_back(t_sprite *spr, int x, int y)
 {
-	int		i;
+	t_sprite	*sp;
 
-	i = ray->nb_sprite;
-	if (i != 0 && ray->spr[i - 1]->sx != x && !(ray->spr[i - 1]->sx))
+	if (!spr)
+		spr = new_sprite(x, y);
+	else
 	{
-		ray->spr[i - 1]->sx = x;
-		ray->spr[i - 1]->sy = (HAUTEUR_SCREEN / 2) - 32 * (map->dist_screen / ray->dist_spr);
-	}
-	else if (i == 0 && ray->spr[i]->mapx != 0)
-	{
-		ray->spr[i]->sx = x;
-		ray->spr[i - 1]->sy = (HAUTEUR_SCREEN / 2) - 32 * (map->dist_screen / ray->dist_spr);
+		sp = spr;
+		while (sp->next)
+			sp = sp->next;
+		sp->next = new_sprite(x, y);
 	}
 }
 
-void		display_sprite(t_mlx *mlx, t_sprite *spr, t_raycast *ray)
+void			clear_sprite(t_sprite *begin)
+{
+	t_sprite	*sp;
+	t_sprite	*next;
+
+	sp = begin;
+	while (sp)
+	{
+		next = sp->next;
+		free(sp);
+		sp = next;
+	}
+	begin = NULL;
+}
+
+void        save_data_spr(t_sprite *sprite, int x, int y)
+{
+	t_sprite *spr;
+
+	spr = sprite;
+	while (spr->next)
+		spr = spr->next;
+	if (spr->x != x + 0.5 || spr->y != y + 0.5)
+		sprite_add_back(sprite, x, y);
+}
+
+void		calc_dist_sprite(t_sprite *sprite, t_player *player, t_map *map)
+{
+	t_sprite	*sp;
+
+	if (sprite->x == 0.5 && sprite->y == 0.5)
+		sprite = sprite->next;
+	sp = sprite;
+	while (sp)
+	{
+		sp->dist = (player->pos.x - sp->x) * (player->pos.x - sp->x)
+			+ (player->pos.y - sp->y) * (player->pos.y - sp->y);
+		sp->dist = sqrt(sp->dist);
+		sp->size = SIZE_WALL * (map->dist_screen / (sp->dist * SIZE_WALL));
+		sp = sp->next;
+	}
+	sort_sprite(&sprite);
+}
+
+void		sort_sprite(t_sprite **sprite)
+{
+	t_sprite	*sp;
+	t_sprite	*bef;
+	t_sprite	*nxt;
+
+	if (*sprite)
+	{
+		sp = *sprite;
+		bef = 0;
+		while (sp->next)
+		{
+			nxt = sp->next;
+			if (sp->dist < nxt->dist)
+			{
+				sp->next = nxt->next;
+				nxt->next = sp;
+				if (bef)
+					bef->next = nxt;
+				else
+					*sprite = nxt;
+				sp = *sprite;
+			}
+			bef = sp;
+			sp = sp->next;
+		}
+	}
+}
+
+void        calc_data_spr(t_sprite *spr, t_player *player, t_map *map)
+{
+	double	sp_x;
+	double	sp_y;
+
+	sp_x = spr->x - player->pos.x;
+	sp_y = spr->y - player->pos.y;
+	spr->inv_det = 1.0 / (player->v0.x * player->v1.y - player->v1.x * player->v0.y);
+	spr->tmpx = spr->inv_det * (player->v1.y * sp_x - player->v1.x * sp_y);
+	spr->tmpy = spr->inv_det * (-player->v0.y * sp_x + player->v0.x * sp_y);
+	spr->sx = (map->res_x / 2) * (1 + spr->tmpx / spr->tmpy);
+//	spr->sp_y = abs((int)(map->res_y / spr->tmpy));
+	spr->start_y = -spr->size / 2 + map->res_y / 2;// * (map->dist_screen / spr->size);
+	if (spr->start_y < 0)
+	{
+		spr->cuty = -spr->start_y;
+		spr->start_y = 0;
+	}
+	else
+		spr->cuty = 0;
+	spr->end_y = spr->size / 2 + map->res_y / 2;
+	if (spr->end_y >= map->res_y)
+		spr->end_y = map->res_y - 1;
+//	spr->sp_x = abs((int)(map->res_y / spr->tmpy));
+	spr->start_x = -spr->size / 2 + spr->sx;
+	if (spr->start_x < 0)
+	{
+		spr->cutx = -spr->start_x;	
+		spr->start_x = 0;
+	}
+	else
+		spr->cutx = 0;
+	spr->end_x = spr->size / 2 + spr->sx;
+	if (spr->end_x >= map->res_x)
+		spr->end_x = map->res_x - 1;
+}
+
+void		draw_sprite(t_sprite *spr, t_mlx *mlx, t_player *player, t_map *map)
+{
+	if (spr->x == 0.5 && spr->y == 0.5)
+		spr = spr->next;
+	while (spr)
+	{
+		printf("x:%f\ny:%f\ndist:%f\ninvdet:%f\ntmpx:%f\ntmpy:%f\nsx:%d\nsp_x:%d\nsp_y:%d\nstart_y:%d\nend_y:%d\nstart_x:%d\nend_x:%d\n--------------------\n", spr->x,spr->y,spr->dist,spr->inv_det,spr->tmpx,spr->tmpy,spr->sx,spr->sp_x,spr->sp_y,spr->start_y,spr->end_y,spr->start_x,spr->end_x);
+		calc_data_spr(spr, player, map);
+//		if ((int)player->pos.x != (int)spr->x || (int)player->pos.y != (int)spr->y)
+			display_sprite(spr, mlx);
+		spr = spr->next;
+	}
+}
+
+void		display_sprite(t_sprite *spr, t_mlx *mlx)
 {
 	int		x;
 	int		y;
+	int		color;
 
-	x = spr->start;
-	spr->sx -= spr->start;
-	if ((y + spr->sy) < 0)
-		y++;
-	if ((x + spr->sx) < 0)
-		x++;
-	while (x < spr->xmax)
+	x = spr->start_x;
+	while (x < spr->end_x)
 	{
-		y = 0;
-		while (y < spr->size)
+		y = spr->start_y;
+		while (y < spr->end_y)
 		{
-			spr->color = get_texture_spr(spr, mlx, x, y);
-			if (spr->color != 0)
-			{
-				put_pixel(mlx->img, (x + spr->sx), (y + spr->sy), spr->color);
-			}
+			color = get_texture_spr(spr, mlx, (x - spr->start_x + spr->cutx), (y - spr->start_y + spr->cuty));
+			if (color != 0)
+				put_pixel(mlx->img, x, y, color);
 			y++;
 		}
 		x++;
 	}
 }
 
-double		size_spr(t_raycast *ray, t_map *map, t_sprite *spr)
-{
-	double dist;
-	t_point	A;
-	double dist_B;
-	double dist_A;
 
-	A.x = (spr->mapx + 0.5) * SIZE_WALL;
-	A.y = (spr->mapy + 0.5) * SIZE_WALL;
-	dist_A = (ray->tmp_x - ray->A.x) * (ray->tmp_x - ray->A.x);
-	dist_A = dist_A + (ray->tmp_y - ray->A.y) * (ray->tmp_y - ray->A.y);
-	dist_A = sqrt(dist_A);
-	dist_B = (ray->tmp_x - ray->B.x) * (ray->tmp_x - ray->B.x);
-	dist_B = dist_B + (ray->tmp_y - ray->B.y) * (ray->tmp_y - ray->B.y);
-	dist_B = sqrt(dist_B);
-	
-	dist = (ray->tmp_x - A.x) * (ray->tmp_x - A.x);
-	dist = dist + (ray->tmp_y - A.y) * (ray->tmp_y - A.y);
-	dist = sqrt(dist);
 
-	printf("A.x: %f\nA.y: %f\nB.x: %f\nB.y: %f\ndist_A: %f\ndist_B: %f\n____________\n", ray->A.x, ray->A.y, ray->B.x, ray->B.y, dist_A, dist_B);
-	if (dist_A <= dist_B)
-	{
-		if (ray->angle.y <= 0)
-		{
-			write(1, "A\n", 2);
-			ray->start = (int)ray->A.x % SIZE_WALL;
-		}
-		else
-		{
-			write(1, "B\n", 2);
-			ray->start = SIZE_WALL - ((int)ray->A.x % SIZE_WALL);
-		}
-//		ray->dist_spr = dist_A;
-	}
-	else 
-	{
-		if (ray->angle.x >= 0)
-		{
-			write(1, "C\n", 2);
-			ray->start = (int)ray->B.y % SIZE_WALL;
-		}
-		else
-		{
-			write(1, "D\n", 2);
-			ray->start = SIZE_WALL - ((int)ray->B.y % SIZE_WALL);
-		}
-//		ray->dist_spr = dist_B;
-	}
-	ray->dist_spr = dist;
-	return (SIZE_WALL * (map->dist_screen / ray->dist_spr));
-}
-/*
-double		size_spr(t_raycast *ray, t_map *map, t_sprite *spr)
-{
-	double dist;
-	t_point	A;
-
-	A.x = (spr->mapx + 0.5) * SIZE_WALL;
-	A.y = (spr->mapy + 0.5) * SIZE_WALL;
-
-	dist = (ray->tmp_x - A.x) * (ray->tmp_x - A.x);
-	dist = dist + (ray->tmp_y - A.y) * (ray->tmp_y - A.y);
-	dist = sqrt(dist);
-
-	if (ray->angle.y < -(sqrt(2)/2))
-//		&& ray->angle.x > -(sqrt(2)/2)
-//		&& ray->angle.x < (sqrt(2)/2))
-	{
-		write(1, "A\n", 2);
-		ray->start = (int)ray->A.x % SIZE_WALL;
-	}
-	else if (ray->angle.y > (sqrt(2)/2))
-//		&& ray->angle.x > -(sqrt(2)/2)
-//		 && ray->angle.x < (sqrt(2)/2))
-	{
-		write(1, "B\n", 2);
-		ray->start = SIZE_WALL - ((int)ray->A.x % SIZE_WALL);
-	}
-	else if (ray->angle.x < -(sqrt(2)/2))
-//		&& ray->angle.y > -(sqrt(2)/2)
-//		&& ray->angle.y < (sqrt(2)/2))
-	{
-		write(1, "C\n", 2);
-		ray->start = (int)ray->B.y % SIZE_WALL;
-	}
-	else if (ray->angle.x > (sqrt(2)/2))
-//		&& ray->angle.y > -(sqrt(2)/2)
-//		&& ray->angle.y < (sqrt(2)/2))
-	{
-		write(1, "D\n", 2);
-		ray->start = SIZE_WALL - ((int)ray->B.y % SIZE_WALL);
-	}
-	ray->dist_spr = dist;
-	return (SIZE_WALL * (map->dist_screen / ray->dist_spr));
-}
-*/

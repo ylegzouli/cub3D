@@ -26,7 +26,7 @@ void		affichage(t_mlx *mlx, t_raycast *ray, t_map *map, t_player *player )
 	{
 		get_ray_angle(x, player, map, ray);
 		raycast(map, player, &ray);
-		save_pos_spr(ray, x, map);
+	//	save_pos_spr(ray, x, map);
 		draw_column(mlx, ray, x);
 		x++;
 		if (x < mlx->res_x / 2)
@@ -34,14 +34,15 @@ void		affichage(t_mlx *mlx, t_raycast *ray, t_map *map, t_player *player )
 		else
 			ray->total_angle = (x - mlx->res_x / 2) * tmp;
 	}
+	calc_dist_sprite(ray->spr, player, map);
 	if (player->cible == 1)
 		draw_cible(mlx);
 	if (player->arme == 1)
 		draw_arme(mlx);
 	if (player->map == 1)
 		draw_map(mlx, player, map);
-	if (ray->spr[0]->size != 0)
-		draw_sprite(mlx, ray);
+	draw_sprite(ray->spr, mlx, player, map);
+	clear_sprite(ray->spr);
 	mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->img->img, 0, 0);
 }
 

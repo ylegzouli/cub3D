@@ -70,7 +70,7 @@ void		inter_x2(t_map *map, t_raycast **ray)
 		((map->map)[tmp_y][tmp_x] != '1'))
 	{
 		if ((map->map)[tmp_y][tmp_x] == '2')
-			save_data_spr(*ray, map, tmp_x, tmp_y);
+			save_data_spr((*ray)->spr, tmp_x, tmp_y);
 		(*ray)->A.x = (*ray)->A.x + (*ray)->Xa;
 		(*ray)->A.y = (*ray)->A.y + (*ray)->Ya;
 		tmp_x = transfer_coords_x(map, (*ray)->A.x);
@@ -118,7 +118,7 @@ void		inter_y2(t_map *map, t_raycast **ray)
 		&& ((map->map)[tmp_y][tmp_x] != '1'))
 	{
 		if ((map->map)[tmp_y][tmp_x] == '2')
-			save_data_spr(*ray, map, tmp_x, tmp_y);
+			save_data_spr((*ray)->spr, tmp_x, tmp_y);
 		(*ray)->B.x = (*ray)->B.x + (*ray)->Xa;
 		(*ray)->B.y = (*ray)->B.y - (*ray)->Ya;
 		tmp_x = transfer_coords_x(map, (*ray)->B.x);

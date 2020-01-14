@@ -63,7 +63,7 @@ typedef struct			s_image
 	int		l;
 	int		h;
 }						t_image;
-
+/*
 typedef struct			s_sprite
 {
     double  dist;
@@ -75,12 +75,34 @@ typedef struct			s_sprite
 	int		imgy;
 	int		sx;
 	int		sy;
-	
+
 	int		start;
 	int		xmax;
 	int		color;
 }						t_sprite;
+*/
+typedef struct			s_sprite
+{
+	double			x;
+	double			y;
+	double			dist;
+	double			size;
+	struct s_sprite	*next;
 
+	double			inv_det;
+	double			tmpx;
+	double			tmpy;
+	int				sx;
+	int				sp_x;
+	int				sp_y;
+
+	int				cutx;
+	int				cuty;
+	int				start_y;
+	int				end_y;
+	int				start_x;
+	int				end_x;
+}						t_sprite;
 /*
 **-------------------------------------------------------------------------------
 */
@@ -139,10 +161,12 @@ typedef struct			s_raycast
 	double	dist_wall;
 	double	wall;
 
-	int			nb_sprite;
-	int			start;
-	double		dist_spr;
-	t_sprite	*spr[100];
+//	int			nb_sprite;
+//	double		invdet;	
+//	int			start;
+//	double		dist_spr;
+//	t_sprite	*spr[100];
+	t_sprite	*spr;
 }						t_raycast;
 
 typedef struct			s_mlx
@@ -231,12 +255,27 @@ int			get_texture_spr(t_sprite *spr, t_mlx *mlx, int x, int y);
 /*
 **--------------------------------- SPRITE ----------------------------------------
 */
-void		draw_sprite(t_mlx *mlx, t_raycast *ray);
+/*
+void		draw_sprite(t_mlx *mlx, t_raycast *ray, t_player *player, t_map *map);
 void		init_sprite(t_raycast *ray);
 void		save_data_spr(t_raycast *ray, t_map *map, int x, int y);
 void		save_pos_spr(t_raycast *ray, int x, t_map *map);
 void		display_sprite(t_mlx *mlx, t_sprite *spr, t_raycast *ray);
+void		calc_xstart(t_player *player, t_map *map, t_raycast *ray, t_sprite *spr);
 double		size_spr(t_raycast *ray, t_map *map, t_sprite *spr);
+*/
+
+void        init_sprite(t_raycast *ray);
+t_sprite    *new_sprite(int x, int y);
+void            sprite_add_back(t_sprite *spr, int x, int y);
+void            clear_sprite(t_sprite *begin);
+void        save_data_spr(t_sprite *sprite, int x, int y);
+void        calc_dist_sprite(t_sprite *sprite, t_player *player, t_map *map);
+void        sort_sprite(t_sprite **sprite);
+void        calc_data_spr(t_sprite *spr, t_player *player, t_map *map);
+void        draw_sprite(t_sprite *spr, t_mlx *mlx, t_player *player, t_map *map);
+void        display_sprite(t_sprite *spr, t_mlx *mlx);
+
 /*
 **----------------------------------- BMP ------------------------------------------
 */
