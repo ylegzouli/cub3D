@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bmp.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/14 23:49:18 by ylegzoul          #+#    #+#             */
+/*   Updated: 2020/01/14 23:50:24 by ylegzoul         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/cub3D.h"
 
 void			opt_save_bmp(t_mlx *mlx, int ac, char **av)
@@ -36,7 +48,7 @@ void			save_bitmap(char *filename, t_mlx *mlx)
 	header[0] = (unsigned char)('B');
 	header[1] = (unsigned char)('M');
 	int_to_char(header + 2, mlx->res_x * mlx->res_y * 4 + 54);
-	int_to_char(header + 10, 54); 
+	int_to_char(header + 10, 54);
 	int_to_char(header + 14, 40);
 	int_to_char(header + 18, mlx->res_x);
 	int_to_char(header + 22, mlx->res_y);

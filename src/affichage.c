@@ -6,13 +6,13 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 19:37:57 by ylegzoul          #+#    #+#             */
-/*   Updated: 2020/01/13 22:58:31 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/14 23:49:00 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3D.h"
 
-void		affichage(t_mlx *mlx, t_raycast *ray, t_map *map, t_player *player )
+void		affichage(t_mlx *mlx, t_raycast *ray, t_map *map, t_player *player)
 {
 	int		x;
 	double	tmp;
@@ -20,17 +20,16 @@ void		affichage(t_mlx *mlx, t_raycast *ray, t_map *map, t_player *player )
 	x = 0;
 	tmp = (double)LARGEUR_CHAMP / (double)mlx->res_x;
 	vect_mult(player);
-	clear_image(mlx->img, mlx->res_x, mlx->res_y);	
+	clear_image(mlx->img, mlx->res_x, mlx->res_y);
 	init_sprite(ray);
 	while (x < mlx->res_x)
 	{
 		get_ray_angle(x, player, map, ray);
 		raycast(map, player, &ray);
-	//	save_pos_spr(ray, x, map);
 		draw_column(mlx, ray, x);
 		x++;
 		if (x < mlx->res_x / 2)
-			ray->total_angle =  -(x - mlx->res_x / 2) * tmp;
+			ray->total_angle = -(x - mlx->res_x / 2) * tmp;
 		else
 			ray->total_angle = (x - mlx->res_x / 2) * tmp;
 	}
@@ -93,7 +92,7 @@ void		draw_arme(t_mlx *mlx)
 		tmpy = 0;
 		while (tmpy < 350)
 		{
-			color =	get_pixel(mlx->arme, tmpx, tmpy);
+			color = get_pixel(mlx->arme, tmpx, tmpy);
 			if (color != 16185078 && color < 13181000 && color)
 				put_pixel(mlx->img, x, y, color);
 			y++;
@@ -131,7 +130,6 @@ void		draw_cible(t_mlx *mlx)
 	}
 }
 
-
 void		draw_map(t_mlx *mlx, t_player *player, t_map *map)
 {
 	int		x;
@@ -166,4 +164,3 @@ void		draw_map(t_mlx *mlx, t_player *player, t_map *map)
 		x++;
 	}
 }
-

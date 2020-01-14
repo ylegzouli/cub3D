@@ -149,7 +149,7 @@ void		draw_sprite(t_sprite *spr, t_mlx *mlx, t_player *player, t_map *map)
 		spr = spr->next;
 	while (spr)
 	{
-		printf("x:%f\ny:%f\ndist:%f\ninvdet:%f\ntmpx:%f\ntmpy:%f\nsx:%d\nsp_x:%d\nsp_y:%d\nstart_y:%d\nend_y:%d\nstart_x:%d\nend_x:%d\n--------------------\n", spr->x,spr->y,spr->dist,spr->inv_det,spr->tmpx,spr->tmpy,spr->sx,spr->sp_x,spr->sp_y,spr->start_y,spr->end_y,spr->start_x,spr->end_x);
+//		printf("x:%f\ny:%f\ndist:%f\ninvdet:%f\ntmpx:%f\ntmpy:%f\nsx:%d\nsp_x:%d\nsp_y:%d\nstart_y:%d\nend_y:%d\nstart_x:%d\nend_x:%d\n--------------------\n", spr->x,spr->y,spr->dist,spr->inv_det,spr->tmpx,spr->tmpy,spr->sx,spr->sp_x,spr->sp_y,spr->start_y,spr->end_y,spr->start_x,spr->end_x);
 		calc_data_spr(spr, player, map);
 //		if ((int)player->pos.x != (int)spr->x || (int)player->pos.y != (int)spr->y)
 			display_sprite(spr, mlx);

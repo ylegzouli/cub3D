@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 13:07:32 by ylegzoul          #+#    #+#             */
-/*   Updated: 2020/01/13 22:58:27 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/14 23:43:21 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,68 +20,48 @@
 # include <fcntl.h>
 # include <math.h>
 # include <mlx.h>
-
 # define LARGEUR_SCREEN 1000
 # define HAUTEUR_SCREEN 800
-
 # define LARGEUR_CHAMP 60
 # define SIZE_WALL 60
 # define NB_TEXTURE 5
-
-#  define K_ESC			53
-#  define K_UP			126
-#  define K_DOWN		125
-#  define K_LEFT		123
-#  define K_RIGHT		124
-#  define K_SPACE		49
-#  define K_C			8
-#  define K_M			46
+# define K_ESC		53
+# define K_UP		126
+# define K_DOWN		125
+# define K_LEFT		123
+# define K_RIGHT	124
+# define K_SPACE	49
+# define K_C		8
+# define K_M		46
 
 /*
-**-------------------------------------------------------------------------------
+**------------------------------------------------------------
 */
-typedef struct			s_point
+typedef struct	s_point
 {
 	double	x;
 	double	y;
-}						t_point;
+}				t_point;
 
-typedef struct			s_color
+typedef struct	s_color
 {
 	unsigned char	r;
 	unsigned char	g;
 	unsigned char	b;
-}						t_color;
+}				t_color;
 
-typedef struct			s_image
+typedef struct	s_image
 {
-	void    *img;
-    void    *data;
-    int     bpp;
-    int     size;
-    int     en;
+	void	*img;
+	void	*data;
+	int		bpp;
+	int		size;
+	int		en;
 	int		l;
 	int		h;
-}						t_image;
-/*
-typedef struct			s_sprite
-{
-    double  dist;
-    double  size;
+}				t_image;
 
-	int		mapx;
-	int		mapy;
-	int		imgx;
-	int		imgy;
-	int		sx;
-	int		sy;
-
-	int		start;
-	int		xmax;
-	int		color;
-}						t_sprite;
-*/
-typedef struct			s_sprite
+typedef struct	s_sprite
 {
 	double			x;
 	double			y;
@@ -102,11 +82,11 @@ typedef struct			s_sprite
 	int				end_y;
 	int				start_x;
 	int				end_x;
-}						t_sprite;
+}				t_sprite;
 /*
-**-------------------------------------------------------------------------------
+**----------------------------------------------------------
 */
-typedef struct			s_parse
+typedef struct	s_parse
 {
 	int		res_x;
 	int		res_y;
@@ -117,20 +97,19 @@ typedef struct			s_parse
 	char	*tex_spr;
 	t_color	sol;
 	t_color	plafond;
-}						t_parse;
+}				t_parse;
 
-typedef	struct			s_map
+typedef	struct	s_map
 {
 	int		res_x;
 	int		res_y;
 	int		size_x;
 	int		size_y;
 	char	**map;
-//	t_point	pos;
 	double	dist_screen;
-}						t_map;
+}				t_map;
 
-typedef struct			s_player
+typedef struct	s_player
 {
 	t_point	pos;
 	t_point	v0;
@@ -138,9 +117,9 @@ typedef struct			s_player
 	int		arme;
 	int		cible;
 	int		map;
-}						t_player;
+}				t_player;
 
-typedef struct			s_raycast
+typedef struct	s_raycast
 {
 	t_point	angle;
 	double	tan;
@@ -150,7 +129,6 @@ typedef struct			s_raycast
 	double	Xa;
 	t_point	A;
 	t_point	B;
-
 	char	tex;
 	int		tex_x;
 	int		tex_y;
@@ -160,16 +138,10 @@ typedef struct			s_raycast
 	double	total_angle;
 	double	dist_wall;
 	double	wall;
-
-//	int			nb_sprite;
-//	double		invdet;	
-//	int			start;
-//	double		dist_spr;
-//	t_sprite	*spr[100];
 	t_sprite	*spr;
-}						t_raycast;
+}				t_raycast;
 
-typedef struct			s_mlx
+typedef struct	s_mlx
 {
 	int		res_x;
 	int		res_y;
@@ -180,119 +152,113 @@ typedef struct			s_mlx
 	t_image	*spr_img;
 	t_image	*arme;
 	t_image *cible;
-}						t_mlx;
+}				t_mlx;
 
-typedef	struct			s_hook
+typedef	struct	s_hook
 {
 	t_mlx		*mlx;
-	t_raycast 	*ray;
+	t_raycast	*ray;
 	t_map		*map;
 	t_player	*player;
-}						t_hook;
+}				t_hook;
 /*
-**---------------------------------- START ----------------------------------------
+**------------------------ START -------------------------------
 */
-void		ft_print_debugage(/*t_parse *data, */t_map *map, t_player *player, t_raycast *ray);
-int			start(t_mlx *mlx, t_parse *data, int ac, char **av);
-int			init_data(t_map **map, t_player **player, t_mlx **mlx, t_hook **hook);
-int			init_data2(t_parse **data, t_raycast **ray, t_hook **hook);
-int			init_mlx(t_mlx *mlx, t_parse *data);
+int				start(t_mlx *mlx, t_parse *data, int ac, char **av);
+int				init_data(t_map **map, t_player **player,
+t_mlx **mlx, t_hook **hook);
+int				init_data2(t_parse **data, t_raycast **ray, t_hook **hook);
+int				init_mlx(t_mlx *mlx, t_parse *data);
 /*
-**--------------------------------- PARSING ---------------------------------------
+**---------------------- PARSING ------------------------------
 */
-int			parse_file(char **av, t_parse **data, t_map **map, t_player **player);
-void		parse_res(t_list *li, t_parse **data, t_map *map);
-void		parse_tex(t_list *li, t_parse **data);
-void		parse_color(t_list *li, t_parse **data);
-void		parse_map(t_list *li, t_map **map );
-void		parse_player(t_map *map, t_player **player);
-void		get_case(t_player **player, char tmp, int i, int j);
-void		get_size_map(t_list *li, t_map **map);
+int				parse_file(char **av, t_parse **data,
+t_map **map, t_player **player);
+void			parse_res(t_list *li, t_parse **data, t_map *map);
+void			parse_tex(t_list *li, t_parse **data);
+void			parse_color(t_list *li, t_parse **data);
+void			parse_map(t_list *li, t_map **map);
+void			parse_player(t_map *map, t_player **player);
+void			get_case(t_player **player, char tmp, int i, int j);
+void			get_size_map(t_list *li, t_map **map);
 /*
-**--------------------------------- RAYCAST ----------------------------------------
+**---------------------- RAYCAST ----------------------------------
 */
-void		raycast(t_map *map, t_player *player, t_raycast **ray);
-void		get_ray_angle(int x, t_player *player, t_map *map, t_raycast *ray);
-void		inter_x(t_map *map, t_raycast **ray);
-void		inter_x2(t_map *map, t_raycast **raycast);
-void		inter_y(t_map *map, t_raycast **ray);
-void		inter_y2(t_map *map, t_raycast **raycast);
-void		distance_mur(t_player *player, t_raycast **ray);
-int			transfer_coords_x(t_map *map, double x);
-int			transfer_coords_y(t_map *map, double y);
+void			raycast(t_map *map, t_player *player, t_raycast **ray);
+void			get_ray_angle(int x, t_player *player,
+t_map *map, t_raycast *ray);
+void			inter_x(t_map *map, t_raycast **ray);
+void			inter_x2(t_map *map, t_raycast **raycast);
+void			inter_y(t_map *map, t_raycast **ray);
+void			inter_y2(t_map *map, t_raycast **raycast);
+void			distance_mur(t_player *player, t_raycast **ray);
+int				transfer_coords_x(t_map *map, double x);
+int				transfer_coords_y(t_map *map, double y);
 /*
-**--------------------------------- AFFICHAGE --------------------------------------
+**--------------------- AFFICHAGE ------------------------------
 */
-void		affichage(t_mlx *mlx, t_raycast *ray, t_map *map, t_player *player);
-void		draw_column(t_mlx *mlx, t_raycast *ray, int x);
-void		draw_arme(t_mlx *mlx);
-void        draw_cible(t_mlx *mlx);
-void		draw_map(t_mlx *mlx, t_player *player, t_map *map);
+void			affichage(t_mlx *mlx, t_raycast *ray,
+t_map *map, t_player *player);
+void			draw_column(t_mlx *mlx, t_raycast *ray, int x);
+void			draw_arme(t_mlx *mlx);
+void			draw_cible(t_mlx *mlx);
+void			draw_map(t_mlx *mlx, t_player *player, t_map *map);
 /*
-**---------------------------------- EVENT -----------------------------------------
+**----------------------- EVENT ---------------------------------
 */
-int			hook_keydown(int key, t_hook *hook);
-void		rotate_player(t_player *player, int key, double angle);
-void		move_player(t_player *player, int key, t_map *map);
-int			exit_all(t_hook *hook);
+int				hook_keydown(int key, t_hook *hook);
+void			rotate_player(t_player *player, int key, double angle);
+void			move_player(t_player *player, int key, t_map *map);
+int				exit_all(t_hook *hook);
 /*
-**---------------------------------- IMAGE -----------------------------------------
+**-------------------- IMAGE ----------------------------------
 */
-t_image		*new_image(t_mlx *mlx, int l, int h);
-t_image		*new_xpm_image(t_mlx *mlx, char *xpm);
-t_image		*new_png_image(t_mlx *mlx, char *png);
-void		put_pixel(t_image *img, int x, int y, int color);
-int			get_pixel(t_image *img, int x, int y);
-void		clear_image(t_image *img, int l, int h);
-void		destroy_image(t_image *img, t_mlx *mlx);
+t_image			*new_image(t_mlx *mlx, int l, int h);
+t_image			*new_xpm_image(t_mlx *mlx, char *xpm);
+t_image			*new_png_image(t_mlx *mlx, char *png);
+void			put_pixel(t_image *img, int x, int y, int color);
+int				get_pixel(t_image *img, int x, int y);
+void			clear_image(t_image *img, int l, int h);
+void			destroy_image(t_image *img, t_mlx *mlx);
 /*
-**--------------------------------- TEXTURE ----------------------------------------
+**-------------------- TEXTURE ------------------------------
 */
-int			init_texture(t_parse *data, t_mlx *mlx);
-void		get_texture(t_raycast *ray, t_mlx *mlx, int x, int y);
-void		get_texture_fnc(t_raycast *ray, t_parse *data);
-int			get_texture_spr(t_sprite *spr, t_mlx *mlx, int x, int y);
+int				init_texture(t_parse *data, t_mlx *mlx);
+void			get_texture(t_raycast *ray, t_mlx *mlx, int x, int y);
+void			get_texture_fnc(t_raycast *ray, t_parse *data);
+int				get_texture_spr(t_sprite *spr, t_mlx *mlx, int x, int y);
 /*
-**--------------------------------- SPRITE ----------------------------------------
+**--------------------- SPRITE -----------------------------------
 */
+void			init_sprite(t_raycast *ray);
+t_sprite		*new_sprite(int x, int y);
+void			sprite_add_back(t_sprite *spr, int x, int y);
+void			clear_sprite(t_sprite *begin);
+void			save_data_spr(t_sprite *sprite, int x, int y);
+void			calc_dist_sprite(t_sprite *sprite,
+t_player *player, t_map *map);
+void			sort_sprite(t_sprite **sprite);
+void			calc_data_spr(t_sprite *spr, t_player *player, t_map *map);
+void			draw_sprite(t_sprite *spr, t_mlx *mlx,
+t_player *player, t_map *map);
+void			display_sprite(t_sprite *spr, t_mlx *mlx);
 /*
-void		draw_sprite(t_mlx *mlx, t_raycast *ray, t_player *player, t_map *map);
-void		init_sprite(t_raycast *ray);
-void		save_data_spr(t_raycast *ray, t_map *map, int x, int y);
-void		save_pos_spr(t_raycast *ray, int x, t_map *map);
-void		display_sprite(t_mlx *mlx, t_sprite *spr, t_raycast *ray);
-void		calc_xstart(t_player *player, t_map *map, t_raycast *ray, t_sprite *spr);
-double		size_spr(t_raycast *ray, t_map *map, t_sprite *spr);
+**---------------------- BMP -------------------------------
 */
-
-void        init_sprite(t_raycast *ray);
-t_sprite    *new_sprite(int x, int y);
-void            sprite_add_back(t_sprite *spr, int x, int y);
-void            clear_sprite(t_sprite *begin);
-void        save_data_spr(t_sprite *sprite, int x, int y);
-void        calc_dist_sprite(t_sprite *sprite, t_player *player, t_map *map);
-void        sort_sprite(t_sprite **sprite);
-void        calc_data_spr(t_sprite *spr, t_player *player, t_map *map);
-void        draw_sprite(t_sprite *spr, t_mlx *mlx, t_player *player, t_map *map);
-void        display_sprite(t_sprite *spr, t_mlx *mlx);
-
+void			opt_save_bmp(t_mlx *mlx, int ac, char **av);
+void			int_to_char(char *str, int nb);
+void			save_bitmap(char *filename, t_mlx *mlx);
+void			bitmap_image(t_mlx *mlx, int fd);
 /*
-**----------------------------------- BMP ------------------------------------------
+**--------------------- OTHER -----------------------------------
 */
-void		opt_save_bmp(t_mlx *mlx, int ac, char **av);
-void		int_to_char(char *str, int nb);
-void		save_bitmap(char *filename, t_mlx *mlx);
-void		bitmap_image(t_mlx *mlx, int fd);
+int				is_id(char *line);
+int				is_map_line(char *line);
+int				check_map(t_map *map);
+void			vect_mult(t_player *player);
+void			ft_free_split(char **split);
+void			draw_square(t_mlx *mlx, int x, int y, int color);
 /*
-**----------------------------------- OTHER ----------------------------------------
-*/
-int			is_id(char *line);
-int			is_map_line(char *line);
-int			check_map(t_map *map);
-void		vect_mult(t_player *player);
-void		ft_free_split(char **split);
-void		draw_square(t_mlx *mlx, int x, int y, int color);
-/*
-**-----------------------------------------------------------------------------------
+**----------------------------------------------------------
 */
 #endif

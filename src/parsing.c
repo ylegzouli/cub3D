@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 19:39:04 by ylegzoul          #+#    #+#             */
-/*   Updated: 2020/01/06 19:28:38 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/15 00:22:05 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ int			parse_file(char **av, t_parse **data, t_map **map, t_player **player)
 	t_list	*li;
 	t_list	*tmp;
 	int		fd;
-//	int		ret;
 	char	*line;
+//	int		ret;
 
 	fd = open(av[1], O_RDONLY);
 	if (fd == -1)
