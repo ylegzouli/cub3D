@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 19:37:57 by ylegzoul          #+#    #+#             */
-/*   Updated: 2020/01/14 23:49:00 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/15 19:01:46 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,14 @@ void		affichage(t_mlx *mlx, t_raycast *ray, t_map *map, t_player *player)
 			ray->total_angle = (x - mlx->res_x / 2) * tmp;
 	}
 	calc_dist_sprite(ray->spr, player, map);
+	draw_sprite(ray->spr, mlx, player, map);
 	if (player->cible == 1)
 		draw_cible(mlx);
 	if (player->arme == 1)
 		draw_arme(mlx);
-	if (player->map == 1)
+	if (player->map == 1 && map->size_x < map->res_x / 5
+		&& map->size_y < map->res_y / 5)
 		draw_map(mlx, player, map);
-	draw_sprite(ray->spr, mlx, player, map);
 	clear_sprite(ray->spr);
 	mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->img->img, 0, 0);
 }
@@ -66,7 +67,7 @@ void		draw_column(t_mlx *mlx, t_raycast *ray, int x)
 	}
 	while (y < end)
 	{
-		get_texture(ray, mlx, x, y);
+		get_texture(ray, mlx, y);
 		put_pixel(mlx->img, x, y, ray->color);
 		y++;
 	}
@@ -85,11 +86,11 @@ void		draw_arme(t_mlx *mlx)
 	int		tmpy;
 	int		color;
 
-	x = LARGEUR_SCREEN - mlx->arme->l;
+	x = mlx->res_x - mlx->arme->l;
 	tmpx = 0;
 	while (tmpx < mlx->arme->l)
 	{
-		y = HAUTEUR_SCREEN - 350;
+		y = mlx->res_y - 350;
 		tmpy = 0;
 		while (tmpy < 350)
 		{
@@ -112,11 +113,11 @@ void		draw_cible(t_mlx *mlx)
 	int		tmpy;
 	int		color;
 
-	x = LARGEUR_SCREEN / 2 - 30;
+	x = mlx->res_x / 2 - 30;
 	tmpx = 0;
 	while (tmpx < mlx->arme->l)
 	{
-		y = HAUTEUR_SCREEN / 2 - 30;
+		y = mlx->res_y / 2 - 30;
 		tmpy = 0;
 		while (tmpy < 350)
 		{

@@ -6,32 +6,42 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 19:39:04 by ylegzoul          #+#    #+#             */
-/*   Updated: 2020/01/15 00:22:05 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/15 17:54:05 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3D.h"
 
-int			parse_file(char **av, t_parse **data, t_map **map, t_player **player)
+int		parse_file(char **av, t_parse **data, t_map **map, t_player **player)
 {
 	t_list	*li;
 	t_list	*tmp;
 	int		fd;
 	char	*line;
-//	int		ret;
+	int		ret;
 
 	fd = open(av[1], O_RDONLY);
 	if (fd == -1)
 		return (0);
 	li = NULL;
-	while (/*ret == */get_next_line(fd, &line))
+	while ((ret = get_next_line(fd, &line)))
 	{
-	//	if (ret == -1)
-	//		return (0);
+		if (ret == -1)
+			return (0);
 		tmp = ft_lstnew(line);
 		ft_lstadd_back(&li, tmp);
 	}
 	tmp = li;
+	if (!(send_line(li, data, map)))
+		return (0);
+	parse_player(*map, player);
+	li = tmp;
+	ft_lstclear(&li, &free);
+	return (1);
+}
+
+int		send_line(t_list *li, t_parse **data, t_map **map)
+{
 	while (li->next)
 	{
 		if (is_id(li->content) == 1)
@@ -47,13 +57,10 @@ int			parse_file(char **av, t_parse **data, t_map **map, t_player **player)
 		}
 		li = li->next;
 	}
-	parse_player(*map, player);
-	li = tmp;
-	ft_lstclear(&li, &free);
 	return (1);
 }
 
-void		parse_res(t_list *li, t_parse **data, t_map *map)
+void	parse_res(t_list *li, t_parse **data, t_map *map)
 {
 	char	**split;
 
@@ -64,12 +71,16 @@ void		parse_res(t_list *li, t_parse **data, t_map *map)
 		(*data)->res_x = LARGEUR_SCREEN;
 	if ((*data)->res_y > HAUTEUR_SCREEN)
 		(*data)->res_y = HAUTEUR_SCREEN;
+	if ((*data)->res_x < 400)
+		(*data)->res_x = 400;
+	if ((*data)->res_y < 400)
+		(*data)->res_y = 400;
 	map->res_x = (*data)->res_x;
 	map->res_y = (*data)->res_y;
 	ft_free_split(split);
 }
 
-void		parse_tex(t_list *li, t_parse **data)
+void	parse_tex(t_list *li, t_parse **data)
 {
 	char	**split;
 
@@ -80,10 +91,17 @@ void		parse_tex(t_list *li, t_parse **data)
 		ft_strcpy((*data)->tex_no, split[1]);
 	}
 	if (is_id(split[0]) == 3)
-	{	
+	{
 		(*data)->tex_su = malloc(sizeof(char) * (ft_strlen(split[1]) + 1));
 		ft_strcpy((*data)->tex_su, split[1]);
 	}
+	else
+		parse_tex2(split, data);
+	ft_free_split(split);
+}
+
+void	parse_tex2(char **split, t_parse **data)
+{
 	if (is_id(split[0]) == 4)
 	{
 		(*data)->tex_we = malloc(sizeof(char) * (ft_strlen(split[1]) + 1));
@@ -99,16 +117,15 @@ void		parse_tex(t_list *li, t_parse **data)
 		(*data)->tex_spr = malloc(sizeof(char) * (ft_strlen(split[1]) + 1));
 		ft_strcpy((*data)->tex_spr, split[1]);
 	}
-	ft_free_split(split);
 }
 
-void		parse_color(t_list *li, t_parse **data)
+void	parse_color(t_list *li, t_parse **data)
 {
 	char	**split;
 
-	split = ft_split(&((li->content)[2]), ',');	
+	split = ft_split(&((li->content)[2]), ',');
 	if (is_id(li->content) == 7)
-	{	
+	{
 		(*data)->sol.r = ft_atoi(split[0]);
 		(*data)->sol.g = ft_atoi(split[1]);
 		(*data)->sol.b = ft_atoi(split[2]);
@@ -122,7 +139,7 @@ void		parse_color(t_list *li, t_parse **data)
 	ft_free_split(split);
 }
 
-void		parse_map(t_list *li, t_map **map )
+void	parse_map(t_list *li, t_map **map)
 {
 	int		i;
 	int		j;
@@ -150,7 +167,7 @@ void		parse_map(t_list *li, t_map **map )
 	((*map)->map)[j] = NULL;
 }
 
-void		parse_player(t_map *map, t_player **player)
+void	parse_player(t_map *map, t_player **player)
 {
 	int		i;
 	int		j;
@@ -159,7 +176,7 @@ void		parse_player(t_map *map, t_player **player)
 
 	j = 0;
 	tmp_angle = (LARGEUR_CHAMP / 2 * M_PI) / 180;
-	map->dist_screen = (LARGEUR_SCREEN/2) / tan(tmp_angle); 
+	map->dist_screen = (map->res_x / 2) / tan(tmp_angle);
 	while (j < map->size_y)
 	{
 		i = 0;
@@ -208,13 +225,12 @@ void	get_size_map(t_list *li, t_map **map)
 	int		i;
 	int		j;
 
-	i = 1 ;
+	i = 1;
 	j = 1;
 	while (((char *)(li->content))[i] != '\0')
 		i++;
 	if (i > 0 && is_map_line(li->content))
 	{
-
 		while (li->next)
 		{
 			j++;

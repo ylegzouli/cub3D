@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 10:33:58 by ylegzoul          #+#    #+#             */
-/*   Updated: 2020/01/15 00:04:49 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/15 17:47:59 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,21 +87,26 @@ int		check_map(t_map *map)
 				|| map->map[i][j] == 'N' || map->map[i][j] == 'S')
 				count++;
 			if (count <= 1)
-			{
-				if (map->map[i][j] != '0' && map->map[i][j] != '1'
-					&& map->map[i][j] != '2' && map->map[i][j] != 'W'
-					&& map->map[i][j] != 'E' && map->map[i][j] != 'N'
-					&& map->map[i][j] != 'S')
+				if (!(check_map2(map, i, j)))
 					return (0);
-				if ((i == 0 || i == map->size_y - 1 || j == 0
-					|| j == map->size_x - 1) && map->map[i][j] != '1')
-					return (0);
-			}
 			j++;
 		}
 		i++;
 	}
 	if (count != 1)
+		return (0);
+	return (1);
+}
+
+int		check_map2(t_map *map, int i, int j)
+{
+	if (map->map[i][j] != '0' && map->map[i][j] != '1'
+		&& map->map[i][j] != '2' && map->map[i][j] != 'W'
+		&& map->map[i][j] != 'E' && map->map[i][j] != 'N'
+		&& map->map[i][j] != 'S')
+		return (0);
+	if ((i == 0 || i == map->size_y - 1 || j == 0
+		|| j == map->size_x - 1) && map->map[i][j] != '1')
 		return (0);
 	return (1);
 }

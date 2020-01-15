@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sprite.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/15 13:38:59 by ylegzoul          #+#    #+#             */
+/*   Updated: 2020/01/15 19:01:43 by ylegzoul         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/cub3D.h"
 
 void		init_sprite(t_raycast *ray)
@@ -13,7 +25,7 @@ t_sprite	*new_sprite(int x, int y)
 		return (NULL);
 	new->x = (double)x + 0.5;
 	new->y = (double)y + 0.5;
-	new->dist = 0.0;
+	new->dist = 0;
 	new->next = NULL;
 	return (new);
 }
@@ -22,15 +34,10 @@ void			sprite_add_back(t_sprite *spr, int x, int y)
 {
 	t_sprite	*sp;
 
-	if (!spr)
-		spr = new_sprite(x, y);
-	else
-	{
 		sp = spr;
 		while (sp->next)
 			sp = sp->next;
 		sp->next = new_sprite(x, y);
-	}
 }
 
 void			clear_sprite(t_sprite *begin)
@@ -48,11 +55,23 @@ void			clear_sprite(t_sprite *begin)
 	begin = NULL;
 }
 
+void		print_lst(t_sprite *spr)
+{
+	while (spr)
+	{
+		printf("x: %f\ny:%f\ndist: %f\n------------------\n", spr->x, spr->y, spr->dist);
+		spr = spr->next;
+	}
+}
+
 int			is_sprite_save(t_sprite *spr, int x, int y)
 {
 	while (spr)
 	{
-		if (spr->x == x + 0.5 && spr->y == y + 0.5)
+		if (spr->x <= (double)x + 0.51 &&
+			spr->x >= (double)x + 0.49 &&
+			spr->y <= (double)y + 0.51
+			&& spr->y >= (double)y + 0.49)
 			return (1);
 		spr = spr->next;
 	}
@@ -64,6 +83,9 @@ void        save_data_spr(t_sprite *sprite, int x, int y)
 	if (is_sprite_save(sprite, x, y) == 1)
 		return ;
 	sprite_add_back(sprite, x, y);
+//	print_lst(sprite);
+//	printf("\n##################\n");
+
 }
 
 void		calc_dist_sprite(t_sprite *sprite, t_player *player, t_map *map)
@@ -156,12 +178,12 @@ void		draw_sprite(t_sprite *spr, t_mlx *mlx, t_player *player, t_map *map)
 		spr = spr->next;
 	while (spr)
 	{
-//		printf("x:%f\ny:%f\ndist:%f\ninvdet:%f\ntmpx:%f\ntmpy:%f\nsx:%d\nsp_x:%d\nsp_y:%d\nstart_y:%d\nend_y:%d\nstart_x:%d\nend_x:%d\n--------------------\n", spr->x,spr->y,spr->dist,spr->inv_det,spr->tmpx,spr->tmpy,spr->sx,spr->sp_x,spr->sp_y,spr->start_y,spr->end_y,spr->start_x,spr->end_x);
+		printf("x:%f\ny:%f\ndist:%f\ninvdet:%f\ntmpx:%f\ntmpy:%f\nsx:%d\nsp_x:%d\nsp_y:%d\nstart_y:%d\nend_y:%d\nstart_x:%d\nend_x:%d\n--------------------\n", spr->x,spr->y,spr->dist,spr->inv_det,spr->tmpx,spr->tmpy,spr->sx,spr->sp_x,spr->sp_y,spr->start_y,spr->end_y,spr->start_x,spr->end_x);
 		calc_data_spr(spr, player, map);
-//		if ((int)player->pos.x != (int)spr->x || (int)player->pos.y != (int)spr->y)
-			display_sprite(spr, mlx);
+		display_sprite(spr, mlx);
 		spr = spr->next;
 	}
+	printf("\n##################\n");
 }
 
 void		display_sprite(t_sprite *spr, t_mlx *mlx)

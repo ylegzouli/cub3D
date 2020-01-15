@@ -1,15 +1,45 @@
-R 1900 1900
+R 800 800
 NO texture/metal.xpm
+
+
+
+
 SO texture/redbrick.xpm
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 WE texture/colorstone.xpm
 EA texture/greystone.xpm
 S texture/greenlight.xpm
 F 0,0,0
+
 C 0,0,0
 1111111
-1000001
-1020001
-1022001
-1000001
-10N0001
+1100011
+110N011
+1100011
+1100011
+1100011
+1100011
 1111111

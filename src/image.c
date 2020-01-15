@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 19:37:51 by ylegzoul          #+#    #+#             */
-/*   Updated: 2020/01/14 23:58:58 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/15 17:18:44 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void		put_pixel(t_image *img, int x, int y, int color)
 {
-	*(int *)(img->data + ((x + y * LARGEUR_SCREEN) * img->bpp)) = color;
+	*(int *)(img->data + ((x + y * img->res_x) * img->bpp)) = color;
 }
 
 int			get_pixel(t_image *img, int x, int y)
@@ -38,6 +38,7 @@ t_image		*new_image(t_mlx *mlx, int l, int h)
 	img->bpp = img->bpp / 8;
 	img->l = l;
 	img->h = h;
+	img->res_x = mlx->res_x;
 	return (img);
 }
 

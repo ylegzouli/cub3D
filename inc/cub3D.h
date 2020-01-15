@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 13:07:32 by ylegzoul          #+#    #+#             */
-/*   Updated: 2020/01/14 23:43:21 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/15 19:01:54 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define LARGEUR_CHAMP 60
 # define SIZE_WALL 60
 # define NB_TEXTURE 5
+
 # define K_ESC		53
 # define K_UP		126
 # define K_DOWN		125
@@ -33,6 +34,10 @@
 # define K_SPACE	49
 # define K_C		8
 # define K_M		46
+# define K_W		13
+# define K_A		0
+# define K_D		2
+# define K_S		1
 
 /*
 **------------------------------------------------------------
@@ -52,6 +57,7 @@ typedef struct	s_color
 
 typedef struct	s_image
 {
+	int		res_x;
 	void	*img;
 	void	*data;
 	int		bpp;
@@ -147,7 +153,7 @@ typedef struct	s_mlx
 	int		res_y;
 	void	*ptr;
 	void	*win;
-	double	tab[1000];
+	double	tab[2000];
 	t_image	*img;
 	t_image	*xpm_img[NB_TEXTURE];
 	t_image	*spr_img;
@@ -175,8 +181,10 @@ int				init_mlx(t_mlx *mlx, t_parse *data);
 */
 int				parse_file(char **av, t_parse **data,
 t_map **map, t_player **player);
+int				send_line(t_list *li, t_parse **data, t_map **map);
 void			parse_res(t_list *li, t_parse **data, t_map *map);
 void			parse_tex(t_list *li, t_parse **data);
+void			parse_tex2(char **split, t_parse **data);
 void			parse_color(t_list *li, t_parse **data);
 void			parse_map(t_list *li, t_map **map);
 void			parse_player(t_map *map, t_player **player);
@@ -210,6 +218,9 @@ void			draw_map(t_mlx *mlx, t_player *player, t_map *map);
 int				hook_keydown(int key, t_hook *hook);
 void			rotate_player(t_player *player, int key, double angle);
 void			move_player(t_player *player, int key, t_map *map);
+void			move_player2(t_player *player, int key, t_map *map);
+void			decal_player(t_player *player, int key, t_map *map);
+void			decal_player2(t_player *player, int key, t_map *map);
 int				exit_all(t_hook *hook);
 /*
 **-------------------- IMAGE ----------------------------------
@@ -225,7 +236,7 @@ void			destroy_image(t_image *img, t_mlx *mlx);
 **-------------------- TEXTURE ------------------------------
 */
 int				init_texture(t_parse *data, t_mlx *mlx);
-void			get_texture(t_raycast *ray, t_mlx *mlx, int x, int y);
+void			get_texture(t_raycast *ray, t_mlx *mlx, int y);
 void			get_texture_fnc(t_raycast *ray, t_parse *data);
 int				get_texture_spr(t_sprite *spr, t_mlx *mlx, int x, int y);
 /*
@@ -244,6 +255,8 @@ void			draw_sprite(t_sprite *spr, t_mlx *mlx,
 t_player *player, t_map *map);
 void			display_sprite(t_sprite *spr, t_mlx *mlx);
 int				is_sprite_save(t_sprite *spr, int x, int y);
+
+void        print_lst(t_sprite *spr);
 /*
 **---------------------- BMP -------------------------------
 */
@@ -257,6 +270,7 @@ void			bitmap_image(t_mlx *mlx, int fd);
 int				is_id(char *line);
 int				is_map_line(char *line);
 int				check_map(t_map *map);
+int				check_map2(t_map *map, int i, int j);
 void			vect_mult(t_player *player);
 void			ft_free_split(char **split);
 void			draw_square(t_mlx *mlx, int x, int y, int color);

@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 23:49:18 by ylegzoul          #+#    #+#             */
-/*   Updated: 2020/01/14 23:50:24 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/15 17:14:49 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ void			opt_save_bmp(t_mlx *mlx, int ac, char **av)
 	if (ac == 3)
 	{
 		if (ft_strncmp("-save", av[2], 5) == 0)
+		{	
 			save_bitmap("screen.bmp", mlx);
+			exit(1);
+		}
 	}
 }
 
