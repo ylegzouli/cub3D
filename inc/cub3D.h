@@ -147,6 +147,7 @@ typedef struct	s_mlx
 	int		res_y;
 	void	*ptr;
 	void	*win;
+	double	tab[1000];
 	t_image	*img;
 	t_image	*xpm_img[NB_TEXTURE];
 	t_image	*spr_img;
@@ -242,6 +243,7 @@ void			calc_data_spr(t_sprite *spr, t_player *player, t_map *map);
 void			draw_sprite(t_sprite *spr, t_mlx *mlx,
 t_player *player, t_map *map);
 void			display_sprite(t_sprite *spr, t_mlx *mlx);
+int				is_sprite_save(t_sprite *spr, int x, int y);
 /*
 **---------------------- BMP -------------------------------
 */

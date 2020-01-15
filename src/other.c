@@ -48,8 +48,8 @@ int		is_map_line(char *line)
 
 void	vect_mult(t_player *player)
 {
-	player->v0.x = -player->v1.y;
-	player->v0.y = player->v1.x;
+	player->v0.x = -1.2 * player->v1.y;
+	player->v0.y = 1.2 * player->v1.x;
 }
 
 void	draw_square(t_mlx *mlx, int x, int y, int color)

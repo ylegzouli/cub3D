@@ -48,15 +48,22 @@ void			clear_sprite(t_sprite *begin)
 	begin = NULL;
 }
 
+int			is_sprite_save(t_sprite *spr, int x, int y)
+{
+	while (spr)
+	{
+		if (spr->x == x + 0.5 && spr->y == y + 0.5)
+			return (1);
+		spr = spr->next;
+	}
+	return (0);
+}
+
 void        save_data_spr(t_sprite *sprite, int x, int y)
 {
-	t_sprite *spr;
-
-	spr = sprite;
-	while (spr->next)
-		spr = spr->next;
-	if (spr->x != x + 0.5 || spr->y != y + 0.5)
-		sprite_add_back(sprite, x, y);
+	if (is_sprite_save(sprite, x, y) == 1)
+		return ;
+	sprite_add_back(sprite, x, y);
 }
 
 void		calc_dist_sprite(t_sprite *sprite, t_player *player, t_map *map)
@@ -116,7 +123,7 @@ void        calc_data_spr(t_sprite *spr, t_player *player, t_map *map)
 	spr->inv_det = 1.0 / (player->v0.x * player->v1.y - player->v1.x * player->v0.y);
 	spr->tmpx = spr->inv_det * (player->v1.y * sp_x - player->v1.x * sp_y);
 	spr->tmpy = spr->inv_det * (-player->v0.y * sp_x + player->v0.x * sp_y);
-	spr->sx = (map->res_x / 2) * (1 + spr->tmpx / spr->tmpy);
+	spr->sx = (map->res_x / 2) * (1 + 1.8 * (spr->tmpx / spr->tmpy));
 //	spr->sp_y = abs((int)(map->res_y / spr->tmpy));
 	spr->start_y = -spr->size / 2 + map->res_y / 2;// * (map->dist_screen / spr->size);
 	if (spr->start_y < 0)
@@ -167,12 +174,15 @@ void		display_sprite(t_sprite *spr, t_mlx *mlx)
 	while (x < spr->end_x)
 	{
 		y = spr->start_y;
-		while (y < spr->end_y)
+		if (mlx->tab[x] > spr->dist * SIZE_WALL)
 		{
-			color = get_texture_spr(spr, mlx, (x - spr->start_x + spr->cutx), (y - spr->start_y + spr->cuty));
-			if (color != 0)
-				put_pixel(mlx->img, x, y, color);
-			y++;
+			while (y < spr->end_y)
+			{
+				color = get_texture_spr(spr, mlx, (x - spr->start_x + spr->cutx), (y - spr->start_y + spr->cuty));
+				if (color != 0)
+					put_pixel(mlx->img, x, y, color);
+				y++;
+			}
 		}
 		x++;
 	}

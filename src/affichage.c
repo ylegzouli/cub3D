@@ -26,6 +26,7 @@ void		affichage(t_mlx *mlx, t_raycast *ray, t_map *map, t_player *player)
 	{
 		get_ray_angle(x, player, map, ray);
 		raycast(map, player, &ray);
+		mlx->tab[x] = ray->dist_wall;
 		draw_column(mlx, ray, x);
 		x++;
 		if (x < mlx->res_x / 2)
