@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 19:37:57 by ylegzoul          #+#    #+#             */
-/*   Updated: 2020/01/16 19:25:32 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/16 19:34:36 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,28 +131,5 @@ void		draw_cible(t_mlx *mlx)
 		}
 		x++;
 		tmpx++;
-	}
-}
-
-void		draw_map(t_mlx *mlx, t_player *player, t_map *map)
-{
-	int		x;
-	int		y;
-
-	x = 0;
-	while (x < map->size_x)
-	{
-		y = 0;
-		while (y < map->size_y)
-		{
-			if (map->map[y][x] == '1')
-				draw_square(mlx, (x * 5 + 5), (y * 5 + 5), 13158600);
-			else
-				draw_square(mlx, (x * 5 + 5), (y * 5 + 5), 200);
-			if (x == (int)player->pos.x && y == (int)player->pos.y)
-				draw_square(mlx, (x * 5 + 5), (y * 5 + 5), 16711680);
-			y++;
-		}
-		x++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 19:37:51 by ylegzoul          #+#    #+#             */
-/*   Updated: 2020/01/16 19:05:18 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/16 19:37:57 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,4 @@ void		clear_image(t_image *img, int l, int h)
 
 	size = l * h * img->bpp;
 	ft_bzero(img->data, size);
-}
-
-void		destroy_image(t_image *img, t_mlx *mlx)
-{
-	if (img != NULL)
-	{
-		if (img->img != NULL)
-			mlx_destroy_image(mlx->ptr, img->img);
-		free(img);
-	}
 }
