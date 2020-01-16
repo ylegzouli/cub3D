@@ -6,11 +6,11 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 19:37:57 by ylegzoul          #+#    #+#             */
-/*   Updated: 2020/01/15 19:01:46 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/16 19:25:32 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3D.h"
+#include "../inc/cub3d.h"
 
 void		affichage(t_mlx *mlx, t_raycast *ray, t_map *map, t_player *player)
 {
@@ -21,7 +21,7 @@ void		affichage(t_mlx *mlx, t_raycast *ray, t_map *map, t_player *player)
 	tmp = (double)LARGEUR_CHAMP / (double)mlx->res_x;
 	vect_mult(player);
 	clear_image(mlx->img, mlx->res_x, mlx->res_y);
-	init_sprite(ray);
+	ray->spr = new_sprite(0, 0);
 	while (x < mlx->res_x)
 	{
 		get_ray_angle(x, player, map, ray);
@@ -36,6 +36,13 @@ void		affichage(t_mlx *mlx, t_raycast *ray, t_map *map, t_player *player)
 	}
 	calc_dist_sprite(ray->spr, player, map);
 	draw_sprite(ray->spr, mlx, player, map);
+	draw_opt(mlx, player, map);
+	clear_sprite(ray->spr);
+	mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->img->img, 0, 0);
+}
+
+void		draw_opt(t_mlx *mlx, t_player *player, t_map *map)
+{
 	if (player->cible == 1)
 		draw_cible(mlx);
 	if (player->arme == 1)
@@ -43,8 +50,6 @@ void		affichage(t_mlx *mlx, t_raycast *ray, t_map *map, t_player *player)
 	if (player->map == 1 && map->size_x < map->res_x / 5
 		&& map->size_y < map->res_y / 5)
 		draw_map(mlx, player, map);
-	clear_sprite(ray->spr);
-	mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->img->img, 0, 0);
 }
 
 void		draw_column(t_mlx *mlx, t_raycast *ray, int x)
@@ -60,11 +65,8 @@ void		draw_column(t_mlx *mlx, t_raycast *ray, int x)
 	if (end > mlx->res_y - 1)
 		end = mlx->res_y - 1;
 	y = 0;
-	while (y < start)
-	{
+	while (y++ < start)
 		put_pixel(mlx->img, x, y, ray->ceil);
-		y++;
-	}
 	while (y < end)
 	{
 		get_texture(ray, mlx, y);
@@ -137,18 +139,6 @@ void		draw_map(t_mlx *mlx, t_player *player, t_map *map)
 	int		x;
 	int		y;
 
-	x = 0;
-	while (x < map->size_x + 1)
-	{
-		draw_square(mlx, (x * 5), 0, 0);
-		x++;
-	}
-	y = 0;
-	while (y < map->size_y + 1)
-	{
-		draw_square(mlx, 0, (y * 5), 0);
-		y++;
-	}
 	x = 0;
 	while (x < map->size_x)
 	{

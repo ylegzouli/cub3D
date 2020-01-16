@@ -6,11 +6,11 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 23:55:17 by ylegzoul          #+#    #+#             */
-/*   Updated: 2020/01/15 19:01:51 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/16 19:30:56 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3D.h"
+#include "../inc/cub3d.h"
 
 int			hook_keydown(int key, t_hook *hook)
 {
@@ -157,10 +157,10 @@ void		decal_player2(t_player *player, int key, t_map *map)
 int			exit_all(t_hook *hook)
 {
 //	int		i;
-//
+
 //	i = 0;
-//	destroy_image(hook->mlx->img, hook->mlx->ptr);
-//	mlx_destroy_window(hook->mlx->ptr, hook->mlx->win);
+	mlx_destroy_window(hook->mlx->ptr, hook->mlx->win);
+	destroy_image(hook->mlx->img, hook->mlx->ptr);
 //	while (i < NB_TEXTURE)
 //	{
 //		destroy_image(hook->mlx->xpm_img[i], hook->mlx->ptr);

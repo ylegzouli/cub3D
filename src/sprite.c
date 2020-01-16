@@ -6,16 +6,11 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 13:38:59 by ylegzoul          #+#    #+#             */
-/*   Updated: 2020/01/15 19:01:43 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/16 19:10:53 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3D.h"
-
-void		init_sprite(t_raycast *ray)
-{
-	ray->spr = new_sprite(0, 0);
-}
+#include "../inc/cub3d.h"
 
 t_sprite	*new_sprite(int x, int y)
 {
@@ -30,17 +25,17 @@ t_sprite	*new_sprite(int x, int y)
 	return (new);
 }
 
-void			sprite_add_back(t_sprite *spr, int x, int y)
+void		sprite_add_back(t_sprite *spr, int x, int y)
 {
 	t_sprite	*sp;
 
-		sp = spr;
-		while (sp->next)
-			sp = sp->next;
-		sp->next = new_sprite(x, y);
+	sp = spr;
+	while (sp->next)
+		sp = sp->next;
+	sp->next = new_sprite(x, y);
 }
 
-void			clear_sprite(t_sprite *begin)
+void		clear_sprite(t_sprite *begin)
 {
 	t_sprite	*sp;
 	t_sprite	*next;
@@ -78,14 +73,11 @@ int			is_sprite_save(t_sprite *spr, int x, int y)
 	return (0);
 }
 
-void        save_data_spr(t_sprite *sprite, int x, int y)
+void		save_data_spr(t_sprite *sprite, int x, int y)
 {
 	if (is_sprite_save(sprite, x, y) == 1)
 		return ;
 	sprite_add_back(sprite, x, y);
-//	print_lst(sprite);
-//	printf("\n##################\n");
-
 }
 
 void		calc_dist_sprite(t_sprite *sprite, t_player *player, t_map *map)
@@ -103,51 +95,45 @@ void		calc_dist_sprite(t_sprite *sprite, t_player *player, t_map *map)
 		sp->size = SIZE_WALL * (map->dist_screen / (sp->dist * SIZE_WALL));
 		sp = sp->next;
 	}
-//	sort_sprite(&sprite);
+//	sort_sprite(&sprite, player);
 }
 
-void		sort_sprite(t_sprite **sprite)
+/*
+void		sort_sprite(t_sprite **sprite, t_player *player)
 {
-	t_sprite	*sp;
-	t_sprite	*bef;
+	t_sprite	*spr;
+	t_sprite	*prec;
 	t_sprite	*nxt;
 
-	if (*sprite)
+	spr = *sprite;
+	prec = NULL;
+	nxt = spr->next;
+	while (nxt)
 	{
-		sp = *sprite;
-		bef = 0;
-		while (sp->next)
-		{
-			nxt = sp->next;
-			if (sp->dist < nxt->dist)
-			{
-				sp->next = nxt->next;
-				nxt->next = sp;
-				if (bef)
-					bef->next = nxt;
-				else
-					*sprite = nxt;
-				sp = *sprite;
-			}
-			bef = sp;
-			sp = sp->next;
-		}
+		prec = spr;
+		next =
 	}
-}
 
-void        calc_data_spr(t_sprite *spr, t_player *player, t_map *map)
+}
+*/
+void		calc_data_spr(t_sprite *spr, t_player *player, t_map *map)
 {
 	double	sp_x;
 	double	sp_y;
 
 	sp_x = spr->x - player->pos.x;
 	sp_y = spr->y - player->pos.y;
-	spr->inv_det = 1.0 / (player->v0.x * player->v1.y - player->v1.x * player->v0.y);
+	spr->inv_det = 1.0 / (player->v0.x * player->v1.y -
+	player->v1.x * player->v0.y);
 	spr->tmpx = spr->inv_det * (player->v1.y * sp_x - player->v1.x * sp_y);
 	spr->tmpy = spr->inv_det * (-player->v0.y * sp_x + player->v0.x * sp_y);
 	spr->sx = (map->res_x / 2) * (1 + 1.8 * (spr->tmpx / spr->tmpy));
-//	spr->sp_y = abs((int)(map->res_y / spr->tmpy));
-	spr->start_y = -spr->size / 2 + map->res_y / 2;// * (map->dist_screen / spr->size);
+	spr->start_y = -spr->size / 2 + map->res_y / 2;
+	calc_data_spr2(spr, map);
+}
+
+void		calc_data_spr2(t_sprite *spr, t_map *map)
+{
 	if (spr->start_y < 0)
 	{
 		spr->cuty = -spr->start_y;
@@ -158,11 +144,10 @@ void        calc_data_spr(t_sprite *spr, t_player *player, t_map *map)
 	spr->end_y = spr->size / 2 + map->res_y / 2;
 	if (spr->end_y >= map->res_y)
 		spr->end_y = map->res_y - 1;
-//	spr->sp_x = abs((int)(map->res_y / spr->tmpy));
 	spr->start_x = -spr->size / 2 + spr->sx;
 	if (spr->start_x < 0)
 	{
-		spr->cutx = -spr->start_x;	
+		spr->cutx = -spr->start_x;
 		spr->start_x = 0;
 	}
 	else
@@ -176,10 +161,9 @@ void		draw_sprite(t_sprite *spr, t_mlx *mlx, t_player *player, t_map *map)
 {
 	if (spr->x == 0.5 && spr->y == 0.5)
 		spr = spr->next;
-	print_lst(spr);
+//	print_lst(spr);
 	while (spr)
 	{
-	//	printf("x:%f\ny:%f\ndist:%f\ninvdet:%f\ntmpx:%f\ntmpy:%f\nsx:%d\nsp_x:%d\nsp_y:%d\nstart_y:%d\nend_y:%d\nstart_x:%d\nend_x:%d\n--------------------\n", spr->x,spr->y,spr->dist,spr->inv_det,spr->tmpx,spr->tmpy,spr->sx,spr->sp_x,spr->sp_y,spr->start_y,spr->end_y,spr->start_x,spr->end_x);
 		calc_data_spr(spr, player, map);
 		display_sprite(spr, mlx);
 		spr = spr->next;
@@ -202,7 +186,8 @@ void		display_sprite(t_sprite *spr, t_mlx *mlx)
 		{
 			while (y < spr->end_y)
 			{
-				color = get_texture_spr(spr, mlx, (x - spr->start_x + spr->cutx), (y - spr->start_y + spr->cuty));
+				color = get_texture_spr(spr, mlx,
+				(x - spr->start_x + spr->cutx), (y - spr->start_y + spr->cuty));
 				if (color != 0)
 					put_pixel(mlx->img, x, y, color);
 				y++;
@@ -211,6 +196,3 @@ void		display_sprite(t_sprite *spr, t_mlx *mlx)
 		x++;
 	}
 }
-
-
-

@@ -6,11 +6,11 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 14:58:25 by ylegzoul          #+#    #+#             */
-/*   Updated: 2020/01/15 15:03:53 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/16 19:11:27 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3D.h"
+#include "../inc/cub3d.h"
 
 int			init_texture(t_parse *data, t_mlx *mlx)
 {

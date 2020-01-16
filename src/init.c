@@ -6,11 +6,11 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 19:38:01 by ylegzoul          #+#    #+#             */
-/*   Updated: 2020/01/15 00:02:12 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/16 19:16:52 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3D.h"
+#include "../inc/cub3d.h"
 
 int		init_mlx(t_mlx *mlx, t_parse *data)
 {
@@ -68,12 +68,12 @@ int		init_data2(t_parse **data, t_raycast **ray, t_hook **hook)
 	(*data)->plafond.b = 0;
 	if (!((*ray) = malloc(sizeof(t_raycast))))
 		return (0);
-	(*ray)->Xa = 0;
-	(*ray)->Ya = 0;
-	(*ray)->A.x = 0;
-	(*ray)->A.y = 0;
-	(*ray)->B.x = 0;
-	(*ray)->B.y = 0;
+	(*ray)->xa = 0;
+	(*ray)->xa = 0;
+	(*ray)->a.x = 0;
+	(*ray)->a.y = 0;
+	(*ray)->b.x = 0;
+	(*ray)->b.y = 0;
 	(*ray)->tmp_x = 0;
 	(*ray)->tmp_y = 0;
 	(*ray)->dist_wall = 0;

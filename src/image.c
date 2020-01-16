@@ -6,11 +6,11 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 19:37:51 by ylegzoul          #+#    #+#             */
-/*   Updated: 2020/01/15 17:18:44 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/16 19:05:18 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3D.h"
+#include "../inc/cub3d.h"
 
 void		put_pixel(t_image *img, int x, int y, int color)
 {

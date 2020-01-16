@@ -6,11 +6,11 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 10:33:58 by ylegzoul          #+#    #+#             */
-/*   Updated: 2020/01/15 17:47:59 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/16 19:06:58 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3D.h"
+#include "../inc/cub3d.h"
 
 int		is_id(char *line)
 {

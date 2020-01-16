@@ -6,11 +6,11 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 19:39:04 by ylegzoul          #+#    #+#             */
-/*   Updated: 2020/01/15 17:54:05 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/16 19:07:42 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3D.h"
+#include "../inc/cub3d.h"
 
 int		parse_file(char **av, t_parse **data, t_map **map, t_player **player)
 {

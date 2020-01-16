@@ -12,7 +12,7 @@ INC_PATH = ./inc
 OBJ_PATH = ./obj
 OBJLIB_PATH = ./obj
 
-INC_NAME =	cub3D.h
+INC_NAME =	cub3d.h
 SRC_NAME =	start.c affichage.c event.c init.c parsing.c \
 			bmp.c image.c other.c raycast.c texture.c sprite.c
 LIB_NAME =	ft_atoi.c ft_bzero.c ft_lstadd_back.c ft_lstclear.c \

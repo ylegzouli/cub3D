@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 13:07:32 by ylegzoul          #+#    #+#             */
-/*   Updated: 2020/01/15 19:01:54 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/16 19:30:59 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,10 +131,10 @@ typedef struct	s_raycast
 	double	tan;
 	double	tmp_x;
 	double	tmp_y;
-	double	Ya;
-	double	Xa;
-	t_point	A;
-	t_point	B;
+	double	ya;
+	double	xa;
+	t_point	a;
+	t_point	b;
 	char	tex;
 	int		tex_x;
 	int		tex_y;
@@ -201,6 +201,7 @@ void			inter_x2(t_map *map, t_raycast **raycast);
 void			inter_y(t_map *map, t_raycast **ray);
 void			inter_y2(t_map *map, t_raycast **raycast);
 void			distance_mur(t_player *player, t_raycast **ray);
+void			distance_mur2(double *dist_a, double *dist_b, t_raycast **ray);
 int				transfer_coords_x(t_map *map, double x);
 int				transfer_coords_y(t_map *map, double y);
 /*
@@ -209,6 +210,7 @@ int				transfer_coords_y(t_map *map, double y);
 void			affichage(t_mlx *mlx, t_raycast *ray,
 t_map *map, t_player *player);
 void			draw_column(t_mlx *mlx, t_raycast *ray, int x);
+void			draw_opt(t_mlx *mlx, t_player *player, t_map *map);
 void			draw_arme(t_mlx *mlx);
 void			draw_cible(t_mlx *mlx);
 void			draw_map(t_mlx *mlx, t_player *player, t_map *map);
@@ -242,15 +244,15 @@ int				get_texture_spr(t_sprite *spr, t_mlx *mlx, int x, int y);
 /*
 **--------------------- SPRITE -----------------------------------
 */
-void			init_sprite(t_raycast *ray);
 t_sprite		*new_sprite(int x, int y);
 void			sprite_add_back(t_sprite *spr, int x, int y);
 void			clear_sprite(t_sprite *begin);
 void			save_data_spr(t_sprite *sprite, int x, int y);
 void			calc_dist_sprite(t_sprite *sprite,
 t_player *player, t_map *map);
-void			sort_sprite(t_sprite **sprite);
+void			sort_sprite(t_sprite **sprite, t_player *player);
 void			calc_data_spr(t_sprite *spr, t_player *player, t_map *map);
+void			calc_data_spr2(t_sprite *spr, t_map *map);
 void			draw_sprite(t_sprite *spr, t_mlx *mlx,
 t_player *player, t_map *map);
 void			display_sprite(t_sprite *spr, t_mlx *mlx);

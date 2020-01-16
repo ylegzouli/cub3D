@@ -6,18 +6,18 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 23:49:18 by ylegzoul          #+#    #+#             */
-/*   Updated: 2020/01/15 17:14:49 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/16 19:04:00 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3D.h"
+#include "../inc/cub3d.h"
 
 void			opt_save_bmp(t_mlx *mlx, int ac, char **av)
 {
 	if (ac == 3)
 	{
 		if (ft_strncmp("-save", av[2], 5) == 0)
-		{	
+		{
 			save_bitmap("screen.bmp", mlx);
 			exit(1);
 		}

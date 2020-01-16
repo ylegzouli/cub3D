@@ -6,11 +6,11 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 14:56:14 by ylegzoul          #+#    #+#             */
-/*   Updated: 2020/01/15 18:03:40 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/16 19:19:50 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3D.h"
+#include "../inc/cub3d.h"
 
 int		main(int ac, char **av)
 {
@@ -35,7 +35,7 @@ int		start(t_mlx *mlx, t_parse *data, int ac, char **av)
 	t_player	*player;
 	t_hook		*hook;
 	t_raycast	*ray;
-	
+
 	if (!(init_data(&map, &player, &mlx, &hook)))
 		return (0);
 	if (!(init_data2(&data, &ray, &hook)))
@@ -51,10 +51,8 @@ int		start(t_mlx *mlx, t_parse *data, int ac, char **av)
 		return (0);
 	affichage(mlx, ray, map, player);
 	opt_save_bmp(mlx, ac, av);
-	if (!(mlx_hook(mlx->win, 2, 1L << 0, hook_keydown, hook)))
-		return (0);
-	if (!(mlx_hook(mlx->win, 17, 0, exit_all, hook)))
-		return (0);
+	mlx_hook(mlx->win, 2, 1L << 0, hook_keydown, hook);
+	mlx_hook(mlx->win, 17, 0, exit_all, hook);
 	mlx_loop(mlx->ptr);
 	return (1);
 }
