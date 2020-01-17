@@ -28,6 +28,7 @@ int			init_texture(t_parse *data, t_mlx *mlx)
 		return (0);
 	if (!(mlx->cible = new_xpm_image(mlx, "texture/viseur.xpm")))
 		return (0);
+	free_tex(data);
 	return (1);
 }
 
@@ -74,4 +75,13 @@ int			get_texture_spr(t_sprite *spr, t_mlx *mlx, int x, int y)
 	imgx = x * (mlx->spr_img->l / spr->size);
 	imgy = y * (mlx->spr_img->h / spr->size);
 	return (get_pixel(mlx->spr_img, imgx, imgy));
+}
+
+void		free_tex(t_parse *data)
+{
+	free(data->tex_no);
+	free(data->tex_su);
+	free(data->tex_we);
+	free(data->tex_ea);
+	free(data->tex_spr);
 }

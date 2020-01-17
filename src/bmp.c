@@ -12,14 +12,14 @@
 
 #include "../inc/cub3d.h"
 
-void			opt_save_bmp(t_mlx *mlx, int ac, char **av)
+void			opt_save_bmp(t_mlx *mlx, t_hook *hook, int ac, char **av)
 {
 	if (ac == 3)
 	{
 		if (ft_strncmp("-save", av[2], 5) == 0)
 		{
 			save_bitmap("screen.bmp", mlx);
-			exit(1);
+			exit_all(hook);
 		}
 	}
 }

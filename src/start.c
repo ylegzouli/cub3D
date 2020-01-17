@@ -21,9 +21,10 @@ int		main(int ac, char **av)
 	mlx = NULL;
 	if (!(start(mlx, data, ac, av)))
 	{
+		free_tex(data);
 		free(data);
 		free(mlx);
-		write(1, "Error\n", 6);
+		write(1, "Erreur initialisation\n", 22);
 		return (0);
 	}
 	return (1);
@@ -50,9 +51,15 @@ int		start(t_mlx *mlx, t_parse *data, int ac, char **av)
 	if (!(init_texture(data, mlx)))
 		return (0);
 	affichage(mlx, ray, map, player);
-	opt_save_bmp(mlx, ac, av);
+	opt_save_bmp(mlx, hook, ac, av);
 	mlx_hook(mlx->win, 2, 1L << 0, hook_keydown, hook);
 	mlx_hook(mlx->win, 17, 0, exit_all, hook);
 	mlx_loop(mlx->ptr);
 	return (1);
+}
+
+void	exit_error(t_hook *hook)
+{
+	write(1, "Erreur\n", 7);
+	exit_all(hook);
 }

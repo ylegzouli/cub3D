@@ -98,24 +98,37 @@ void		calc_dist_sprite(t_sprite *sprite, t_player *player, t_map *map)
 //	sort_sprite(&sprite, player);
 }
 
-/*
-void		sort_sprite(t_sprite **sprite, t_player *player)
+
+void		sort_sprite(t_sprite **begin, t_player *player)
 {
-	t_sprite	*spr;
-	t_sprite	*prec;
+	t_sprite	*sp;
+	t_sprite	*bef;
 	t_sprite	*nxt;
 
-	spr = *sprite;
-	prec = NULL;
-	nxt = spr->next;
-	while (nxt)
+	if (*begin)
 	{
-		prec = spr;
-		next =
+		sp = *begin;
+		bef = 0;
+		while (sp->next)
+		{
+			nxt = sp->next;
+			if (sp->dist < nxt->dist)
+			{
+				sp->next = nxt->next;
+				nxt->next = sp;
+				if (bef)
+					bef->next = nxt;
+				else
+					*begin = nxt;
+				sp = *begin;
+			}
+			bef = sp;
+			sp = sp->next;
+		}
+		*begin = sp;
 	}
-
 }
-*/
+
 void		calc_data_spr(t_sprite *spr, t_player *player, t_map *map)
 {
 	double	sp_x;
@@ -168,7 +181,6 @@ void		draw_sprite(t_sprite *spr, t_mlx *mlx, t_player *player, t_map *map)
 		display_sprite(spr, mlx);
 		spr = spr->next;
 	}
-//	printf("\n##################\n");
 //	printf("\n##################\n");
 }
 

@@ -163,6 +163,7 @@ typedef struct	s_mlx
 
 typedef	struct	s_hook
 {
+	t_parse		*data;
 	t_mlx		*mlx;
 	t_raycast	*ray;
 	t_map		*map;
@@ -172,6 +173,7 @@ typedef	struct	s_hook
 **------------------------ START -------------------------------
 */
 int				start(t_mlx *mlx, t_parse *data, int ac, char **av);
+void			exit_error(t_hook *hook);
 int				init_data(t_map **map, t_player **player,
 t_mlx **mlx, t_hook **hook);
 int				init_data2(t_parse **data, t_raycast **ray, t_hook **hook);
@@ -229,7 +231,6 @@ int				exit_all(t_hook *hook);
 */
 t_image			*new_image(t_mlx *mlx, int l, int h);
 t_image			*new_xpm_image(t_mlx *mlx, char *xpm);
-t_image			*new_png_image(t_mlx *mlx, char *png);
 void			put_pixel(t_image *img, int x, int y, int color);
 int				get_pixel(t_image *img, int x, int y);
 void			clear_image(t_image *img, int l, int h);
@@ -241,6 +242,7 @@ int				init_texture(t_parse *data, t_mlx *mlx);
 void			get_texture(t_raycast *ray, t_mlx *mlx, int y);
 void			get_texture_fnc(t_raycast *ray, t_parse *data);
 int				get_texture_spr(t_sprite *spr, t_mlx *mlx, int x, int y);
+void			free_tex(t_parse *data);
 /*
 **--------------------- SPRITE -----------------------------------
 */
@@ -262,7 +264,7 @@ void        print_lst(t_sprite *spr);
 /*
 **---------------------- BMP -------------------------------
 */
-void			opt_save_bmp(t_mlx *mlx, int ac, char **av);
+void			opt_save_bmp(t_mlx *mlx, t_hook *hook, int ac, char **av);
 void			int_to_char(char *str, int nb);
 void			save_bitmap(char *filename, t_mlx *mlx);
 void			bitmap_image(t_mlx *mlx, int fd);

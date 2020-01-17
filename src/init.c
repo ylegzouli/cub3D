@@ -79,5 +79,6 @@ int		init_data2(t_parse **data, t_raycast **ray, t_hook **hook)
 	(*ray)->dist_wall = 0;
 	(*ray)->wall = 0;
 	(*hook)->ray = (*ray);
+	(*hook)->data = (*data);
 	return (1);
 }

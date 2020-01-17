@@ -41,17 +41,22 @@ void		decal_player2(t_player *player, int key, t_map *map)
 
 int			exit_all(t_hook *hook)
 {
-//	int		i;
-
-//	i = 0;
 	mlx_destroy_window(hook->mlx->ptr, hook->mlx->win);
-//	destroy_image(hook->mlx->img, hook->mlx->ptr);
-//	while (i < NB_TEXTURE)
-//	{
-//		destroy_image(hook->mlx->xpm_img[i], hook->mlx->ptr);
-//		i++;
-//	}
-//	free(hook);
+	free(hook->mlx->ptr);
+	free(hook->mlx->img);
+	free(hook->mlx->cible);
+	free(hook->mlx->arme);
+	free(hook->mlx->spr_img);
+	free(hook->mlx->xpm_img[0]);
+	free(hook->mlx->xpm_img[1]);
+	free(hook->mlx->xpm_img[2]);
+	free(hook->mlx->xpm_img[3]);
+	free(hook->mlx);
+	free(hook->data);
+	free(hook->ray);
+	free(hook->map);
+	free(hook->player);
+	free(hook);
 	exit(1);
 	return (0);
 }

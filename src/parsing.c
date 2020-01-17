@@ -31,6 +31,7 @@ int		parse_file(char **av, t_parse **data, t_map **map, t_player **player)
 		tmp = ft_lstnew(line);
 		ft_lstadd_back(&li, tmp);
 	}
+	free(line);
 	tmp = li;
 	if (!(send_line(li, data, map)))
 		return (0);

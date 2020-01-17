@@ -36,4 +36,5 @@ void	ft_free_split(char **split)
 		split[i] = NULL;
 		i++;
 	}
+	free(split);
 }

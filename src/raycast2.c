@@ -53,7 +53,7 @@ void	distance_mur(t_player *player, t_raycast **ray)
 			(*ray)->tex_x = (int)(*ray)->a.x % SIZE_WALL;
 		else
 			(*ray)->tex_x = (int)(*ray)->a.x % SIZE_WALL;
-		(*ray)->tex = ((*ray)->a.x < player->pos.y * SIZE_WALL ? 'N' : 'S');
+		(*ray)->tex = ((*ray)->a.y < player->pos.y * SIZE_WALL ? 'N' : 'S');
 		(*ray)->dist_wall = dist_a * cos((*ray)->total_angle * M_PI / 180);
 	}
 }
