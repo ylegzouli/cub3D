@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 13:07:32 by ylegzoul          #+#    #+#             */
-/*   Updated: 2020/01/16 19:30:59 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/17 18:04:27 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,23 +127,23 @@ typedef struct	s_player
 
 typedef struct	s_raycast
 {
-	t_point	angle;
-	double	tan;
-	double	tmp_x;
-	double	tmp_y;
-	double	ya;
-	double	xa;
-	t_point	a;
-	t_point	b;
-	char	tex;
-	int		tex_x;
-	int		tex_y;
-	int		color;
-	int		floor;
-	int		ceil;
-	double	total_angle;
-	double	dist_wall;
-	double	wall;
+	t_point		angle;
+	double		tan;
+	double		tmp_x;
+	double		tmp_y;
+	double		ya;
+	double		xa;
+	t_point		a;
+	t_point		b;
+	char		tex;
+	int			tex_x;
+	int			tex_y;
+	int			color;
+	int			floor;
+	int			ceil;
+	double		total_angle;
+	double		dist_wall;
+	double		wall;
 	t_sprite	*spr;
 }				t_raycast;
 
@@ -188,10 +188,11 @@ void			parse_res(t_list *li, t_parse **data, t_map *map);
 void			parse_tex(t_list *li, t_parse **data);
 void			parse_tex2(char **split, t_parse **data);
 void			parse_color(t_list *li, t_parse **data);
-void			parse_map(t_list *li, t_map **map);
+int				parse_map(t_list *li, t_map **map);
 void			parse_player(t_map *map, t_player **player);
 void			get_case(t_player **player, char tmp, int i, int j);
 void			get_size_map(t_list *li, t_map **map);
+
 /*
 **---------------------- RAYCAST ----------------------------------
 */
@@ -250,17 +251,16 @@ t_sprite		*new_sprite(int x, int y);
 void			sprite_add_back(t_sprite *spr, int x, int y);
 void			clear_sprite(t_sprite *begin);
 void			save_data_spr(t_sprite *sprite, int x, int y);
-void			calc_dist_sprite(t_sprite *sprite,
+void			calc_dist_sprite(t_sprite **sprite,
 t_player *player, t_map *map);
 void			sort_sprite(t_sprite **sprite, t_player *player);
+void			swap_sprite(t_sprite *sp, t_sprite *nxt);
 void			calc_data_spr(t_sprite *spr, t_player *player, t_map *map);
 void			calc_data_spr2(t_sprite *spr, t_map *map);
 void			draw_sprite(t_sprite *spr, t_mlx *mlx,
 t_player *player, t_map *map);
 void			display_sprite(t_sprite *spr, t_mlx *mlx);
 int				is_sprite_save(t_sprite *spr, int x, int y);
-
-void        print_lst(t_sprite *spr);
 /*
 **---------------------- BMP -------------------------------
 */
@@ -275,9 +275,12 @@ int				is_id(char *line);
 int				is_map_line(char *line);
 int				check_map(t_map *map);
 int				check_map2(t_map *map, int i, int j);
+int				is_good_char(char c);
 void			vect_mult(t_player *player);
 void			ft_free_split(char **split);
 void			draw_square(t_mlx *mlx, int x, int y, int color);
+int				malloc_map(t_map **map);
+int				check_size_map(char **m, t_map *map);
 /*
 **----------------------------------------------------------
 */

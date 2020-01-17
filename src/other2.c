@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 19:38:26 by ylegzoul          #+#    #+#             */
-/*   Updated: 2020/01/16 19:38:56 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/17 18:04:32 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,42 @@ void	ft_free_split(char **split)
 		i++;
 	}
 	free(split);
+}
+
+int		is_good_char(char c)
+{
+	if (c != '1' && c != '0' && c != '2' && c != 'N' && c != 'S'
+		&& c != 'E' && c != 'W')
+		return (0);
+	return (1);
+}
+
+int		check_size_map(char **m, t_map *map)
+{
+	int		i;
+
+	i = 0;
+	while (m[i])
+	{
+		if (ft_strlen(m[i]) != map->size_x)
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int		malloc_map(t_map **map)
+{
+	int j;
+
+	j = 0;
+	if (!((*map)->map = malloc(sizeof(char *) * ((*map)->size_y + 1))))
+		return (0);
+	while (j < (*map)->size_y)
+	{
+		if (!(((*map)->map)[j] = malloc(sizeof(char) * ((*map)->size_x + 1))))
+			return (0);
+		j++;
+	}
+	return (1);
 }

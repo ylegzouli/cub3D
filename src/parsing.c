@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 19:39:04 by ylegzoul          #+#    #+#             */
-/*   Updated: 2020/01/16 19:41:01 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/17 17:27:30 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ int		send_line(t_list *li, t_parse **data, t_map **map)
 		if (is_map_line(li->content) == 1)
 		{
 			get_size_map(li, map);
-			parse_map(li, map);
+			if (!(parse_map(li, map)))
+				return (0);
 		}
 		li = li->next;
 	}

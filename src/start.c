@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 14:56:14 by ylegzoul          #+#    #+#             */
-/*   Updated: 2020/01/16 19:19:50 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/17 17:48:10 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int		main(int ac, char **av)
 	mlx = NULL;
 	if (!(start(mlx, data, ac, av)))
 	{
-		free_tex(data);
 		free(data);
 		free(mlx);
 		write(1, "Erreur initialisation\n", 22);

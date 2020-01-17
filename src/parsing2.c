@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 19:39:39 by ylegzoul          #+#    #+#             */
-/*   Updated: 2020/01/16 19:40:26 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/17 18:04:28 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,17 @@ void	parse_color(t_list *li, t_parse **data)
 	ft_free_split(split);
 }
 
-void	parse_map(t_list *li, t_map **map)
+int		parse_map(t_list *li, t_map **map)
 {
 	int		i;
 	int		j;
 
-	j = 0;
-	(*map)->map = malloc(sizeof(char *) * ((*map)->size_y + 1));
-	while (j < (*map)->size_y)
-	{
-		((*map)->map)[j] = malloc(sizeof(char) * ((*map)->size_x + 1));
-		j++;
-	}
+	malloc_map(map);
 	j = 0;
 	while (j < (*map)->size_y)
 	{
 		i = 0;
-		while (i < (*map)->size_x)
+		while (i < (*map)->size_x && is_good_char(((char *)(li->content))[i]))
 		{
 			((*map)->map)[j][i] = ((char *)(li->content))[i];
 			i++;
@@ -58,6 +52,9 @@ void	parse_map(t_list *li, t_map **map)
 		j++;
 	}
 	((*map)->map)[j] = NULL;
+	if (!(check_size_map((*map)->map, *map)))
+		return (0);
+	return (1);
 }
 
 void	parse_player(t_map *map, t_player **player)

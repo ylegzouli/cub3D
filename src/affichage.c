@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 19:37:57 by ylegzoul          #+#    #+#             */
-/*   Updated: 2020/01/16 19:34:36 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/17 15:30:26 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void		affichage(t_mlx *mlx, t_raycast *ray, t_map *map, t_player *player)
 		else
 			ray->total_angle = (x - mlx->res_x / 2) * tmp;
 	}
-	calc_dist_sprite(ray->spr, player, map);
+	calc_dist_sprite(&(ray->spr), player, map);
 	draw_sprite(ray->spr, mlx, player, map);
 	draw_opt(mlx, player, map);
 	clear_sprite(ray->spr);

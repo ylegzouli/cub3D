@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 10:33:58 by ylegzoul          #+#    #+#             */
-/*   Updated: 2020/01/16 19:39:11 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/17 17:57:54 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,13 @@ int		check_map(t_map *map)
 		j = 0;
 		while (j < map->size_x)
 		{
+			if (is_good_char(map->map[i][j]) == 0)
+				return (0);
 			if (map->map[i][j] == 'W' || map->map[i][j] == 'E'
 				|| map->map[i][j] == 'N' || map->map[i][j] == 'S')
 				count++;
-			if (count <= 1)
-				if (!(check_map2(map, i, j)))
-					return (0);
+			if (!(check_map2(map, i, j)))
+				return (0);
 			j++;
 		}
 		i++;
