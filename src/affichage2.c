@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 19:33:02 by ylegzoul          #+#    #+#             */
-/*   Updated: 2020/01/16 19:33:59 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/19 14:23:25 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,11 @@ void		draw_map(t_mlx *mlx, t_player *player, t_map *map)
 		}
 		x++;
 	}
+}
+
+int			id_empty_line(char *line)
+{
+	if (line[0] != '\0')
+		return (0);
+	return (1);
 }

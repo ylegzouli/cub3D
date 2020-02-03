@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 10:33:58 by ylegzoul          #+#    #+#             */
-/*   Updated: 2020/01/17 17:57:54 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/19 17:50:04 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ int		is_map_line(char *line)
 	int		i;
 
 	i = 0;
-	while (line[i] == '1')
+	while (line[i] == '1' || line[i] == ' ')
 		i++;
-	if (line[i] == '\0' && line[i - 2] == '1')
+	if (line[i] == '\0' && (line[i - 2] == '1' || line[i - 2] == ' '))
 		return (1);
 	return (0);
 }

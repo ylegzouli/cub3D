@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 18:21:52 by ylegzoul          #+#    #+#             */
-/*   Updated: 2019/11/17 15:22:48 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/17 18:30:03 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <stdio.h>
 # include <string.h>
 
-#define BUFFER_SIZE 32
+# define BUFFER_SIZE 32
 
 int				get_next_line(int fd, char **line);
 int				ft_check_error(int fd, char **str, char **line);

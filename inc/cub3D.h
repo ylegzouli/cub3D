@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 13:07:32 by ylegzoul          #+#    #+#             */
-/*   Updated: 2020/01/17 18:04:27 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/19 18:13:51 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # include <fcntl.h>
 # include <math.h>
 # include <mlx.h>
-# define LARGEUR_SCREEN 1000
-# define HAUTEUR_SCREEN 800
+# define LARGEUR_SCREEN 2560
+# define HAUTEUR_SCREEN 1400
 # define LARGEUR_CHAMP 60
 # define SIZE_WALL 60
 # define NB_TEXTURE 5
@@ -50,9 +50,9 @@ typedef struct	s_point
 
 typedef struct	s_color
 {
-	unsigned char	r;
-	unsigned char	g;
-	unsigned char	b;
+	int r;
+	int	g;
+	int	b;
 }				t_color;
 
 typedef struct	s_image
@@ -153,7 +153,7 @@ typedef struct	s_mlx
 	int		res_y;
 	void	*ptr;
 	void	*win;
-	double	tab[2000];
+	double	tab[3000];
 	t_image	*img;
 	t_image	*xpm_img[NB_TEXTURE];
 	t_image	*spr_img;
@@ -174,6 +174,7 @@ typedef	struct	s_hook
 */
 int				start(t_mlx *mlx, t_parse *data, int ac, char **av);
 void			exit_error(t_hook *hook);
+int				check_arg(int ac, char **av);
 int				init_data(t_map **map, t_player **player,
 t_mlx **mlx, t_hook **hook);
 int				init_data2(t_parse **data, t_raycast **ray, t_hook **hook);
@@ -185,9 +186,9 @@ int				parse_file(char **av, t_parse **data,
 t_map **map, t_player **player);
 int				send_line(t_list *li, t_parse **data, t_map **map);
 void			parse_res(t_list *li, t_parse **data, t_map *map);
-void			parse_tex(t_list *li, t_parse **data);
-void			parse_tex2(char **split, t_parse **data);
-void			parse_color(t_list *li, t_parse **data);
+int				parse_tex(t_list *li, t_parse **data);
+int				parse_tex2(char **split, t_parse **data);
+int				parse_color(t_list *li, t_parse **data);
 int				parse_map(t_list *li, t_map **map);
 void			parse_player(t_map *map, t_player **player);
 void			get_case(t_player **player, char tmp, int i, int j);
@@ -281,6 +282,8 @@ void			ft_free_split(char **split);
 void			draw_square(t_mlx *mlx, int x, int y, int color);
 int				malloc_map(t_map **map);
 int				check_size_map(char **m, t_map *map);
+int				id_empty_line(char *line);
+void			exit_key(t_map *map, t_parse *data);
 /*
 **----------------------------------------------------------
 */

@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 19:38:26 by ylegzoul          #+#    #+#             */
-/*   Updated: 2020/01/17 18:04:32 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/19 18:58:07 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_free_split(char **split)
 int		is_good_char(char c)
 {
 	if (c != '1' && c != '0' && c != '2' && c != 'N' && c != 'S'
-		&& c != 'E' && c != 'W')
+		&& c != 'E' && c != 'W' && c != ' ')
 		return (0);
 	return (1);
 }

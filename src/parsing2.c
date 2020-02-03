@@ -6,54 +6,67 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 19:39:39 by ylegzoul          #+#    #+#             */
-/*   Updated: 2020/01/17 18:04:28 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/19 19:06:26 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-void	parse_color(t_list *li, t_parse **data)
+int		parse_color(t_list *li, t_parse **data)
 {
 	char	**split;
 
 	split = ft_split(&((li->content)[2]), ',');
 	if (is_id(li->content) == 7)
 	{
-		(*data)->sol.r = ft_atoi(split[0]);
-		(*data)->sol.g = ft_atoi(split[1]);
-		(*data)->sol.b = ft_atoi(split[2]);
+		(*data)->sol.r = abs(ft_atoi(split[0]));
+		(*data)->sol.g = abs(ft_atoi(split[1]));
+		(*data)->sol.b = abs(ft_atoi(split[2]));
 	}
 	if (is_id(li->content) == 8)
 	{
-		(*data)->plafond.r = ft_atoi(split[0]);
-		(*data)->plafond.g = ft_atoi(split[1]);
-		(*data)->plafond.b = ft_atoi(split[2]);
+		(*data)->plafond.r = abs(ft_atoi(split[0]));
+		(*data)->plafond.g = abs(ft_atoi(split[1]));
+		(*data)->plafond.b = abs(ft_atoi(split[2]));
+	}
+	if ((*data)->sol.r > 255 || (*data)->sol.g > 255 || (*data)->sol.b > 255
+		|| (*data)->plafond.r > 255 || (*data)->plafond.g > 255
+		|| (*data)->plafond.b > 255)
+	{
+		ft_free_split(split);
+		write(1, "Erreur resolution\n", 18);
+		return (0);
 	}
 	ft_free_split(split);
+	return (1);
 }
 
 int		parse_map(t_list *li, t_map **map)
 {
 	int		i;
+	int		x;
 	int		j;
 
-	malloc_map(map);
+	get_size_map(li, map);
 	j = 0;
 	while (j < (*map)->size_y)
 	{
 		i = 0;
-		while (i < (*map)->size_x && is_good_char(((char *)(li->content))[i]))
+		x = 0;
+		while (x < (*map)->size_x && is_good_char(((char *)(li->content))[i]))
 		{
-			((*map)->map)[j][i] = ((char *)(li->content))[i];
+			if (((char *)(li->content))[i] != ' ')
+			{
+				((*map)->map)[j][x] = ((char *)(li->content))[i];
+				x++;
+			}
 			i++;
 		}
-		((*map)->map)[j][i] = '\0';
+		((*map)->map)[j][x] = '\0';
 		li = li->next;
 		j++;
 	}
 	((*map)->map)[j] = NULL;
-	if (!(check_size_map((*map)->map, *map)))
-		return (0);
 	return (1);
 }
 
@@ -105,7 +118,7 @@ void	get_case(t_player **player, char tmp, int i, int j)
 	}
 	if (tmp == 'W')
 	{
-		(*player)->v1.x = -1;
+		(*player)->v1.x = 1;
 		(*player)->v1.y = 0;
 	}
 }
@@ -114,11 +127,17 @@ void	get_size_map(t_list *li, t_map **map)
 {
 	int		i;
 	int		j;
+	int		x;
 
-	i = 1;
+	i = 0;
 	j = 1;
+	x = 0;
 	while (((char *)(li->content))[i] != '\0')
+	{
 		i++;
+		if (((char *)(li->content))[i] != ' ')
+			x++;
+	}
 	if (i > 0 && is_map_line(li->content))
 	{
 		while (li->next)
@@ -126,7 +145,8 @@ void	get_size_map(t_list *li, t_map **map)
 			j++;
 			li = li->next;
 		}
-		(*map)->size_x = i;
+		(*map)->size_x = x;
 		(*map)->size_y = j;
 	}
+	malloc_map(map);
 }

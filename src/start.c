@@ -6,7 +6,7 @@
 /*   By: ylegzoul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 14:56:14 by ylegzoul          #+#    #+#             */
-/*   Updated: 2020/01/17 17:48:10 by ylegzoul         ###   ########.fr       */
+/*   Updated: 2020/01/19 19:04:44 by ylegzoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,11 @@ int		main(int ac, char **av)
 
 	data = NULL;
 	mlx = NULL;
+	if (!(check_arg(ac, av)))
+	{
+		write(1, "Erreur Arguments\n", 17);
+		return (0);
+	}
 	if (!(start(mlx, data, ac, av)))
 	{
 		free(data);
@@ -42,7 +47,7 @@ int		start(t_mlx *mlx, t_parse *data, int ac, char **av)
 		return (0);
 	if (!(parse_file(av, &data, &map, &player)))
 		return (0);
-	if (!(check_map(map)))
+	if (!(check_map(map)) || !(check_size_map(map->map, map)))
 		return (0);
 	get_texture_fnc(ray, data);
 	if (!(init_mlx(mlx, data)))
@@ -61,4 +66,32 @@ void	exit_error(t_hook *hook)
 {
 	write(1, "Erreur\n", 7);
 	exit_all(hook);
+}
+
+int		check_arg(int ac, char **av)
+{
+	int i;
+
+	if (ac == 2 || ac == 3)
+	{
+		i = ft_strlen(av[1]) - 1;
+		if (i <= 4)
+			return (0);
+		if (av[1][i] != 'b' || av[1][i - 1] != 'u' || av[1][i - 2] != 'c'
+			|| av[1][i - 3] != '.')
+			return (0);
+		if (ac == 3 && ft_strncmp("-save", av[2], 5) != 0)
+			return (0);
+	}
+	else
+		return (0);
+	return (1);
+}
+
+void	exit_key(t_map *map, t_parse *data)
+{
+	write(1, "Erreur initialisation\n", 22);
+	free(map);
+	free(data);
+	exit(1);
 }
