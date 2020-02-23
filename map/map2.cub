@@ -1,10 +1,10 @@
-R 900 900
+R 700 500
 NO texture/metal.xpm
 SO texture/redbrick.xpm
 WE texture/colorstone.xpm
 EA texture/greystone.xpm
 S texture/greenlight.xpm
-F 0,0,0
+F 50,50,100
 C 0,0,0
 1111111111111111111111111111111111111111111
 1000000000110000000000000000010000020000001
